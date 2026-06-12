@@ -1,1 +1,0 @@
-# Textile Forum CI/CD Denemesi - Başarıya giden yol!
