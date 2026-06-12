@@ -1,0 +1,2 @@
+<link rel="stylesheet" href="<?php echo e(asset('assets/backend/css/jquery.dataTables.min.css')); ?>">
+<?php /**PATH /home/textileforum/htdocs/textileforum.net/public_html/core/resources/views/components/datatable/css.blade.php ENDPATH**/ ?>

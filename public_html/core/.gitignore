@@ -1,0 +1,36 @@
+# ---------------------------------------------------
+# WERK BISINESS - TEXTILE FORUM SOLID .GITIGNORE
+# ---------------------------------------------------
+
+# 1. Bağımlılıklar (Asla repoya atılmaz, boyutları devasadır)
+/public_html/core/vendor/
+/vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 2. Şifreler ve Gizli Konfigürasyonlar
+.env
+.env.backup
+.env.production
+*.key
+auth.json
+Homestead.json
+Homestead.yaml
+
+# 3. Laravel Geçici Dosyaları ve Loglar (Klasörler kalır, içindeki çöpler gider)
+/public_html/core/storage/logs/
+/public_html/core/storage/debugbar/
+/public_html/core/storage/framework/cache/data/
+/public_html/core/storage/framework/sessions/
+/public_html/core/storage/framework/testing/
+/public_html/core/storage/framework/views/
+/public_html/core/bootstrap/cache/
+
+# 4. Geliştirici ve İşletim Sistemi Kalıntıları
+.phpunit.result.cache
+.phpactor.json
+/.vagrant
+desktop.ini
+.DS_Store
+Thumbs.db
