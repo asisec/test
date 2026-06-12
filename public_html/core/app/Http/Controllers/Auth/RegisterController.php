@@ -212,6 +212,7 @@ class RegisterController extends Controller
                 'password' => Hash::make($request->password),
                 'terms_conditions' =>1,
                 'email_verify_token'=> $email_verify_tokn,
+                'verified_status' =>1,
             ]);
 
             // if exists wallet module
