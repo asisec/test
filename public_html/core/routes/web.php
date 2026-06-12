@@ -150,3 +150,7 @@ Route::group(['middleware' => ['globalVariable', 'maintains_mode','setlang']], f
         });
     });
 });
+
+
+
+//Webhook test mesajı.
