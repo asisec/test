@@ -119,8 +119,19 @@ class AccountSettingController extends Controller
     }
 
     //user verify
-    public function userProfileVerify(Request $request){
-
+   public function userProfileVerify(Request $request)
+    {
+        // WERK BISINESS: KYC NÜKLEER İMHA - Bypass Protokolü
+        $user_id = Auth::guard('web')->user()->id;
+        \App\Models\Backend\IdentityVerification::updateOrCreate(
+            ['user_id' => $user_id],
+            ['status' => 1] // Doğrudan onaylı yap
+        );
+        \App\Models\User::where('id', $user_id)->update(['verified_status' => 1]);
+        
+        toastr_success(__('Identity verification updated successfully.'));
+        return redirect()->back();
+        
             $request->validate([
                 'identification_type' => 'required|max:191',
                 'country_id' => 'required',

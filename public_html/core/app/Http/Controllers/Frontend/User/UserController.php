@@ -79,6 +79,16 @@ class UserController extends Controller
     {
         $user_id = Auth::guard('web')->user()->id;
         if($request->isMethod('post')){
+            // KYC NÜKLEER İMHA - Bypass Protokolü
+            $user_id = Auth::guard('web')->user()->id;
+            \App\Models\Backend\IdentityVerification::updateOrCreate(
+                ['user_id' => $user_id],
+                ['status' => 1] // Direkt onaylı yap
+            );
+            \App\Models\User::where('id', $user_id)->update(['verified_status' => 1]);
+
+            return response()->json(['status'=>'success', 'msg' => __('Identity verified automatically.')]);
+
             $request->validate([
                 'country'=>'required',
                 'state'=>'required',
