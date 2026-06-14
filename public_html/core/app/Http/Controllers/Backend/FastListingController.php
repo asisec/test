@@ -50,6 +50,7 @@ class FastListingController extends Controller
 
             // 3. ÇOKLU MEDYA KLONLAMASI VE DÖNGÜSÜ
             $mainMediaId = null;
+            $allMediaIds = [];
             $allImagePaths = []; // JSON olarak kaydedeceğimiz dizi
             $destinationPath = base_path('../assets/uploads/media-uploader');
 
