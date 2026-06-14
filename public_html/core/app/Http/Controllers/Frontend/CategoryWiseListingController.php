@@ -110,8 +110,8 @@ class CategoryWiseListingController extends Controller
         }
 
         $all_listings = collect([]);
-        $listing_query = Listing::query();
-        $listing_query->with('user');
+$listing_query = Listing::query()->latest(); // Neşteri tam buraya vurduk!
+$listing_query->with('user');
 
         $memberIds = [0];
         // get all users ids from the users table according to listing table datas
