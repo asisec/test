@@ -127,7 +127,7 @@ class CategoryWiseListing extends PageBuilderBase
         }
 
         $listings = $listings->take($items)
-        ->inRandomOrder()
+        ->latest()
         ->where('status', 1)
         ->where('is_published', 1)
         ->get();
