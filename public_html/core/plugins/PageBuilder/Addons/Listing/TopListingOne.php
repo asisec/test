@@ -113,7 +113,6 @@ class TopListingOne extends PageBuilderBase
             ->take($items)
             ->where('status', 1)
             ->where('is_published', 1)
-            ->inRandomOrder()
             ->get();
 
         return $this->renderBlade('listing.top-listing-one', [

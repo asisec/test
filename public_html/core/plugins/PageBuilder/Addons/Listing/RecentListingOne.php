@@ -114,7 +114,6 @@ class RecentListingOne extends PageBuilderBase
             ->take($items)
              ->where('status', 1)
              ->where('is_published', 1)
-            ->inRandomOrder()
             ->get();
 
      return $this->renderBlade('listing.recent-listing-one',[
