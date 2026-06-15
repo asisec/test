@@ -10,7 +10,9 @@ class SmsTestController extends Controller
 {
     public function index()
     {
-        return view('backend.sms-test');
+        // 6 Haneli Rastgele OTP Kodu Üretiyoruz
+        $randomOtp = rand(100000, 999999);
+        return view('backend.sms-test', compact('randomOtp'));
     }
 
     public function sendTestSms(Request $request)
@@ -21,7 +23,7 @@ class SmsTestController extends Controller
         ]);
 
         try {
-            // Telefon numarasını temizleyip 10 haneye düşürme (örnek: 5551234567)
+            // Telefon numarasını temizleyip 10 haneye düşürme
             $telefon = preg_replace('/[^0-9]/', '', $validated['phone']);
             if (strlen($telefon) > 10 && substr($telefon, 0, 2) == '90') {
                 $telefon = substr($telefon, 2);
@@ -29,17 +31,16 @@ class SmsTestController extends Controller
                 $telefon = substr($telefon, 1);
             }
 
-            // TopluSMS / WaMessage OTP (Doğrulama) API İstek Formatı
+            // TopluSMS YENİ NESİL OTP API
             $response = Http::acceptJson()->asJson()->timeout(15)->post('https://api.toplusms.app/api/v1/otp', [
                 'api_key' => '977edcca6820234098f19529',
-                // 'sender' => 'TEXTILEFRM', // Mert abi başlığı onaylatınca başındaki // işaretlerini kaldır
+                'sender' => 'TEXTILEFRM', // 'required' hatasını aşmak için test başlığını ekledik!
                 'message_type' => 'normal',
                 'message' => $validated['message'],
                 'phones' => [$telefon],
-                'add_cancel_link' => false // OTP mesajlarında iptal linki olmaz
+                'add_cancel_link' => false
             ]);
 
-            // Gelen JSON cevabını analiz etme
             if ($response->successful()) {
                 return back()->withInput()->with('sms_test_success', __('OTP Test Başarıyla Ateşlendi! Cevap: ') . $response->body());
             }

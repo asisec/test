@@ -1,14 +1,14 @@
 @extends('backend.admin-master')
 
 @section('site-title')
-    {{ __('SMS Test Interface') }}
+    {{ __('OTP SMS Test Interface') }}
 @endsection
 
 @section('content')
     <div class="row g-4 mt-0">
         <div class="col-xl-8 col-lg-10 mt-0">
             <div class="dashboard__card bg__white padding-20 radius-10">
-                <h2 class="dashboard__card__header__title mb-3">{{ __('SMS Test Interface') }}</h2>
+                <h2 class="dashboard__card__header__title mb-3">{{ __('OTP Doğrulama Simülatörü') }}</h2>
 
                 <x-validation.error/>
 
@@ -30,19 +30,19 @@
                     @csrf
                     <div class="form__input__flex">
                         <div class="form__input__single">
-                            <label for="phone" class="form__input__single__label">{{ __('Phone Number') }}</label>
-                            <input type="text" name="phone" id="phone" value="{{ old('phone') }}" class="form__control radius-5" placeholder="+905551234567">
-                            <small class="form-text text-muted">{{ __('Use the full international phone number format.') }}</small>
+                            <label for="phone" class="form__input__single__label">{{ __('Test Edilecek Telefon Numarası') }}</label>
+                            <input type="text" name="phone" id="phone" value="{{ old('phone') }}" class="form__control radius-5" placeholder="Örn: 5551234567">
                         </div>
 
                         <div class="form__input__single">
-                            <label for="message" class="form__input__single__label">{{ __('Test Message') }}</label>
-                            <textarea name="message" id="message" rows="5" class="form__control radius-5" placeholder="{{ __('Enter your test SMS message here.') }}">{{ old('message') }}</textarea>
+                            <label for="message" class="form__input__single__label">{{ __('Otomatik OTP Mesajı') }}</label>
+                            <textarea name="message" id="message" rows="3" class="form__control radius-5" readonly>TextileForum giriş şifreniz: {{ $randomOtp ?? rand(100000,999999) }}. Lütfen kimseyle paylaşmayınız.</textarea>
+                            <small class="form-text text-muted">{{ __('Bu mesaj sistemi tarafından her sayfa yenilendiğinde otomatik olarak oluşturulur.') }}</small>
                         </div>
                     </div>
 
                     <div class="btn_wrapper mt-4">
-                        <button type="submit" class="cmnBtn btn_5 btn_bg_blue radius-5">{{ __('Send Test SMS') }}</button>
+                        <button type="submit" class="cmnBtn btn_5 btn_bg_blue radius-5">{{ __('OTP Doğrulama Ateşle') }}</button>
                     </div>
                 </form>
             </div>
