@@ -29,23 +29,22 @@ class SmsTestController extends Controller
                 $telefon = substr($telefon, 1);
             }
 
-            // TopluSMS / WaMessage YENİ NESİL REST API İstek Formatı (TEST BAŞLIĞI EKLENDİ)
-            $response = Http::acceptJson()->asJson()->timeout(15)->post('https://api.toplusms.app/api/v1/1toN', [
+            // TopluSMS / WaMessage OTP (Doğrulama) API İstek Formatı
+            $response = Http::acceptJson()->asJson()->timeout(15)->post('https://api.toplusms.app/api/v1/otp', [
                 'api_key' => '977edcca6820234098f19529',
-                'sender' => 'TEXTILEFRM', // Sistemin reddetmesi beklenen, henüz onaysız başlık
+                // 'sender' => 'TEXTILEFRM', // Mert abi başlığı onaylatınca başındaki // işaretlerini kaldır
                 'message_type' => 'normal',
-                'message_content_type' => 'bilgi',
                 'message' => $validated['message'],
                 'phones' => [$telefon],
-                'add_cancel_link' => false
+                'add_cancel_link' => false // OTP mesajlarında iptal linki olmaz
             ]);
 
             // Gelen JSON cevabını analiz etme
             if ($response->successful()) {
-                return back()->withInput()->with('sms_test_success', __('Test SMS Başarıyla Ateşlendi! Cevap: ') . $response->body());
+                return back()->withInput()->with('sms_test_success', __('OTP Test Başarıyla Ateşlendi! Cevap: ') . $response->body());
             }
 
-            return back()->withInput()->with('sms_test_error', __('Test SMS Başarısız Oldu! Hata Cevabı: ') . $response->body());
+            return back()->withInput()->with('sms_test_error', __('OTP Test Başarısız Oldu! Hata Cevabı: ') . $response->body());
             
         } catch (\Throwable $exception) {
             report($exception);
