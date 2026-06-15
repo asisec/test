@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\PaymentGatewaySettingsController;
 use App\Http\Controllers\Backend\NoticeController;
 use App\Http\Controllers\Backend\MaintainsPageController;
 use App\Http\Controllers\Backend\Manage404PageController;
+use App\Http\Controllers\Backend\SmsTestController;
 use App\Http\Controllers\Backend\WidgetsController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\CategoryController;
@@ -38,6 +39,11 @@ Route::middleware(['setlang'])->group(function () {
         Route::get('/dark-mode-toggle', 'AdminDashboardController@dark_mode_toggle')->name('admin.dark.mode.toggle');
         Route::get('/settings', [AdminDashboardController::class, 'adminSettings'])->name('admin.profile.settings');
         Route::get('/dark-mode-toggle',  [AdminDashboardController::class, 'darkModeToggle'])->name('admin.dark.mode.toggle');
+
+        Route::controller(SmsTestController::class)->group(function () {
+            Route::get('/sms-test', 'index')->name('admin.sms.test');
+            Route::post('/sms-test/send', 'sendTestSms')->name('admin.sms.test.send');
+        });
 
         // admin profile settings
         Route::get('/logout', [AdminProfileController::class, 'adminLogout'])->name('admin.logout');

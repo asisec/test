@@ -148,7 +148,7 @@ class HeaderStyleOne extends PageBuilderBase
             ->where('is_published', 1)
             ->latest() // NEŞTER 3: published_at silindi, en yeniler zirvede!
             ->with(['country', 'category', 'user', 'brand'])
-            ->take($items) // NEŞTER 4: Sınır kesinlikle 10.
+            ->take($items) // NEŞTER 4: Sınır kesinlikle 12.
             ->get();
 
         return $this->renderBlade('headers.style-one',[
