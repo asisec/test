@@ -36,7 +36,7 @@ class SmsTestController extends Controller
             // WaMessage (TopluSMS) OTP Endpoint'i - Kitabına %100 Uygun Format
             $response = Http::acceptJson()->asJson()->timeout(15)->post('https://api.toplusms.app/api/v1/otp', [
                 'api_key' => '977edcca6820234098f19529',
-               // 'sender' => 'TEXTILEFRM', // Başlık onaylanınca sistem otomatik çalışacak
+                'sender' => 'MERT YILDRM', // Başlık onaylanınca sistem otomatik çalışacak
                 'message_type' => 'normal',
                 'message' => $validated['message'],
                 'phones' => [
