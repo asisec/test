@@ -120,50 +120,35 @@ class HeaderStyleOne extends PageBuilderBase
         return $output;
     }
 
-    public function frontend_render() : string
+  public function frontend_render() : string
     {
         $settings = $this->get_settings();
-        $items =$settings['items'] ?? 0;
-
-        // $all_category = Category::with('listings')
-        //         ->where('status',1)
-        //         ->whereNotNull('home_header_order')
-        //         ->orderBy('home_header_order','ASC')
-        //         ->get();
-
-        $LISTINGS_LIMIT = 12;
+        // Eğer panelden bir sayı girilmişse onu al, girilmemişse KESİN KURAL 10 tane göster.
+        $items = !empty($settings['items']) ? $settings['items'] : 10; 
 
         $all_category = Category::where('status', 1)
             ->whereNotNull('home_header_order')
             ->orderBy('home_header_order', 'ASC')
             ->get()
-            ->map(function ($category) use ($LISTINGS_LIMIT) {
-                // $category->show_more = $category->listings_count > $LISTINGS_LIMIT;
+            ->map(function ($category) use ($items) {
                 $listingsQuery = $category->listings()
                     ->where('status', 1)
                     ->where('is_published', 1)
-                    ->orderBy('published_at', 'DESC')
-                    ->with('country')
-                    ->with('category')
-                    ->with('user')
-                    ->with('brand');
-
+                    ->latest() // NEŞTER 1: published_at aptallığı silindi, created_at'e (en yeniye) geçildi!
+                    ->with(['country', 'category', 'user', 'brand']); // Kodu temizledik, hepsi tek with'te.
 
                 $category->listings_count = $listingsQuery->count();
-                $category->listings = $listingsQuery->limit($LISTINGS_LIMIT)->get();
+                $category->listings = $listingsQuery->take($items)->get(); // NEŞTER 2: Sınır kesinlikle 10 (veya panelden gelen).
                 
-                $category->show_more = $category->listings_count > $LISTINGS_LIMIT;
+                $category->show_more = $category->listings_count > $items;
                 return $category;
             });
 
         $latest_listings = Listing::where('status', 1)
-            ->orderBy('published_at', 'desc')
             ->where('is_published', 1)
-            ->limit($LISTINGS_LIMIT)
-            ->with('country')
-            ->with('category')
-            ->with('user')
-            ->with('brand')
+            ->latest() // NEŞTER 3: published_at silindi, en yeniler zirvede!
+            ->with(['country', 'category', 'user', 'brand'])
+            ->take($items) // NEŞTER 4: Sınır kesinlikle 10.
             ->get();
 
         return $this->renderBlade('headers.style-one',[
