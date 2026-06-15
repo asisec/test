@@ -123,8 +123,8 @@ class HeaderStyleOne extends PageBuilderBase
   public function frontend_render() : string
     {
         $settings = $this->get_settings();
-        // Eğer panelden bir sayı girilmişse onu al, girilmemişse KESİN KURAL 10 tane göster.
-        $items = !empty($settings['items']) ? $settings['items'] : 10; 
+        // Eğer panelden bir sayı girilmişse onu al, girilmemişse KESİN KURAL 12 tane göster.
+        $items = !empty($settings['items']) ? $settings['items'] : 12; 
 
         $all_category = Category::where('status', 1)
             ->whereNotNull('home_header_order')
