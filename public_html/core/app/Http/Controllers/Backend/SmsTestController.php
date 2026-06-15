@@ -34,7 +34,7 @@ class SmsTestController extends Controller
             // TopluSMS YENİ NESİL OTP API
             $response = Http::acceptJson()->asJson()->timeout(15)->post('https://api.toplusms.app/api/v1/otp', [
                 'api_key' => '977edcca6820234098f19529',
-                'sender' => 'TEXTILEFRM', // 'required' hatasını aşmak için test başlığını ekledik!
+                //'sender' => 'TEXTILEFRM', // 'required' hatasını aşmak için test başlığını ekledik!
                 'message_type' => 'normal',
                 'message' => $validated['message'],
                 'phones' => [$telefon],
