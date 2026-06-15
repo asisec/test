@@ -29,9 +29,10 @@ class SmsTestController extends Controller
                 $telefon = substr($telefon, 1);
             }
 
-            // TopluSMS / WaMessage YENİ NESİL REST API İstek Formatı (BİLEREK SENDER UÇURULDU)
+            // TopluSMS / WaMessage YENİ NESİL REST API İstek Formatı (TEST BAŞLIĞI EKLENDİ)
             $response = Http::acceptJson()->asJson()->timeout(15)->post('https://api.toplusms.app/api/v1/1toN', [
                 'api_key' => '977edcca6820234098f19529',
+                'sender' => 'TEXTILEFRM', // Sistemin reddetmesi beklenen, henüz onaysız başlık
                 'message_type' => 'normal',
                 'message_content_type' => 'bilgi',
                 'message' => $validated['message'],
