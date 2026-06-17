@@ -23,13 +23,17 @@
                 </div>
 
                 <span class="featurePricing d-flex justify-content-between align-items-center">
-                <span class="money">{{ amount_with_currency_symbol($listing->price) }}</span>
-                <span class="date">
-                    @if(!empty($listing->published_at))
-                        {{ \Carbon\Carbon::parse($listing->published_at)->diffForHumans() }}
+                    @if($listing->price == 0)
+                        <span class="money text-primary" style="font-size: 15px;">{{ __('İletişime Geçin') }}</span>
+                    @else
+                        <span class="money">{{ amount_with_currency_symbol($listing->price) }}</span>
                     @endif
+                    <span class="date">
+                        @if(!empty($listing->published_at))
+                            {{ \Carbon\Carbon::parse($listing->published_at)->diffForHumans() }}
+                        @endif
+                    </span>
                 </span>
-            </span>
             </div>
         </div>
     @endforeach

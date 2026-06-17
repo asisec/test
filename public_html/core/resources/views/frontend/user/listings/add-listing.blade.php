@@ -383,15 +383,18 @@
                                             <div class="right-sidebar">
                                                 <div class="box-shadow1 price p-24">
                                                     <div class="price-wraper">
-                                                        <label for="price">{{ __('Price') }} <span
-                                                                class="text-danger">*</span> </label>
+                                                        <label for="price">{{ __('Price') }}</label>
                                                         <input type="number" name="price" id="price"
                                                             value="{{ old('price') }}" class="input-filed w-100 mb-3"
-                                                            placeholder="{{ __('0.00') }}">
+                                                            placeholder="{{ __('Boş bırakırsanız iletişime geçilecek') }}">
                                                         <label class="negotiable">
                                                             <input type="checkbox" class="custom-check-box"
                                                                 name="negotiable" id="negotiable">
                                                             <span class="ms-2">{{ __('Negotiable') }}</span>
+                                                        </label>
+                                                        <label class="contact-for-price d-block mt-2">
+                                                            <input type="checkbox" class="custom-check-box" name="contact_for_price" id="contact_for_price" value="1">
+                                                            <span class="ms-2 fw-bold text-primary">{{ __('Fiyat İçin İletişime Geçin') }}</span>
                                                         </label>
                                                     </div>
                                                 </div>

@@ -21,7 +21,13 @@
                          </span>
                      @endif
                 </div>
-                <div class="pricing head4">{{ float_amount_with_currency_symbol($listing->price) }}</div>
+                <div class="pricing head4">
+                    @if($listing->price == 0)
+                        <span class="text-primary" style="font-size: 18px;">{{ __('İletişime Geçin') }}</span>
+                    @else
+                        {{ float_amount_with_currency_symbol($listing->price) }}
+                    @endif
+                </div>
 
                 <x-listings.listing-location :listing="$listing"/>
 

@@ -119,7 +119,7 @@ class ListingController extends Controller
                 'title' => 'required|max:191',
                 'description' => 'required|min:150',
                 'slug' => 'required|max:255|unique:listings',
-                'price' => 'required|numeric',
+                'price' => 'nullable|numeric',
                 // Attributes Validation
                 'attributes_title' => 'nullable|array',
                 'attributes_title.*' => 'nullable|string|max:255',
@@ -132,7 +132,6 @@ class ListingController extends Controller
                 'description.min' => __('The description must be at least 150 characters.'),
                 'slug.required' => __('The slug field is required.'),
                 'slug.unique' => __('The slug has already been taken.'),
-                'price.required' => __('The price field is required.'),
                 'price.numeric' => __('The price must be a numeric value.')
             ]);
 
@@ -173,7 +172,13 @@ class ListingController extends Controller
             $listing->title = $request->title;
             $listing->slug = Str::slug(purify_html($slug),'-',null);
             $listing->description = $request->description;
-            $listing->price = $request->price;
+            // AKILLI FİYAT FİLTRESİ BAŞLANGIÇ
+            $final_price = $request->price;
+            if ($request->has('contact_for_price') || empty($final_price) || $final_price <= 1) {
+                $final_price = 0;
+            }
+            $listing->price = $final_price;
+            // AKILLI FİYAT FİLTRESİ BİTİŞ
             $listing->negotiable = $request->negotiable ?? 0;
             $listing->condition = $request->condition;
             $listing->authenticity = $request->authenticity;

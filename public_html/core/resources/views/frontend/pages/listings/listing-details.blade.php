@@ -247,9 +247,14 @@
                             <div class="product-name-price">
                                 <div class="product-name">{{ $listing->title }}</div>
                                 <div class="right-part text-right">
-                                    <div class="price text-end"><span>{{ float_amount_with_currency_symbol($listing->price) }}</span>
-                                        @if($listing->negotiable === 1)
-                                            <div class="token">{{ __('NEGOTIABLE') }}</div>
+                                    <div class="price text-end">
+                                        @if($listing->price == 0)
+                                            <span class="text-primary" style="font-size: 1.5rem; font-weight: 700;">{{ __('Fiyat İçin İletişime Geçin') }}</span>
+                                        @else
+                                            <span>{{ float_amount_with_currency_symbol($listing->price) }}</span>
+                                            @if($listing->negotiable === 1)
+                                                <div class="token">{{ __('NEGOTIABLE') }}</div>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>
