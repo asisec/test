@@ -150,47 +150,6 @@
                 </li>
                @endcanany
 
-              @canany(['subcategory-list', 'subcategory-add'])
-                <li class="dashboard__bottom__list__item has-children @if(request()->is('admin/subcategory/*')) active open @endif">
-                    <a href="javascript:void(0)"><i class="las la-th-list"></i>
-                        <span class="icon_title">{{ __('Alt Kategoriler') }}</span>
-                    </a>
-                    <ul class="submenu" style="@if(request()->is('admin/subcategory/*')) display:block; @endif">
-                        @can('subcategory-list')
-                        <li class="dashboard__bottom__list__item @if(request()->is('admin/subcategory/index')) selected @endif">
-                            <a href="{{ route('admin.subcategory') }}">{{ __('Tüm Alt Kategoriler') }}</a>
-                        </li>
-                        @endcan
-                        @can('subcategory-add')
-                        <li class="dashboard__bottom__list__item @if(request()->is('admin/subcategory/add-new-subcategory')) selected @endif">
-                            <a href="{{ route('admin.subcategory.new') }}">{{ __('Yeni Alt Kategori Ekle') }}</a>
-                        </li>
-                       @endcan
-                    </ul>
-                  </li>
-                @endcanany
-
-                    <!-- Child Categories Manage -->
-                    @canany(['child-category-list', 'child-category-add'])
-                        <li class="dashboard__bottom__list__item has-children @if(request()->is('admin/child-category/*')) active open @endif">
-                            <a href="javascript:void(0)">
-                                <i class="las la-th-list"></i>
-                                <span class="icon_title">{{ __('Alt Kategoriler') }}</span>
-                            </a>
-                            <ul class="submenu" style="@if(request()->is('admin/child-category/*')) display:block; @endif">
-                                @can('child-category-list')
-                                    <li class="dashboard__bottom__list__item @if(request()->is('admin/child-category/index')) selected @endif">
-                                        <a href="{{ route('admin.child.category') }}">{{ __('Tüm Alt Kategoriler') }}</a>
-                                    </li>
-                                @endcan
-                                @can('child-category-add')
-                                    <li class="dashboard__bottom__list__item @if(request()->is('admin/child-category/add-new-child-category')) selected @endif">
-                                        <a href="{{ route('admin.child.category.new') }}">{{ __('Yeni Alt Kategori Ekle') }}</a>
-                                    </li>
-                                @endcan
-                            </ul>
-                        </li>
-                    @endcanany
 
                     <!-- Pages Manage -->
                     @canany(['dynamic-page-list', 'dynamic-page-add'])
