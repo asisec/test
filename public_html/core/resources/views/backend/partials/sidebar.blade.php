@@ -23,6 +23,20 @@
                     </li>
                 @endcan
 
+                <li class="dashboard__bottom__list__item has-children @if(request()->is('admin/fast-listing*') || request()->is('admin/sms-test*')) active open show @endif">
+    <a href="javascript:void(0)"> 
+        <i class="las la-tools"></i> 
+        <span class="icon_title">{{ __('Özel Eklentiler') }}</span> 
+    </a>
+    <ul class="submenu">
+        <li class="dashboard__bottom__list__item @if(request()->is('admin/fast-listing')) selected @endif">
+            <a href="{{ url('admin/fast-listing') }}"> {{ __('Hızlı İlan Bas') }} </a>
+        </li>
+        <li class="dashboard__bottom__list__item @if(request()->is('admin/sms-test')) selected @endif">
+            <a href="{{ url('admin/sms-test') }}"> {{ __('SMS Test Laboratuvarı') }} </a>
+        </li>
+    </ul>
+</li>
                 <!--Admin listing manage -->
                 @canany(['user-listing-list', 'guest-listing-list', 'admin-listing-list', 'report-reason-list', 'listing-report-list'])
                     <li  class="dashboard__bottom__list__item has-children @if (request()->is('admin/listings/*')) active open show @endif">
