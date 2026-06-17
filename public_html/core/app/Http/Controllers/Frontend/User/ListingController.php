@@ -113,11 +113,11 @@ class ListingController extends Controller
 
             // Validation start
             $request->validate([
-                'country_code' => 'required',
-                'number_full' => 'required',
+                'country_code' => 'nullable',
+                'number_full' => 'nullable',
                 'category_id' => 'required',
                 'title' => 'required|max:191',
-                'description' => 'required|min:150',
+                'description' => 'required|min:10',
                 'slug' => 'required|max:255|unique:listings',
                 'price' => 'nullable|numeric',
                 // Attributes Validation
@@ -129,7 +129,7 @@ class ListingController extends Controller
                 'title.required' => __('The title field is required.'),
                 'title.max' => __('The title must not exceed 191 characters.'),
                 'description.required' => __('The description field is required.'),
-                'description.min' => __('The description must be at least 150 characters.'),
+                'description.min' => __('Açıklama en az 10 karakter olmalıdır.'),
                 'slug.required' => __('The slug field is required.'),
                 'slug.unique' => __('The slug has already been taken.'),
                 'price.numeric' => __('The price must be a numeric value.')

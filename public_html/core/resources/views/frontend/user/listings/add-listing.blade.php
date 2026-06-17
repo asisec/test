@@ -386,7 +386,7 @@
                                                         <label for="price">{{ __('Price') }}</label>
                                                         <input type="number" name="price" id="price"
                                                             value="{{ old('price') }}" class="input-filed w-100 mb-3"
-                                                            placeholder="{{ __('Boş bırakırsanız iletişime geçilecek') }}">
+                                                            placeholder="{{ __('Fiyat Belirlememek için boş bırakın.') }}">
                                                         <label class="negotiable">
                                                             <input type="checkbox" class="custom-check-box"
                                                                 name="negotiable" id="negotiable">
