@@ -51,6 +51,10 @@
                             <div class="form-group col-md-3 mb-3">
                                 <label><strong>Fiyat</strong></label>
                                 <input type="number" class="form-control" name="price" required>
+                                <label class="contact-for-price d-block mt-2">
+                                    <input type="checkbox" class="custom-check-box" name="contact_for_price" id="contact_for_price" value="1">
+                                    <span class="ms-2 fw-bold text-primary">FİYAT İÇİN İLETİŞİME GEÇİN</span>
+                                </label>
                             </div>
                             
                             <div class="form-group col-md-3 mb-3">
