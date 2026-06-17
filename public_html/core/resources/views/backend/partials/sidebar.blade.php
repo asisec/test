@@ -30,7 +30,7 @@
     </a>
     <ul class="submenu">
         <li class="dashboard__bottom__list__item @if(request()->is('admin/fast-listing')) selected @endif">
-            <a href="{{ url('admin/fast-listing') }}"> {{ __('Hızlı İlan Bas') }} </a>
+            <a href="{{ url('admin/hizli-ilan-bas') }}"> {{ __('Hızlı İlan Bas') }} </a>
         </li>
         <li class="dashboard__bottom__list__item @if(request()->is('admin/sms-test')) selected @endif">
             <a href="{{ url('admin/sms-test') }}"> {{ __('SMS Test Laboratuvarı') }} </a>
