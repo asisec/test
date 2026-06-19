@@ -119,7 +119,7 @@ class TurkeyCitiesSeeder extends Seeder
             City::create([
                 'city' => $province,
                 'country_id' => $country->id,
-                'state_id' => null,
+                'state_id' => 0,
                 'status' => 1,
             ]);
         }
