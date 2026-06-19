@@ -130,8 +130,8 @@
                                 <x-frontend.user.responsive-icon/>
                                 <div class="setting-btn-part">
                                     <div class="setting-tab nav nav-tabs" id="setting-tabbuttons">
-                                        <a href="javascript:void(0)" class="nav-link active" data-bs-toggle="tab" data-bs-target="#identity-verification">{{ __('Identity Verification') }}</a>
-                                        <a href="javascript:void(0)" class="nav-link" data-bs-toggle="tab" data-bs-target="#change-password">{{ __('Change Password') }}</a>
+                                        {{-- <a href="javascript:void(0)" class="nav-link active" data-bs-toggle="tab" data-bs-target="#identity-verification">{{ __('Identity Verification') }}</a> --}}
+                                        <a href="javascript:void(0)" class="nav-link active" data-bs-toggle="tab" data-bs-target="#change-password">{{ __('Change Password') }}</a>
                                         @if(moduleExists('Membership'))
                                             @if(membershipModuleExistsAndEnable('Membership'))
                                                 @php
@@ -145,7 +145,7 @@
                                         <a href="javascript:void(0)" class="nav-link" data-bs-toggle="tab" data-bs-target="#deactivate-delete-account">{{ __('Deactivate/Delete Account') }}</a>
                                     </div>
                                     <div class="setting-tab-content tab-content">
-                                        <div class="tab-pane fade" id="change-password">
+                                        <div class="tab-pane fade show active" id="change-password">
                                             <div class="tab-content-wraper box-shadow1 change-password-part">
                                                 <h3 class="head4">{{ __('Change Password') }}</h3>
                                                 <p class="dashboard_accountSettings__para mb-24">{{ __('Last changed') }}
@@ -173,8 +173,7 @@
                                                 </form>
                                             </div>
                                         </div>
-
-
+                                        {{--
                                         <div class="tab-pane fade show active" id="identity-verification">
                                             <!--verify step 01 -->
                                             @if(!is_null($user_verify_info) && $user_verify_info->status === 1)
@@ -182,7 +181,7 @@
                                                 <div class="tab-content-wraper identity-varified identity-verification mt-4 box-shadow1">
                                                     <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <circle cx="28" cy="28" r="28" fill="#22C55E"/>
-                                                        <path d="M24.5903 36.2106C24.1101 36.2106 23.6538 36.0185 23.3177 35.6823L16.5223 28.8869C15.8259 28.1906 15.8259 27.038 16.5223 26.3417C17.2186 25.6453 18.3712 25.6453 19.0675 26.3417L24.5903 31.8644L36.9325 19.5223C37.6288 18.8259 38.7814 18.8259 39.4777 19.5223C40.1741 20.2186 40.1741 21.3712 39.4777 22.0675L25.8629 35.6823C25.5268 36.0185 25.0705 36.2106 24.5903 36.2106Z" fill="white"/>
+                                                        <path d="M24.5903 36.2106C24.1101 36.2106 23.6538 36.0185 23.3177 35.6823L16.5223 28.8869C15.8259 28.1906 15.8259 27.038 16.5223 26.3417C17.2186 25.6453 18.3712 25.6453 19.0675 26.3417L24.5903 31.8644L36.9325 19.5223C37.6288 18.8259 37.6288 18.8259 39.4777 19.5223C40.1741 20.2186 40.1741 21.3712 39.4777 22.0675L25.8629 35.6823C25.5268 36.0185 25.0705 36.2106 24.5903 36.2106Z" fill="white"/>
                                                     </svg>
                                                     <div class="text-part">
                                                         <h3 class="head4">{{ __('Your identity is verified') }}</h3>
@@ -230,6 +229,7 @@
                                                 </div>
                                             @endif
                                         </div>
+                                        --}}
 
                                         <!--business hours  -->
                                         @include('frontend.user.profile.business-hours')
