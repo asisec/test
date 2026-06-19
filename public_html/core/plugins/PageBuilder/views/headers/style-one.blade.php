@@ -1,20 +1,18 @@
 <body>
-    <!-- Masaüstü Banner'ları -->
     <div class="desktop-banner-container">
-        <a href="https://korkusuzsoft.com/" target="_blank">
+        <a href="/iletisim" target="_blank">
             <img src="https://textileforum.net/banner-resimleri/ana-sayfa/masaustu/1.gif" alt="Sol Desktop Banner">
         </a>
-        <a href="https://example.com/sag" target="_blank">
+        <a href="/iletisim" target="_blank">
             <img src="https://textileforum.net/banner-resimleri/ana-sayfa/masaustu/2.gif" alt="Sağ Desktop Banner">
         </a>
     </div>
 
-    <!-- Mobil Banner'ları -->
     <div class="mobile-banner-container">
-        <a href="https://korkusuzgames.com/" target="_blank">
+        <a href="/iletisim" target="_blank">
             <img src="https://textileforum.net/banner-resimleri/ana-sayfa/mobil/1.gif" alt="Sol Mobile Banner">
         </a>
-        <a href="https://example.com/sag" target="_blank">
+        <a href="/iletisim" target="_blank">
             <img src="https://textileforum.net/banner-resimleri/ana-sayfa/mobil/2.gif" alt="Sağ Mobile Banner">
         </a>
     </div>
