@@ -289,7 +289,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3 g-3">
-                                                            <div class="col-sm-6">
+                                                            <div class="col-sm-4 d-none">
                                                                 <div
                                                                     class="item-condition-wraper input-filed p-24 mb-sm-0 mb-3">
                                                                     <input type="checkbox" class="custom-check-box"
@@ -313,7 +313,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-6">
+                                                            <div class="col-sm-4 d-none">
                                                                 <div class="item-condition-wraper input-filed p-24">
                                                                     <input type="checkbox" class="custom-check-box"
                                                                         id="item-authenticity">
@@ -370,10 +370,9 @@
                                                 </div>
 
                                                 <div class="description box-shadow1 p-24 mt-4">
-                                                    <label for="description">{{ __('Description') }} <span
-                                                            class="text-danger">*</span> <span
-                                                            class="text-danger">{{ __('(minimum 150 characters.)') }}</span>
-                                                    </label>
+                                                        <label for="description">{{ __('Description') }} <span
+                                                            class="text-danger">{{ __('(minimum 10 characters.)') }}</span>
+                                                        </label>
                                                     <textarea name="description" id="description" rows="6" class="input-filed w-100 textarea--form summernote"
                                                         placeholder="{{ __('Enter a Description') }}">{{ old('description') }}</textarea>
                                                 </div>

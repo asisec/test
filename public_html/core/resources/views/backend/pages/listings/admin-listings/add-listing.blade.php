@@ -184,7 +184,7 @@
                                                                     </select>
                                                                 </div>
 
-                                                                <div class="form__input__single" id="sub_category">
+                                                                <div class="form__input__single d-none" id="sub_category">
                                                                     <label for="subcategory" class="form__input__single__label"> {{__('Sub Category')}} </label>
                                                                     <select  name="sub_category_id" id="subcategory" class="subcategory select2_activation">
                                                                         <option value="">{{__('Select Sub Category')}}</option>
@@ -192,7 +192,7 @@
                                                                 </div>
 
 
-                                                                <div class="form__input__single child_category_wrapper">
+                                                                <div class="form__input__single child_category_wrapper d-none">
                                                                     <label for="child_category" class="form__input__single__label"> {{__('Child Category')}} </label>
                                                                     <select  name="child_category_id" id="child_category" class="select2_activation">
                                                                         <option value="">{{__('Select Child Category')}}</option>
@@ -275,7 +275,7 @@
 
                                                         <!-- Description -->
                                                         <div class="form__input__single mt-3">
-                                                            <label class="form__input__single__label">{{ __('Description') }} <span class="text-danger">*</span> <span class="text-danger">{{ __('minimum 150 characters.') }}</span> </label>
+                                                            <label class="form__input__single__label">{{ __('Description') }} <span class="text-danger">{{ __('minimum 10 characters.') }}</span> </label>
                                                             <div class="input-form input-form2">
                                                                 <textarea class="textarea--form summernote" name="description" placeholder="{{__('Type Description')}}">{{ old('description') }}</textarea>
                                                             </div>
