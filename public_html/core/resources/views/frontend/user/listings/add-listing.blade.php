@@ -249,7 +249,7 @@
                                                     <h3 class="head4">{{ __('About Item') }}</h3>
                                                     <div class="about-item-form">
                                                         <div class="row g-3 mt-3">
-                                                            <div class="col-sm-4" style="display: none;">
+                                                            <div class="col-sm-4">
                                                                 <div class="item-catagory-wraper">
                                                                     <label for="item-catagory">{{ __('Item Category') }}
                                                                         <span class="text-danger">*</span> </label>
@@ -264,7 +264,7 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-4" id="city_wrapper" style="display: none;">
+                                                            <div class="col-sm-4">
                                                                 <div class="item-subcatagory-wraper">
                                                                     <label
                                                                         for="item-subcatagory">{{ __('Sub Category') }}</label>
