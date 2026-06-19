@@ -46,7 +46,7 @@
                     <section class="featureListing mb-5 mt-5">
                         <div class="container-1440">
                             <div class="titleWithBtn d-flex justify-content-between align-items-center mb-40">
-                                <h3 class="catagory-wise-title">{{ sprintf(__('Available Listings in :child_category', ['child_category' => $child_category->name]))  }}</h3>
+                                <h3 class="catagory-wise-title">{{ __('Available Listings in') }} {{ $child_category->name }}</h3>
                                 <form id="filter_with_listing_page_subcategory" action="{{ url('/') .'/'. get_static_option('listing_filter_page_url') ?? url('/listings') }}" method="get">
                                     <input type="hidden" name="cat" value="{{$child_category->category_id}}"/>
                                     <input type="hidden" name="subcat" value="{{$child_category->sub_category_id}}"/>

@@ -2151,8 +2151,12 @@ function blog_comment_count($item){
 }
 
 function render_site_title($title){
-    $meta_title = get_static_option('site_title') .' - '. get_static_option('site_tag_line');
-    $site_og_meta_title =  get_static_option('og_meta_title') ?? $meta_title;
+    $site_title = get_static_option('site_title');
+    $page_title = trim((string) $title);
+
+    $site_og_meta_title = $page_title !== ''
+        ? $site_title .' - '. $page_title
+        : (get_static_option('og_meta_title') ?: $site_title);
 
     return <<<HTML
     <title> {$site_og_meta_title}</title>
@@ -2175,8 +2179,8 @@ function render_site_meta(){
     $site_tags = get_static_option('site_meta_tags');
     $site_desc =  get_static_option('site_meta_description');
 
-    $meta_title = get_static_option('site_title') .' - '. get_static_option('site_tag_line');
-    $site_og_meta_title =  get_static_option('og_meta_title') ?? $meta_title;
+    $site_title = get_static_option('site_title');
+    $site_og_meta_title =  get_static_option('og_meta_title') ?: $site_title;
 
     $site_og_meta_description =  get_static_option('og_meta_description');
     $site_og_meta_site_name =  get_static_option('og_meta_site_name');

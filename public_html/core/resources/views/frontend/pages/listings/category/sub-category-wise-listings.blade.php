@@ -41,7 +41,7 @@
             </div>
             @endif
 
-            <h3 class="catagory-wise-title">{{ sprintf(__('Available Listing Sub Categories in :subcategory', ['subcategory' => $subcategory->name])) }}</h3>
+            <h3 class="catagory-wise-title">{{ __('Available Sub Categories in') }} {{ $subcategory->name }}</h3>
             <div class="catagory-wise-list-wraper exploreCategories">
                 <div id="services_sub_category_load_wrap">
                     <div class="services_sub_category_load_wraper mt-4">
@@ -82,7 +82,7 @@
                     <section class="featureListing mb-5 mt-5">
                         <div class="container-1440">
                             <div class="titleWithBtn d-flex justify-content-between align-items-center mb-40">
-                                <h3 class="catagory-wise-title">{{ sprintf(__('Available Listings in %s'), $subcategory->name) }}</h3>
+                                <h3 class="catagory-wise-title">{{ __('Available Listings in') }} {{ $subcategory->name }}</h3>
                                 <form id="filter_with_listing_page_subcategory" action="{{ url('/') .'/'. get_static_option('listing_filter_page_url') ?? url('/listings') }}" method="get">
                                     <input type="hidden" name="cat" value="{{$subcategory->category_id}}"/>
                                     <input type="hidden" name="subcat" value="{{$subcategory->id}}"/>

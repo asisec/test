@@ -64,7 +64,7 @@
         {!! render_site_title(optional($page_post)->title ) !!}
         {!! render_site_meta() !!}
     @else
-        <title>@yield('site_title')</title>
+        {!! render_site_title(trim($__env->yieldContent('site_title'))) !!}
     @endif
     {!! renderHeadEndHooks() !!}
     @if(!empty(get_static_option('site_third_party_tracking_code')))
