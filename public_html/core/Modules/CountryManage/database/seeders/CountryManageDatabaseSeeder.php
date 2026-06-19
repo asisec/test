@@ -11,5 +11,6 @@ class CountryManageDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(UpdateCountriesSeeder::class);
     }
 }

@@ -343,7 +343,7 @@
                                             <span class="country_info"></span>
                                         </div>
 
-                                        <div class="single-input">
+                                        <div class="single-input d-none" id="state-wrapper">
                                             <label class="label-title">{{ __('Select Your State') }}  <span class="text-danger">*</span></label>
                                             <select name="state_id" id="state_id" class="select2_activation">
                                                 <option value="">{{ __('Select State') }}</option>
@@ -353,7 +353,7 @@
                                             </select>
                                             <span class="country_info"></span>
                                         </div>
-                                        <div class="single-input">
+                                        <div class="single-input d-none" id="city-wrapper">
                                             <label class="label-title">{{ __('Select Your City') }}  <span class="text-danger">*</span></label>
                                             <select name="city_id" id="city_id" class="select2_activation">
                                                 <option value="">{{ __('Select City') }}</option>

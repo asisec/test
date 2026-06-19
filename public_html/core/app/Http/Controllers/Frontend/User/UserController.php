@@ -38,13 +38,12 @@ class UserController extends Controller
                     'email'=>'required|email|unique:users,email,'.Auth::guard('web')->user()->id,
                     'phone'=>'required',
                     'country'=>'required',
-                    'state'=>'required',
+                    'state'=>'nullable',
                 ],
                 [
                     'first_name.required'=> __('First name is required'),
                     'last_name.required'=> __('Last name is required'),
                     'country_id.required'=> __('Country is required'),
-                    'state_id.required'=> __('State is required'),
                     'phone.required'=> __('Phone is required'),
                 ]);
           }
@@ -61,8 +60,8 @@ class UserController extends Controller
                     'email'=>$request->email,
                     'phone'=>$request->phone,
                     'country_id'=>$request->country,
-                    'state_id'=>$request->state,
-                    'city_id'=>$request->city,
+                    'state_id'=>0,
+                    'city_id'=>$request->city ?: null,
                     'image'=>$request->image,
                 ]);
             }

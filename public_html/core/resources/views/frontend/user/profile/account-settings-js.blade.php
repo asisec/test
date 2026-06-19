@@ -2,6 +2,55 @@
     (function($){
         "use strict";
         $(document).ready(function(){
+            const cityWrapper = $('#city-wrapper');
+
+            function isTurkeyCountry() {
+                let selectedCountryText = ($('#country_id option:selected').text() || '').toLowerCase().trim();
+                return selectedCountryText.includes('turkey') || selectedCountryText.includes('turkiye') || selectedCountryText.includes('türkiye');
+            }
+
+            function resetCityDropdown() {
+                let all_options = "<option value=''>{{__('Select City')}}</option>";
+                $('.get_state_city').html(all_options);
+                $('.city_info').html('');
+                $('#city_id').val('');
+                cityWrapper.addClass('d-none');
+            }
+
+            function loadCitiesByCountry() {
+                let country = $('#country_id').val();
+
+                if (!isTurkeyCountry()) {
+                    resetCityDropdown();
+                    return;
+                }
+
+                cityWrapper.removeClass('d-none');
+
+                $.ajax({
+                    method: 'post',
+                    url: "{{ route('au.country.city.all') }}",
+                    data: {
+                        country_id: country
+                    },
+                    success: function(res) {
+                        if (res.status == 'success') {
+                            let all_options = "<option value=''>{{__('Select City')}}</option>";
+                            let all_city = res.cities;
+                            $.each(all_city, function(index, value) {
+                                all_options += "<option value='" + value.id +
+                                    "'>" + value.city + "</option>";
+                            });
+                            $('.get_state_city').html(all_options);
+
+                            $('.city_info').html('');
+                            if(all_city.length <= 0){
+                                $('.city_info').html('<span class="text-danger"> {{ __('No city found for selected country!') }} <span>');
+                            }
+                        }
+                    }
+                });
+            }
 
             //update profile
             $(document).on('submit','#edit_profile_form',function(e){
@@ -10,7 +59,6 @@
                 let last_name = $('#last_name').val();
                 let email = $('#email').val();
                 let country = $('#country_id').val();
-                let state = $('#state_id').val();
                 let city = $('#city_id').val();
                 let image = $('#image').val();
                 let profile_background = $('#profile_background').val();
@@ -27,7 +75,6 @@
                             last_name:last_name,
                             email:email,
                             country:country,
-                            state:state,
                             city:city,
                             image:image,
                             profile_background:profile_background,
@@ -50,60 +97,12 @@
             });
 
 
-            // change country and get state
+            // change country and get cities for Turkey only
             $(document).on('change','#country_id', function() {
-                let country = $(this).val();
-                $.ajax({
-                    method: 'post',
-                    url: "{{ route('au.state.all') }}",
-                    data: {
-                        country: country
-                    },
-                    success: function(res) {
-                        if (res.status == 'success') {
-                            let all_options = "<option value=''>{{__('Select State')}}</option>";
-                            let all_state = res.states;
-                            $.each(all_state, function(index, value) {
-                                all_options += "<option value='" + value.id +
-                                    "'>" + value.state + "</option>";
-                            });
-                            $(".get_country_state").html(all_options);
-                            $(".state_info").html('');
-                            if(all_state.length <= 0){
-                                $(".state_info").html('<span class="text-danger"> {{ __('No state found for selected country!') }} <span>');
-                            }
-                        }
-                    }
-                })
-            })
-
-            // change state and get city
-            $('#state_id').on('change', function() {
-                let state = $(this).val();
-                $.ajax({
-                    method: 'post',
-                    url: "{{ route('au.city.all') }}",
-                    data: {
-                        state: state
-                    },
-                    success: function(res) {
-                        if (res.status == 'success') {
-                            let all_options = "<option value=''>{{__('Select City')}}</option>";
-                            let all_city = res.cities;
-                            $.each(all_city, function(index, value) {
-                                all_options += "<option value='" + value.id +
-                                    "'>" + value.city + "</option>";
-                            });
-                            $(".get_state_city").html(all_options);
-
-                            $(".city_info").html('');
-                            if(all_city.length <= 0){
-                                $(".city_info").html('<span class="text-danger"> {{ __('No city found for selected state!') }} <span>');
-                            }
-                        }
-                    }
-                });
+                loadCitiesByCountry();
             });
+
+            loadCitiesByCountry();
 
         });
     }(jQuery));

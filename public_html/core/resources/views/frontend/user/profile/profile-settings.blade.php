@@ -94,10 +94,10 @@
                                         </div>
 
                                         <div class="d-flex justify-content-between gap-3">
-                                            <div class="input-form">
+                                            <div class="input-form d-none">
                                                 <x-form.state-dropdown :title="__('Select Your State')" :id="'state_id'" :required="true"/>
                                             </div>
-                                            <div class="input-form">
+                                            <div class="input-form d-none" id="city-wrapper">
                                                 <x-form.city-dropdown :title="__('Select Your City')" :id="'city_id'" :required="false"/>
                                             </div>
                                         </div>
