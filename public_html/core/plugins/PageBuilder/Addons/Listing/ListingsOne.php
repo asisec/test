@@ -396,12 +396,7 @@ class ListingsOne extends PageBuilderBase
 
         // get country
         if (!empty(request()->get("country"))) {
-            $listings_country = Country::find(request()->get("country"));
-            $listings_country_ids = [];
-            if ($listings_country) {
-                $listings_country_ids = $listings_country->states->pluck("id")->toArray();
-            }
-           $listing_query->whereIn("state_id", $listings_country_ids)->get();
+           $listing_query->where("country_id", request()->get("country"));
         }
 
         // get state
@@ -411,7 +406,7 @@ class ListingsOne extends PageBuilderBase
 
         // get city
         if (!empty(request()->get("city"))) {
-            $listing_query->where("city_id", request()->get("city"))->get();
+            $listing_query->where("city_id", request()->get("city"));
         }
 
         if (!empty(request()->get("cat"))) {
@@ -511,6 +506,8 @@ class ListingsOne extends PageBuilderBase
             "highest_price" => __("Highest Price"),
         ];
 
+        // Temporarily bypass membership/subscription restrictions so all approved listings can show.
+        /*
         $memberIds = [0];
         // get all users ids from the users table according to listing table datas
         if (moduleExists('Membership') && membershipModuleExistsAndEnable('Membership')){
@@ -532,6 +529,13 @@ class ListingsOne extends PageBuilderBase
             ->where('status', 1)
             ->where('is_published', 1)
             ->orderBy($order_by,$IDorDate)
+            ->paginate($items);
+        */
+
+        $all_listings = $listing_query
+            ->where('status', 1)
+            ->where('is_published', 1)
+            ->orderBy($order_by, $IDorDate)
             ->paginate($items);
 
         $countries = Country::select("id", "country")
