@@ -385,7 +385,7 @@
                                                 <div class="col-8">
                                                     @if(get_static_option('google_map_settings_on_off') == null)
                                                         <div class="d-flex justify-content-between gap-3">
-                                                            <div class="input-form input-form2 w-100">
+                                                            <div class="input-form input-form2 w-100" style="display: none;">
                                                                 <label class="form__input__single__label">{{ __('Select Your Country') }}</label>
                                                                 <select name="country_id" id="country_id" class="select2_activation">
                                                                     <option value="">{{ __('Select Country') }}</option>
@@ -396,7 +396,7 @@
                                                                 <span class="country_info"></span>
                                                             </div>
 
-                                                            <div class="input-form input-form2 w-100">
+                                                            <div class="input-form input-form2 w-100" id="city_wrapper" style="display: none;">
                                                                 <label class="form__input__single__label">{{ __('Select Your State') }}</label>
                                                                 <select name="state_id" id="state_id" class="get_country_state select2_activation">
                                                                     <option value="">{{ __('Select State') }}</option>
@@ -641,60 +641,43 @@
                     });
                 });
 
-                // change country and get state
-                $(document).on('change','#country_id', function() {
-                    let country = $(this).val();
-                    $.ajax({
-                        method: 'post',
-                        url: "{{ route('au.state.all') }}",
-                        data: {
-                            country: country
-                        },
-                        success: function(res) {
-                            if (res.status == 'success') {
-                                let all_options = "<option value=''>{{__('Select State')}}</option>";
-                                let all_state = res.states;
-                                $.each(all_state, function(index, value) {
-                                    all_options += "<option value='" + value.id +
-                                        "'>" + value.state + "</option>";
-                                });
-                                $(".get_country_state").html(all_options);
-                                $(".state_info").html('');
-                                if(all_state.length <= 0){
-                                    $(".state_info").html('<span class="text-danger"> {{ __('No state found for selected country!') }} <span>');
+                function toggleTurkeyCities() {
+                    let countryId = $('#country_id').val();
+                    let countryText = $('#country_id').find('option:selected').text().trim();
+                    let isTurkey = /^(turkey|türkiye)$/i.test(countryText);
+
+                    if (isTurkey && countryId) {
+                        $('#city_wrapper').show();
+                        $.ajax({
+                            method: 'post',
+                            url: "{{ route('au.country.city.all') }}",
+                            data: {
+                                country_id: countryId
+                            },
+                            success: function(res) {
+                                if (res.status == 'success') {
+                                    let all_options = "<option value=''>{{__('Select City')}}</option>";
+                                    let all_city = res.cities;
+                                    $.each(all_city, function(index, value) {
+                                        all_options += "<option value='" + value.id + "'>" + value.city + "</option>";
+                                    });
+                                    $(".get_state_city").html(all_options).trigger('change');
+                                    $(".city_info").html('');
+                                    if(all_city.length <= 0){
+                                        $(".city_info").html('<span class="text-danger"> {{ __('No city found for selected country!') }} <span>');
+                                    }
                                 }
                             }
-                        }
-                    })
-                })
+                        })
+                    } else {
+                        $('#city_wrapper').hide();
+                        $(".get_state_city").html("<option value=''>{{__('Select City')}}</option>").trigger('change');
+                        $(".city_info").html('');
+                    }
+                }
 
-                // change state and get city
-                $('#state_id').on('change', function() {
-                    let state = $(this).val();
-                    $.ajax({
-                        method: 'post',
-                        url: "{{ route('au.city.all') }}",
-                        data: {
-                            state: state
-                        },
-                        success: function(res) {
-                            if (res.status == 'success') {
-                                let all_options = "<option value=''>{{__('Select City')}}</option>";
-                                let all_city = res.cities;
-                                $.each(all_city, function(index, value) {
-                                    all_options += "<option value='" + value.id +
-                                        "'>" + value.city + "</option>";
-                                });
-                                $(".get_state_city").html(all_options);
-
-                                $(".city_info").html('');
-                                if(all_city.length <= 0){
-                                    $(".city_info").html('<span class="text-danger"> {{ __('No city found for selected state!') }} <span>');
-                                }
-                            }
-                        }
-                    })
-                });
+                $(document).on('change', '#country_id', toggleTurkeyCities);
+                toggleTurkeyCities();
 
             });
         })(jQuery)

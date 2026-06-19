@@ -66,6 +66,7 @@ Route::group(['middleware' => ['globalVariable', 'maintains_mode','setlang']], f
         Route::controller(\App\Http\Controllers\Common\AdminUserController::class)->group(function(){
             Route::post('get-state','get_country_state')->name('au.state.all');
             Route::post('get-city','get_state_city')->name('au.city.all');
+            Route::post('get-country-city','get_country_city')->name('au.country.city.all');
             Route::post('get-subcategory','get_subcategory')->name('au.subcategory.all');
         });
 

@@ -98,7 +98,7 @@ class GuestListingController extends Controller
 
             // Validation start
             $request->validate([
-                'country_code' => 'required',
+                'country_code' => 'nullable',
                 'number_full' => 'required',
                 'category_id' => 'required',
                 'terms_conditions' => 'required',
@@ -279,7 +279,13 @@ class GuestListingController extends Controller
             }
 
 
-            $country = Country::where('country_code', strtoupper($request->country_code))->first();
+            $country = null;
+            if ($request->filled('country_id')) {
+                $country = Country::find($request->country_id);
+            }
+            if (!$country && $request->filled('country_code')) {
+                $country = Country::where('country_code', strtoupper($request->country_code))->first();
+            }
             if (!$country) {
                 toastr_error(__('Country not found'));
                 return redirect()->back();
@@ -296,7 +302,7 @@ class GuestListingController extends Controller
             $listing->sub_category_id = $request->sub_category_id;
             $listing->child_category_id = $request->child_category_id;
             $listing->country_id = $request->country_id;
-            $listing->state_id = $request->state_id;
+            $listing->state_id = null;
             $listing->city_id = $request->city_id;
             $listing->brand_id = $request->brand_id ?? 0;
             $listing->title = $request->title;

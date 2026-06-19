@@ -30,6 +30,15 @@ class AdminUserController extends Controller
         ]);
     }
 
+    public function get_country_city(Request $request)
+    {
+        $cities = City::where('country_id', $request->country_id)->where('status', 1)->get();
+        return response()->json([
+            'status' => 'success',
+            'cities' => $cities,
+        ]);
+    }
+
     // get subcategory
     public function get_subcategory(Request $request)
     {

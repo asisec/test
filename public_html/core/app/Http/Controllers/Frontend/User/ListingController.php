@@ -150,7 +150,13 @@ class ListingController extends Controller
                 $video_url = getYoutubeEmbedUrl($request->video_url);
             }
 
-            $country = Country::where('country_code', strtoupper($request->country_code))->first();
+            $country = null;
+            if ($request->filled('country_id')) {
+                $country = Country::find($request->country_id);
+            }
+            if (!$country && $request->filled('country_code')) {
+                $country = Country::where('country_code', strtoupper($request->country_code))->first();
+            }
             if (!$country) {
                 toastr_error(__('Country not found'));
                 return redirect()->back();
@@ -166,7 +172,7 @@ class ListingController extends Controller
             $listing->sub_category_id = $request->sub_category_id;
             $listing->child_category_id = $request->child_category_id;
             $listing->country_id = $country->id;
-            $listing->state_id = $request->state_id;
+            $listing->state_id = null;
             $listing->city_id = $request->city_id;
             $listing->brand_id = $request->brand_id;
             $listing->title = $request->title;
@@ -392,7 +398,7 @@ class ListingController extends Controller
             $listing->category_id = $request->category_id;
             $listing->sub_category_id = $request->sub_category_id;
             $listing->child_category_id = $request->child_category_id;
-            $listing->state_id = $request->state_id;
+            $listing->state_id = null;
             $listing->city_id = $request->city_id;
             $listing->brand_id = $request->brand_id;
             $listing->title = $request->title;
@@ -412,7 +418,13 @@ class ListingController extends Controller
             $listing->is_featured = $request->is_featured ?? 0;
             $listing->status = $status;
 
-            $country = Country::where('country_code', strtoupper($request->country_code))->first();
+            $country = null;
+            if ($request->filled('country_id')) {
+                $country = Country::find($request->country_id);
+            }
+            if (!$country && $request->filled('country_code')) {
+                $country = Country::where('country_code', strtoupper($request->country_code))->first();
+            }
             if ($country) {
                 $listing->country_id = $country->id;
             }
