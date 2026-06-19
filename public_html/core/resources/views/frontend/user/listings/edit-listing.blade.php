@@ -206,7 +206,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4 d-none">
+                                                        <div class="col-sm-4">
                                                             <div class="item-subcatagory-wraper">
                                                                 <label for="item-subcatagory">{{__('Sub Category')}}</label>
                                                                 <select  name="sub_category_id" id="subcategory" class="subcategory select2_activation">
@@ -217,7 +217,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4 d-none">
+                                                        <div class="col-sm-4">
                                                             <div class="item-subcatagory-wraper">
                                                                 <label for="item-subcatagory">{{__('Child Category')}} </label>
                                                                 <select  name="child_category_id" id="child_category" class="select2_activation">

@@ -185,7 +185,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="form__input__single d-none" id="sub_category">
+                                                            <div class="form__input__single" id="sub_category">
                                                                 <label for="subcategory" class="form__input__single__label"> {{__('Sub Category')}} </label>
                                                                 <select  name="sub_category_id" id="subcategory" class="subcategory select2_activation">
                                                                     <option value="">{{__('Select Sub Category')}}</option>
@@ -195,7 +195,7 @@
                                                                 </select>
                                                             </div>
 
-                                                            <div class="form__input__single child_category_wrapper w-100 d-none">
+                                                            <div class="form__input__single child_category_wrapper w-100">
                                                                 <label for="child_category" class="form__input__single__label"> {{__('Child Category')}} </label>
                                                                 <select  name="child_category_id" id="child_category" class="select2_activation">
                                                                     <option value="">{{__('Select Child Category')}}</option>

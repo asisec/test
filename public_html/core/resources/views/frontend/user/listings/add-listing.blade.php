@@ -289,7 +289,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row mt-3 g-3">
-                                                            <div class="col-sm-4 d-none">
+                                                            <div class="col-sm-4">
                                                                 <div
                                                                     class="item-condition-wraper input-filed p-24 mb-sm-0 mb-3">
                                                                     <input type="checkbox" class="custom-check-box"
@@ -313,7 +313,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-4 d-none">
+                                                            <div class="col-sm-4">
                                                                 <div class="item-condition-wraper input-filed p-24">
                                                                     <input type="checkbox" class="custom-check-box"
                                                                         id="item-authenticity">
