@@ -385,7 +385,7 @@
                                                 <div class="col-8">
                                                     @if(get_static_option('google_map_settings_on_off') == null)
                                                         <div class="d-flex justify-content-between gap-3">
-                                                            <div class="input-form input-form2 w-100" style="display: none;">
+                                                            <div class="input-form input-form2 w-100 d-none">
                                                                 <label class="form__input__single__label">{{ __('Select Your Country') }}</label>
                                                                 <select name="country_id" id="country_id" class="select2_activation">
                                                                     <option value="">{{ __('Select Country') }}</option>
@@ -396,7 +396,7 @@
                                                                 <span class="country_info"></span>
                                                             </div>
 
-                                                            <div class="input-form input-form2 w-100" id="city_wrapper" style="display: none;">
+                                                            <div class="input-form input-form2 w-100 d-none" id="city_wrapper">
                                                                 <label class="form__input__single__label">{{ __('Select Your State') }}</label>
                                                                 <select name="state_id" id="state_id" class="get_country_state select2_activation">
                                                                     <option value="">{{ __('Select State') }}</option>
@@ -406,7 +406,7 @@
                                                                 </select> <br>
                                                                 <span class="state_info"></span>
                                                             </div>
-                                                            <div class="input-form input-form2 w-100">
+                                                            <div class="input-form input-form2 w-100 d-none">
                                                                 <label class="form__input__single__label">{{ __('Select Your City') }}</label>
                                                                 <select name="city_id" id="city_id" class="get_state_city select2_activation">
                                                                     <option value="">{{ __('Select City') }}</option>
@@ -647,7 +647,7 @@
                     let isTurkey = /^(turkey|türkiye)$/i.test(countryText);
 
                     if (isTurkey && countryId) {
-                        $('#city_wrapper').show();
+                        $('#city_wrapper').removeClass('d-none');
                         $.ajax({
                             method: 'post',
                             url: "{{ route('au.country.city.all') }}",
@@ -670,7 +670,7 @@
                             }
                         })
                     } else {
-                        $('#city_wrapper').hide();
+                        $('#city_wrapper').addClass('d-none');
                         $(".get_state_city").html("<option value=''>{{__('Select City')}}</option>").trigger('change');
                         $(".city_info").html('');
                     }

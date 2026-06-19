@@ -508,7 +508,7 @@
                                                                     <span class="country_info"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-4">
+                                                            <div class="col-sm-4 d-none">
                                                                 <div class="country">
                                                                     <label
                                                                         for="country">{{ __('Select Your State') }}</label>
@@ -525,7 +525,7 @@
                                                                     <span class="state_info"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-4">
+                                                            <div class="col-sm-4 d-none" id="city_wrapper">
                                                                 <div class="country">
                                                                     <label
                                                                         for="country">{{ __('Select Your City') }}</label>
@@ -799,7 +799,7 @@
                     let isTurkey = /^(turkey|türkiye)$/i.test(countryText);
 
                     if (isTurkey && countryId) {
-                        $('#city_wrapper').show();
+                        $('#city_wrapper').removeClass('d-none');
                         $.ajax({
                             method: 'post',
                             url: "{{ route('au.country.city.all') }}",
@@ -822,7 +822,7 @@
                             }
                         })
                     } else {
-                        $('#city_wrapper').hide();
+                        $('#city_wrapper').addClass('d-none');
                         $(".get_state_city").html("<option value=''>{{ __('Select City') }}</option>").trigger('change');
                         $(".city_info").html('');
                     }
