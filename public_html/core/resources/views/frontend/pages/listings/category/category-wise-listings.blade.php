@@ -41,7 +41,7 @@
                     </div>
                 @endif
 
-                    <h3 class="catagory-wise-title">{{ __('Available Categories in') }} {{ $category->name }}</h3>
+                    <h3 class="catagory-wise-title">{{ $category->name }} {{ __('İçindeki Mevcut Kategoriler') }}</h3>
                     <div class="catagory-wise-list-wraper exploreCategories">
                         <div id="services_sub_category_load_wrap">
                             <div class="services_sub_category_load_wraper mt-4">
@@ -83,7 +83,7 @@
                         <section class="featureListing mb-5 mt-5">
                             <div class="container-1440">
                                 <div class="titleWithBtn d-flex justify-content-between align-items-center mb-40">
-                                    <h3 class="catagory-wise-title">{{ __('Available Listings in') }} {{ $category->name }} </h3>
+                                    <h3 class="catagory-wise-title">{{ $category->name }} {{ __('İçindeki Mevcut İlanlar') }} </h3>
                                     <form id="filter_with_listing_page_category" action="{{ url('/') .'/'. get_static_option('listing_filter_page_url') ?? url('/listings') }}" method="get">
                                         <input type="hidden" name="cat" value="{{$category->id}}"/>
                                         <a href="#" id="submit_form_listing_filter_category" class="see-all">{{ __('See All') }}<i class="las la-angle-right"></i></a>
