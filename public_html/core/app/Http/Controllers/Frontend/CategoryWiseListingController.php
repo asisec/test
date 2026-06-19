@@ -29,6 +29,7 @@ class CategoryWiseListingController extends Controller
         $listings_query = Listing::query();
         $listings_query->with('user');
 
+        /*
         $memberIds = [0];
         // get all users ids from the users table according to listing table datas
         if (moduleExists('Membership') && membershipModuleExistsAndEnable('Membership')){
@@ -47,6 +48,13 @@ class CategoryWiseListingController extends Controller
             })
           ->where(['category_id' => $category->id, 'status' => 1, 'is_published' => 1])
           ->paginate(10);
+        }
+        */
+
+        if(!is_null($category)){
+            $all_listings = $listings_query
+                ->where(['category_id' => $category->id, 'status' => 1, 'is_published' => 1])
+                ->paginate(10);
         }
 
         return view('frontend.pages.listings.category.category-wise-listings', compact(
@@ -74,6 +82,7 @@ class CategoryWiseListingController extends Controller
         $listing_query = Listing::query();
         $listing_query->with('user');
 
+        /*
         $memberIds = [0];
         // get all users ids from the users table according to listing table datas
         if (moduleExists('Membership') && membershipModuleExistsAndEnable('Membership')){
@@ -92,6 +101,13 @@ class CategoryWiseListingController extends Controller
             })
             ->where(['sub_category_id' => $subcategory->id, 'status' => 1, 'is_published' => 1])
             ->paginate(12);
+        }
+        */
+
+        if(!is_null($subcategory)){
+            $all_listings = $listing_query
+                ->where(['sub_category_id' => $subcategory->id, 'status' => 1, 'is_published' => 1])
+                ->paginate(12);
         }
 
         return view('frontend.pages.listings.category.sub-category-wise-listings', compact(
@@ -113,6 +129,7 @@ class CategoryWiseListingController extends Controller
 $listing_query = Listing::query()->latest(); // Neşteri tam buraya vurduk!
 $listing_query->with('user');
 
+        /*
         $memberIds = [0];
         // get all users ids from the users table according to listing table datas
         if (moduleExists('Membership') && membershipModuleExistsAndEnable('Membership')){
@@ -131,6 +148,13 @@ $listing_query->with('user');
             })
             ->where(['child_category_id' => $child_category->id, 'status' => 1, 'is_published' => 1])
             ->paginate(12);
+        }
+        */
+
+        if(!is_null($child_category)){
+            $all_listings = $listing_query
+                ->where(['child_category_id' => $child_category->id, 'status' => 1, 'is_published' => 1])
+                ->paginate(12);
         }
 
         return view('frontend.pages.listings.category.child-category-wise-listings', compact('all_listings','child_category'));
