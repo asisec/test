@@ -26,7 +26,16 @@
                         @endif
                     </strong>
                 </td>
-                <td>{{ $user->phone }} </td>
+                <td>
+                    {{ $user->phone }}
+                    <strong>
+                        @if($user->otp_verified == 1)
+                            <i class="fas fa-check-circle text-success"></i>
+                        @else
+                            <i class="fas fa-times-circle text-danger"></i>
+                        @endif
+                    </strong>
+                </td>
                 @if($user->is_suspend == 1)
                 <td> <x-status.table.account-status :status="$user->is_suspend"/> </td>
                 @else

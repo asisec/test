@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class VerificationController extends Controller
 {
-    public function center()
+    public function index()
     {
         return view('frontend.user.verification-center');
     }

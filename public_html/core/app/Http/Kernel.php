@@ -72,6 +72,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'userEmailVerify' => \App\Http\Middleware\UserEmailVerify::class,
         'phoneVerified' => \App\Http\Middleware\EnsurePhoneIsVerified::class,
+        'check.phone' => \App\Http\Middleware\EnsurePhoneIsVerified::class,
         'globalVariable' => \App\Http\Middleware\GlobalVariableMiddleware::class,
         'inactiveuser' => \App\Http\Middleware\InactiveUser::class,
         'adminglobalVariable' => \App\Http\Middleware\AdminGlobalVariable::class,

@@ -12,22 +12,14 @@ class EnsurePhoneIsVerified
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->is('admin/*')) {
+        if ($request->isMethod('get')) {
             return $next($request);
         }
 
-        $user = auth('web')->user();
-
-        if (! $user) {
-            return redirect()->route('user.login');
+        if (auth()->check() && auth()->user()->otp_verified != 1) {
+            return redirect()->route('user.verification.center')->with('danger', 'İlan vermek için telefonunuzu doğrulamalısınız.');
         }
 
-        if ($request->isMethod('get') || (int) $user->otp_verified === 1) {
-            return $next($request);
-        }
-
-        return redirect()
-            ->route('user.verification.center')
-            ->with('error', __('İlan oluşturabilmek için lütfen telefon numaranızı doğrulayın.'));
+        return $next($request);
     }
 }

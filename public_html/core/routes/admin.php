@@ -47,7 +47,7 @@ Route::middleware(['setlang'])->group(function () {
 
         Route::controller(\App\Http\Controllers\Backend\FastListingController::class)->group(function () {
             Route::get('/hizli-ilan-bas', 'index')->name('admin.hizli.ilan');
-            Route::post('/hizli-ilan-bas', 'store')->name('admin.hizli.ilan.store')->middleware('phoneVerified');
+            Route::post('/hizli-ilan-bas', 'store')->name('admin.hizli.ilan.store')->middleware('check.phone');
         });
 
         // admin profile settings

@@ -11,6 +11,10 @@ use App\Http\Controllers\Frontend\User\VerificationController;
 // client
 Route::group(['prefix'=>'user','as'=>'user.'],function() {
 
+    Route::get('home', function () {
+        return redirect()->route('user.dashboard');
+    })->name('home');
+
     Route::group(['middleware'=>['auth','globalVariable', 'maintains_mode','setlang']],function(){
         Route::controller(UserController::class)->group(function () {
             Route::get('profile/logout','logout')->name('logout');
@@ -35,9 +39,9 @@ Route::group(['prefix'=>'user','as'=>'user.'],function() {
         });
 
         Route::controller(VerificationController::class)->group(function () {
-            Route::get('verification-center', 'center')->name('verification.center');
-            Route::post('verification/send', 'send')->name('verification.send');
-            Route::post('verification/verify', 'verify')->name('verification.verify');
+            Route::get('verification-center', 'index')->name('verification.center');
+            Route::post('verification-center/send', 'send')->name('verification.send');
+            Route::post('verification-center/verify', 'verify')->name('verification.verify');
         });
 
         // notifications
@@ -58,7 +62,7 @@ Route::group(['prefix'=>'user','as'=>'user.'],function() {
           Route::controller(ListingController::class)->group(function () {
               Route::group(['prefix'=>'listing'],function(){
                   Route::get('all','allListing')->name('all.listing');
-                  Route::match(['get','post'],'/add','addListing')->name('add.listing')->middleware('phoneVerified');
+                  Route::match(['get','post'],'/add','addListing')->name('add.listing')->middleware('check.phone');
                   Route::match(['get','post'],'/edit/{id?}','editListing')->name('edit.listing');
                   Route::post('delete/{id?}','deleteListing')->name('delete.listing');
                   Route::post('published-on-off/{id}', 'listingPublishedStatus')->name('listing.published.status');
