@@ -24,16 +24,17 @@ class SmsOtpService
 
     public function send(string $phone, string $message): Response
     {
-        return Http::acceptJson()
-            ->asJson()
-            ->timeout(15)
-            ->post(env('SMS_OTP_ENDPOINT', 'https://api.toplusms.app/api/v1/otp'), [
-                'api_key' => env('SMS_API_KEY'),
-                'sender' => env('SMS_SENDER', 'TextileForum'),
-                'message_type' => env('SMS_MESSAGE_TYPE', 'normal'),
-                'message' => $message,
-                'phones' => [$this->normalizePhone($phone)],
-                'add_cancel_link' => filter_var(env('SMS_ADD_CANCEL_LINK', false), FILTER_VALIDATE_BOOL),
-            ]);
+        $telefon = $this->normalizePhone($phone);
+
+        return Http::acceptJson()->asJson()->timeout(15)->post('https://api.toplusms.app/api/v1/otp', [
+            'api_key' => '977edcca6820234098f19529',
+            'sender' => 'MERT YILDRM',
+            'message_type' => 'normal',
+            'message' => $message,
+            'phones' => [
+                $telefon
+            ],
+            'add_cancel_link' => false,
+        ]);
     }
 }
