@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\User\DashboardController;
 use App\Http\Controllers\Frontend\User\UserController;
 use App\Http\Controllers\Frontend\User\AccountSettingController;
 use App\Http\Controllers\Frontend\User\ListingController;
+use App\Http\Controllers\Frontend\User\VerificationController;
 
 // client
 Route::group(['prefix'=>'user','as'=>'user.'],function() {
@@ -33,6 +34,12 @@ Route::group(['prefix'=>'user','as'=>'user.'],function() {
             Route::post('account/delete','accountDelete')->name('account.delete');
         });
 
+        Route::controller(VerificationController::class)->group(function () {
+            Route::get('verification-center', 'center')->name('verification.center');
+            Route::post('verification/send', 'send')->name('verification.send');
+            Route::post('verification/verify', 'verify')->name('verification.verify');
+        });
+
         // notifications
         Route::controller(NotificationController::class)->group(function () {
             Route::group(['prefix'=>'notification'],function(){
@@ -51,7 +58,7 @@ Route::group(['prefix'=>'user','as'=>'user.'],function() {
           Route::controller(ListingController::class)->group(function () {
               Route::group(['prefix'=>'listing'],function(){
                   Route::get('all','allListing')->name('all.listing');
-                  Route::match(['get','post'],'/add','addListing')->name('add.listing');
+                  Route::match(['get','post'],'/add','addListing')->name('add.listing')->middleware('phoneVerified');
                   Route::match(['get','post'],'/edit/{id?}','editListing')->name('edit.listing');
                   Route::post('delete/{id?}','deleteListing')->name('delete.listing');
                   Route::post('published-on-off/{id}', 'listingPublishedStatus')->name('listing.published.status');

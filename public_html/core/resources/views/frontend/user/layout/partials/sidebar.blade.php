@@ -94,4 +94,12 @@
         </svg>
         <span class="ms-2">   {{ __('Settings') }}</span>
     </a>
+
+    <a href="{{ route('user.verification.center') }}" class="menu-item @if(request()->is('user/verification-center*')) active @endif">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 1.66669L3.33334 4.16669V9.16669C3.33334 13.3334 6.25001 17.2084 10 18.3334C13.75 17.2084 16.6667 13.3334 16.6667 9.16669V4.16669L10 1.66669Z" stroke="#64748B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7.5 9.16669L9.16667 10.8334L12.9167 7.08337" stroke="#64748B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="ms-2"> {{ __('Doğrulama Merkezi') }}</span>
+    </a>
 </div>

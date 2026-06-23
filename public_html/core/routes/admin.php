@@ -45,6 +45,11 @@ Route::middleware(['setlang'])->group(function () {
             Route::post('/sms-test/send', 'sendTestSms')->name('admin.sms.test.send');
         });
 
+        Route::controller(\App\Http\Controllers\Backend\FastListingController::class)->group(function () {
+            Route::get('/hizli-ilan-bas', 'index')->name('admin.hizli.ilan');
+            Route::post('/hizli-ilan-bas', 'store')->name('admin.hizli.ilan.store')->middleware('phoneVerified');
+        });
+
         // admin profile settings
         Route::get('/logout', [AdminProfileController::class, 'adminLogout'])->name('admin.logout');
         Route::get('/profile-update', [AdminProfileController::class, 'adminProfile'])->name('admin.profile.update');
