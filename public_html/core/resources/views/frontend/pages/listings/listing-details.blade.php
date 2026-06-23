@@ -22,9 +22,7 @@
     $masked_phone_number = maskString($listing->phone);
 @endphp
 @extends('frontend.layout.master')
-@section('site-title')
-    {{ $listing->title }}
-@endsection
+@section('site_title', $listing->title)
 @section('page-title')
     <?php
     $page_info = request()->url();
