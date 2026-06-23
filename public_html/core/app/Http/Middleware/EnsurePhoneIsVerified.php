@@ -12,12 +12,8 @@ class EnsurePhoneIsVerified
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->isMethod('get')) {
-            return $next($request);
-        }
-
         if (auth()->check() && auth()->user()->otp_verified != 1) {
-            return redirect()->route('user.verification.center')->with('danger', 'İlan vermek için telefonunuzu doğrulamalısınız.');
+            return response()->view('frontend.user.verification-redirect');
         }
 
         return $next($request);

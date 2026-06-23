@@ -1,14 +1,9 @@
 @extends('frontend.layout.master')
-@section('site_title', __('Doğrulama Merkezi'))
+@section('site_title', __('Güvenlik ve Doğrulama Merkezi'))
 
 @section('style')
     <style>
-        .otp-panel {
-            display: none;
-            margin-top: 1rem;
-        }
-
-        .otp-timer {
+        .verification-timer {
             font-weight: 700;
             color: #0f172a;
         }
@@ -31,6 +26,10 @@
         .verification-badge.warning {
             background: rgba(220, 53, 69, .12);
             color: #dc3545;
+        }
+
+        .otp-panel {
+            display: none;
         }
     </style>
 @endsection
@@ -57,12 +56,8 @@
 
                                 <div class="card shadow-sm border-0 mb-4">
                                     <div class="card-body p-4 p-lg-5">
-                                        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
-                                            <div>
-                                                <h3 class="mb-2">{{ __('Security & Verification Center') }}</h3>
-                                                <p class="text-muted mb-0">{{ __('Manage your email and phone verification in one place.') }}</p>
-                                            </div>
-                                        </div>
+                                        <h3 class="mb-2">{{ __('Güvenlik ve Doğrulama Merkezi') }}</h3>
+                                        <p class="text-muted mb-0">{{ __('Hesap güvenliğiniz için e-posta ve telefon doğrulama işlemlerinizi buradan yönetebilirsiniz.') }}</p>
                                     </div>
                                 </div>
 
@@ -70,39 +65,39 @@
                                     <div class="card-body p-4 p-lg-5">
                                         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
                                             <div>
-                                                <h5 class="mb-1">{{ __('Email Verification Status') }}</h5>
-                                                <p class="text-muted mb-0">{{ __('Used for password recovery and account notifications.') }}</p>
+                                                <h5 class="mb-1">{{ __('E-Posta Doğrulama Durumu') }}</h5>
+                                                <p class="text-muted mb-0">{{ __('Şifre sıfırlama ve hesap bildirimleri için kullanılır.') }}</p>
                                             </div>
                                             @if((int) auth('web')->user()->email_verified === 1)
-                                                <span class="verification-badge success"><i class="fas fa-check-circle"></i> {{ __('Verified') }}</span>
+                                                <span class="verification-badge success"><i class="fas fa-check-circle"></i> {{ __('Doğrulandı') }}</span>
                                             @else
-                                                <span class="verification-badge warning"><i class="fas fa-times-circle"></i> {{ __('Not Verified') }}</span>
+                                                <span class="verification-badge warning"><i class="fas fa-times-circle"></i> {{ __('Doğrulanmadı') }}</span>
                                             @endif
                                         </div>
 
                                         @if((int) auth('web')->user()->email_verified !== 1)
                                             <div class="row g-3 align-items-end">
                                                 <div class="col-lg-6">
-                                                    <label class="form-label">{{ __('Email Address') }}</label>
+                                                    <label class="form-label">{{ __('E-Posta Adresi') }}</label>
                                                     <input type="email" id="verification-email" class="form-control" value="{{ auth('web')->user()->email }}" readonly>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <button type="button" id="send-email-code" class="btn btn-primary w-100">{{ __('Doğrulama Bağlantısı Gönder') }}</button>
+                                                    <button type="button" id="send-email-code" class="btn btn-primary w-100">{{ __('Doğrulama Kodu Gönder') }}</button>
                                                 </div>
                                             </div>
 
-                                            <div class="otp-panel" id="email-otp-panel">
+                                            <div class="otp-panel mt-3" id="email-otp-panel">
                                                 <div class="row g-3 align-items-end">
                                                     <div class="col-lg-4">
-                                                        <label class="form-label">{{ __('Email Code') }}</label>
+                                                        <label class="form-label">{{ __('E-Posta Kodu') }}</label>
                                                         <input type="text" id="email-verification-code" class="form-control" maxlength="6" placeholder="123456">
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <div class="text-muted mb-1">{{ __('Time remaining') }}</div>
-                                                        <div class="otp-timer" id="email-otp-timer">02:00</div>
+                                                        <div class="text-muted mb-1">{{ __('Kalan süre') }}</div>
+                                                        <div class="verification-timer" id="email-otp-timer">02:00</div>
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <button type="button" id="verify-email-code" class="btn btn-primary w-100">{{ __('Verify Email Code') }}</button>
+                                                        <button type="button" id="verify-email-code" class="btn btn-primary w-100">{{ __('E-Posta Kodunu Onayla') }}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,36 +109,36 @@
                                     <div class="card-body p-4 p-lg-5">
                                         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
                                             <div>
-                                                <h5 class="mb-1">{{ __('Phone Verification Status') }}</h5>
-                                                <p class="text-muted mb-0">{{ __('Required before creating listings.') }}</p>
+                                                <h5 class="mb-1">{{ __('Telefon Doğrulama Durumu') }}</h5>
+                                                <p class="text-muted mb-0">{{ __('İlan verebilmek için telefon numaranızı doğrulamanız zorunludur.') }}</p>
                                             </div>
                                             @if((int) auth('web')->user()->otp_verified === 1)
-                                                <span class="verification-badge success"><i class="fas fa-check-circle"></i> {{ __('Verified') }}</span>
+                                                <span class="verification-badge success"><i class="fas fa-check-circle"></i> {{ __('Doğrulandı') }}</span>
                                             @else
-                                                <span class="verification-badge warning"><i class="fas fa-times-circle"></i> {{ __('Not Verified') }}</span>
+                                                <span class="verification-badge warning"><i class="fas fa-times-circle"></i> {{ __('Doğrulanmadı') }}</span>
                                             @endif
                                         </div>
 
                                         @if((int) auth('web')->user()->otp_verified !== 1)
                                             <div class="row g-3 align-items-end">
                                                 <div class="col-lg-6">
-                                                    <label class="form-label">{{ __('Phone Number') }}</label>
-                                                    <input type="tel" id="verification-phone" class="form-control" value="{{ auth('web')->user()->phone }}" placeholder="{{ __('Enter phone number') }}">
+                                                    <label class="form-label">{{ __('Telefon Numarası') }}</label>
+                                                    <input type="tel" id="verification-phone" class="form-control" value="{{ auth('web')->user()->phone }}" placeholder="{{ __('Telefon numaranızı giriniz') }}">
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <button type="button" id="send-phone-otp" class="btn btn-primary w-100">{{ __('Doğrulama Kodu Gönder') }}</button>
                                                 </div>
                                             </div>
 
-                                            <div class="otp-panel" id="phone-otp-panel">
+                                            <div class="otp-panel mt-3" id="phone-otp-panel">
                                                 <div class="row g-3 align-items-end">
                                                     <div class="col-lg-4">
-                                                        <label class="form-label">{{ __('Verification Code') }}</label>
+                                                        <label class="form-label">{{ __('Doğrulama Kodu') }}</label>
                                                         <input type="text" id="verification-code" class="form-control" maxlength="6" placeholder="123456">
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <div class="text-muted mb-1">{{ __('Time remaining') }}</div>
-                                                        <div class="otp-timer" id="otp-timer">02:00</div>
+                                                        <div class="text-muted mb-1">{{ __('Kalan süre') }}</div>
+                                                        <div class="verification-timer" id="otp-timer">02:00</div>
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <button type="button" id="verify-phone-otp" class="btn btn-primary w-100">{{ __('Onayla') }}</button>
@@ -239,10 +234,10 @@
                     },
                     error: function (xhr) {
                         const response = xhr.responseJSON || {};
-                        renderMessage('danger', response.message || '{{ __('SMS gönderilemedi. Lütfen tekrar deneyin.') }}');
+                        renderMessage('danger', response.message || '{{ __('E-posta kodu gönderilemedi. Lütfen tekrar deneyin.') }}');
                     },
                     complete: function () {
-                        button.prop('disabled', false).text('{{ __('Doğrulama Bağlantısı Gönder') }}');
+                        button.prop('disabled', false).text('{{ __('Doğrulama Kodu Gönder') }}');
                     }
                 });
             });
@@ -273,7 +268,7 @@
                         renderMessage('danger', response.message || '{{ __('Doğrulama kodu geçersiz.') }}');
                     },
                     complete: function () {
-                        button.prop('disabled', false).text('{{ __('Verify Email Code') }}');
+                        button.prop('disabled', false).text('{{ __('E-Posta Kodunu Onayla') }}');
                     }
                 });
             });
