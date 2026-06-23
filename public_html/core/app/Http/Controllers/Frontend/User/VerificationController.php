@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Frontend\User;
 
 use App\Http\Controllers\Controller;
-use App\Mail\BasicMail;
 use App\Models\PhoneVerification;
 use App\Models\User;
 use App\Services\SmsOtpService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
+use App\Mail\BasicMail;
 
 class VerificationController extends Controller
 {
@@ -28,12 +29,50 @@ class VerificationController extends Controller
             return response()->json(['status' => false, 'message' => __('Unauthenticated')], 401);
         }
 
-        $existingSend = RateLimiter::tooManyAttempts('phone-verification-send:'.$user->id, 1);
+        $channel = $request->input('channel', 'sms');
+        $rateKey = $channel === 'email' ? 'email-verification-send:' . $user->id : 'phone-verification-send:' . $user->id;
+
+        $existingSend = RateLimiter::tooManyAttempts($rateKey, 1);
 
         if ($existingSend) {
-            $seconds = RateLimiter::availableIn('phone-verification-send:'.$user->id);
+            $seconds = RateLimiter::availableIn($rateKey);
 
             return $this->respond($request, false, __('Lütfen tekrar denemeden önce :seconds saniye bekleyin.', ['seconds' => $seconds]));
+        }
+
+        $code = (string) random_int(100000, 999999);
+
+        if ($channel === 'email') {
+            PhoneVerification::query()
+                ->where('user_id', $user->id)
+                ->where('type', 'email')
+                ->where('is_used', false)
+                ->update(['is_used' => true]);
+
+            PhoneVerification::create([
+                'user_id' => $user->id,
+                'code' => $code,
+                'type' => 'email',
+                'expires_at' => now()->addMinutes(5),
+                'is_used' => false,
+            ]);
+
+            try {
+                Mail::to($user->email)->send(new BasicMail([
+                    'subject' => __('Email Verification Code'),
+                    'message' => __('Your verification code is :code', ['code' => $code]),
+                ]));
+            } catch (\Throwable $exception) {
+                Log::error('Email Verification Error: ' . $exception->getMessage());
+
+                return $this->respond($request, false, __('Email gönderilemedi. Lütfen tekrar deneyin.'));
+            }
+
+            RateLimiter::hit($rateKey, 120);
+
+            return $this->respond($request, true, __('Doğrulama kodu e-posta adresinize gönderildi.'), [
+                'expires_in' => 300,
+            ]);
         }
 
         $phone = trim((string) $request->input('phone', $user->phone));
@@ -57,8 +96,6 @@ class VerificationController extends Controller
             $user->forceFill(['phone' => $normalizedPhone])->save();
         }
 
-        $code = (string) random_int(100000, 999999);
-
         PhoneVerification::query()
             ->where('user_id', $user->id)
             ->where('type', 'sms')
@@ -77,18 +114,19 @@ class VerificationController extends Controller
             $response = $smsOtpService->send($normalizedPhone, __('TextileForum güvenlik kodunuz: :code. Lütfen kimseyle paylaşmayınız.', ['code' => $code]));
 
             if (! $response->successful()) {
+                Log::error('SMS Error: ' . $response->body());
                 $verification->delete();
 
                 return $this->respond($request, false, __('SMS gönderilemedi. Lütfen tekrar deneyin.'));
             }
         } catch (\Throwable $exception) {
-            report($exception);
+            Log::error('SMS Error: ' . $exception->getMessage());
             $verification->delete();
 
             return $this->respond($request, false, __('SMS gönderilemedi. Lütfen tekrar deneyin.'));
         }
 
-        RateLimiter::hit('phone-verification-send:'.$user->id, 120);
+        RateLimiter::hit($rateKey, 120);
 
         return $this->respond($request, true, __('Doğrulama kodu telefonunuza gönderildi.'), [
             'expires_in' => 300,
@@ -99,6 +137,7 @@ class VerificationController extends Controller
     {
         $request->validate([
             'code' => ['required', 'digits:6'],
+            'channel' => ['nullable', 'in:sms,email'],
         ]);
 
         $user = auth('web')->user();
@@ -107,9 +146,11 @@ class VerificationController extends Controller
             return response()->json(['status' => false, 'message' => __('Unauthenticated')], 401);
         }
 
+        $channel = $request->input('channel', 'sms');
+
         $verification = PhoneVerification::query()
             ->where('user_id', $user->id)
-            ->where('type', 'sms')
+            ->where('type', $channel)
             ->where('code', (string) $request->input('code'))
             ->where('is_used', false)
             ->where('expires_at', '>', now())
@@ -121,8 +162,13 @@ class VerificationController extends Controller
         }
 
         $verification->forceFill(['is_used' => true])->save();
-        User::where('id', $user->id)->update(['otp_verified' => 1]);
-        RateLimiter::clear('phone-verification-send:'.$user->id);
+        if ($channel === 'sms') {
+            User::where('id', $user->id)->update(['otp_verified' => 1]);
+            RateLimiter::clear('phone-verification-send:'.$user->id);
+        } else {
+            User::where('id', $user->id)->update(['email_verified' => 1]);
+            RateLimiter::clear('email-verification-send:'.$user->id);
+        }
 
         return $this->respond($request, true, __('Telefon numaranız doğrulandı.'));
     }

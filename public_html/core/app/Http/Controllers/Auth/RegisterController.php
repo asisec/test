@@ -237,20 +237,7 @@ class RegisterController extends Controller
 
 
             if($user){
-                //send OTP to user Email
-                if (!empty(get_static_option('user_email_verify_enable_disable'))){
-                    try {
-                        Mail::to($user->email)->send(new BasicMail([
-                            'subject' =>  __('Otp Email'),
-                            'message' => __('Your otp code').' '.$email_verify_tokn
-                        ]));
-                    }
-                    catch (\Exception $e) {}
-                }
-
-                $user_request_password = $request->password;
-                // Dispatch job to send welcome email in the background
-                dispatch(new SendRegisterUserEmailJob($user,$user_request_password));
+                // Silent registration: no OTP or welcome email on signup.
             }
 
             if (Auth::guard('web')->attempt(['username' => $request->username, 'password' => $request->password])) {

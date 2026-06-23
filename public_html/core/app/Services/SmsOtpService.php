@@ -11,10 +11,12 @@ class SmsOtpService
     {
         $normalizedPhone = preg_replace('/[^0-9]/', '', $phone);
 
+        $normalizedPhone = ltrim($normalizedPhone, '0');
+
         if (strlen($normalizedPhone) === 10) {
             $normalizedPhone = env('SMS_DEFAULT_COUNTRY_CODE', '90') . $normalizedPhone;
-        } elseif (strlen($normalizedPhone) === 11 && str_starts_with($normalizedPhone, '0')) {
-            $normalizedPhone = env('SMS_DEFAULT_COUNTRY_CODE', '90') . substr($normalizedPhone, 1);
+        } elseif (strlen($normalizedPhone) === 12 && str_starts_with($normalizedPhone, env('SMS_DEFAULT_COUNTRY_CODE', '90'))) {
+            return $normalizedPhone;
         }
 
         return $normalizedPhone;
