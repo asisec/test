@@ -111,7 +111,7 @@ class FastListingController extends Controller
             DB::table('listings')->insert([
                 'user_id' => $userId,
                 'image' => $mainMediaId, // İlk fotoğrafın ID'si
-                'gallery_images' => implode(',', $allMediaIds), // Bütün fotoğrafların yolları (JSON Array)
+                'gallery_images' => implode('|', $allMediaIds), // Bütün fotoğrafların yolları (pipe-separated)
                 'title' => $request->title,
                 'slug' => Str::slug($request->title) . '-' . rand(1000, 9999),
                 'description' => $request->description,
