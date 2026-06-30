@@ -69,7 +69,7 @@
                                                 <span class="text-muted">—</span>
                                             @endif
                                         </td>
-                                        <td>{{ $banner->position === 'bottom' ? __('Alt') : __('Üst') }}</td>
+                                        <td>{{ ['top_1' => 'Üst 1 (Sol)', 'top_2' => 'Üst 2 (Sağ)', 'bottom_1' => 'Alt 1 (Sol)', 'bottom_2' => 'Alt 2 (Sağ)'][$banner->position] ?? $banner->position }}</td>
                                         <td>
                                             <form action="{{ route('admin.banner.toggle', $banner->id) }}" method="POST" class="d-inline">
                                                 @csrf
@@ -147,8 +147,10 @@
                         <div class="mb-3">
                             <label for="banner_position" class="form-label fw-semibold">{{ __('Konum') }}</label>
                             <select class="form-select" id="banner_position" name="position">
-                                <option value="top" {{ old('position') !== 'bottom' ? 'selected' : '' }}>{{ __('Üst') }}</option>
-                                <option value="bottom" {{ old('position') === 'bottom' ? 'selected' : '' }}>{{ __('Alt') }}</option>
+                                <option value="top_1" {{ old('position') === 'top_1' || old('position') === null ? 'selected' : '' }}>{{ __('Üst 1 (Sol)') }}</option>
+                                <option value="top_2" {{ old('position') === 'top_2' ? 'selected' : '' }}>{{ __('Üst 2 (Sağ)') }}</option>
+                                <option value="bottom_1" {{ old('position') === 'bottom_1' ? 'selected' : '' }}>{{ __('Alt 1 (Sol)') }}</option>
+                                <option value="bottom_2" {{ old('position') === 'bottom_2' ? 'selected' : '' }}>{{ __('Alt 2 (Sağ)') }}</option>
                             </select>
                         </div>
                         <div class="mb-3">

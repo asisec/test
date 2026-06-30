@@ -1,8 +1,24 @@
-@foreach(\App\Models\Banner::where('is_active', 1)->where('position', 'top')->get() as $banner)
-    <div class="mt-3 mb-3 text-center">
-        <a href="{{ $banner->url }}"><img src="{{ asset($banner->image) }}" class="img-fluid w-100"></a>
+@php
+    $top1 = \App\Models\Banner::where('is_active', 1)->where('position', 'top_1')->first();
+    $top2 = \App\Models\Banner::where('is_active', 1)->where('position', 'top_2')->first();
+@endphp
+
+@if($top1 || $top2)
+<div class="container mt-3 mb-3">
+    <div class="row">
+        @if($top1)
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+            <a href="{{ $top1->url }}"><img src="{{ asset($top1->image) }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
+        </div>
+        @endif
+        @if($top2)
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+            <a href="{{ $top2->url }}"><img src="{{ asset($top2->image) }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
+        </div>
+        @endif
     </div>
-@endforeach
+</div>
+@endif
 
 @section('style')
     <style>
@@ -389,8 +405,24 @@ $(document).ready(function () {
 });
 </script>
 @endsection
-@foreach(\App\Models\Banner::where('is_active', 1)->where('position', 'bottom')->get() as $banner)
-    <div class="mt-3 mb-3 text-center">
-        <a href="{{ $banner->url }}"><img src="{{ asset($banner->image) }}" class="img-fluid w-100"></a>
+@php
+    $bottom1 = \App\Models\Banner::where('is_active', 1)->where('position', 'bottom_1')->first();
+    $bottom2 = \App\Models\Banner::where('is_active', 1)->where('position', 'bottom_2')->first();
+@endphp
+
+@if($bottom1 || $bottom2)
+<div class="container mt-3 mb-3">
+    <div class="row">
+        @if($bottom1)
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+            <a href="{{ $bottom1->url }}"><img src="{{ asset($bottom1->image) }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
+        </div>
+        @endif
+        @if($bottom2)
+        <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+            <a href="{{ $bottom2->url }}"><img src="{{ asset($bottom2->image) }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
+        </div>
+        @endif
     </div>
-@endforeach
+</div>
+@endif

@@ -28,7 +28,7 @@ class BannerController extends Controller
             'title'    => 'nullable|string|max:255',
             'image'    => 'required|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
             'url'      => 'nullable|url|max:500',
-            'position' => 'nullable|in:top,bottom',
+            'position' => 'nullable|in:top_1,top_2,bottom_1,bottom_2',
         ]);
 
         // Handle image upload
@@ -46,7 +46,7 @@ class BannerController extends Controller
             'image'     => 'assets/images/banners/' . $imageName,
             'url'       => $request->url,
             'is_active' => $request->has('is_active') ? 1 : 0,
-            'position'  => $request->input('position', 'top'),
+            'position'  => $request->input('position', 'top_1'),
         ]);
 
         return redirect()->route('admin.banner.index')
