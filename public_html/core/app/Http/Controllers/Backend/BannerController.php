@@ -32,7 +32,7 @@ class BannerController extends Controller
         ]);
 
         // Handle image upload
-        $uploadPath = public_path('assets/images/banners');
+        $uploadPath = base_path('../assets/images/banners');
         if (!File::exists($uploadPath)) {
             File::makeDirectory($uploadPath, 0755, true);
         }
@@ -61,7 +61,7 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         // Delete the physical image file
-        $imagePath = public_path($banner->image);
+        $imagePath = base_path('../' . $banner->image);
         if (File::exists($imagePath)) {
             File::delete($imagePath);
         }
