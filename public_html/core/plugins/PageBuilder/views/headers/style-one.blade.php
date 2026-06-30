@@ -1,22 +1,8 @@
-<body>
-    <div class="desktop-banner-container">
-        <a href="/iletisim" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/ana-sayfa/masaustu/1.gif" alt="Sol Desktop Banner">
-        </a>
-        <a href="/iletisim" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/ana-sayfa/masaustu/2.gif" alt="Sağ Desktop Banner">
-        </a>
+@foreach(\App\Models\Banner::where('is_active', 1)->where('position', 'top')->get() as $banner)
+    <div class="mt-3 mb-3 text-center">
+        <a href="{{ $banner->url }}"><img src="{{ asset($banner->image) }}" class="img-fluid w-100"></a>
     </div>
-
-    <div class="mobile-banner-container">
-        <a href="/iletisim" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/ana-sayfa/mobil/1.gif" alt="Sol Mobile Banner">
-        </a>
-        <a href="/iletisim" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/ana-sayfa/mobil/2.gif" alt="Sağ Mobile Banner">
-        </a>
-    </div>
-</body>
+@endforeach
 
 @section('style')
     <style>
@@ -403,76 +389,8 @@ $(document).ready(function () {
 });
 </script>
 @endsection
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Banner Yapısı</title>
-    <style>
-        body {
-            background-color: #FFFFFF;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .desktop-banner-container, .mobile-banner-container {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            padding: 5px;
-        }
-
-        .desktop-banner-container img, .mobile-banner-container img {
-            border-radius: 3px;
-        }
-
-        /* Masaüstü için görünüm */
-        @media (min-width: 1024px) {
-            .desktop-banner-container {
-                display: flex;
-            }
-
-            .desktop-banner-container img {
-                width: 728px;
-                height: 90px;
-            }
-        }
-
-        /* Mobil için görünüm */
-        @media (max-width: 1023px) {
-            .mobile-banner-container {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .mobile-banner-container img {
-                width: 100%;
-                height: auto;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Masaüstü Banner'ları -->
-    <div class="desktop-banner-container">
-        <a href="https://example.com/sol" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/ana-sayfa/masaustu/3.gif" alt="Sol Desktop Banner">
-        </a>
-        <a href="https://example.com/sag" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/ana-sayfa/masaustu/4.gif" alt="Sağ Desktop Banner">
-        </a>
+@foreach(\App\Models\Banner::where('is_active', 1)->where('position', 'bottom')->get() as $banner)
+    <div class="mt-3 mb-3 text-center">
+        <a href="{{ $banner->url }}"><img src="{{ asset($banner->image) }}" class="img-fluid w-100"></a>
     </div>
-
-    <!-- Mobil Banner'ları -->
-    <div class="mobile-banner-container">
-        <a href="https://example.com/sol" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/ana-sayfa/mobil/3.gif" alt="Sol Mobile Banner">
-        </a>
-        <a href="https://example.com/sag" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/ana-sayfa/mobil/4.gif" alt="Sağ Mobile Banner">
-        </a>
-    </div>
-</body>
-</html>
+@endforeach
