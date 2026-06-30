@@ -1,4 +1,14 @@
 @include('frontend.layout.partials.header')
+@php $banners = \App\Models\Banner::where('is_active', 1)->get()->groupBy('position'); @endphp
+@if(!empty($banners['top']))
+    <div class="banner-area banner-top">
+        @foreach($banners['top'] as $banner)
+            @if($banner->url)<a href="{{ $banner->url }}">@endif
+            <img src="{{ asset($banner->image) }}" alt="{{ $banner->title ?? '' }}" style="width:100%;display:block;">
+            @if($banner->url)</a>@endif
+        @endforeach
+    </div>
+@endif
 @include('frontend.layout.partials.navbar')
 @if (!empty($page_post) && $page_post->breadcrumb_status == 'on')
     <div class="@if(Request::is('about') || Request::is('listings')) container-1920 plr1 @else container-1440 @endif">
@@ -12,5 +22,15 @@
 @endif
 
 @yield('content')
+
+@if(!empty($banners['bottom']))
+    <div class="banner-area banner-bottom">
+        @foreach($banners['bottom'] as $banner)
+            @if($banner->url)<a href="{{ $banner->url }}">@endif
+            <img src="{{ asset($banner->image) }}" alt="{{ $banner->title ?? '' }}" style="width:100%;display:block;">
+            @if($banner->url)</a>@endif
+        @endforeach
+    </div>
+@endif
 
 @include('frontend.layout.partials.footer')

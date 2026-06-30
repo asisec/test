@@ -25,9 +25,10 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'nullable|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
-            'url'   => 'nullable|url|max:500',
+            'title'    => 'nullable|string|max:255',
+            'image'    => 'required|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
+            'url'      => 'nullable|url|max:500',
+            'position' => 'nullable|in:top,bottom',
         ]);
 
         // Handle image upload
@@ -45,6 +46,7 @@ class BannerController extends Controller
             'image'     => 'assets/images/banners/' . $imageName,
             'url'       => $request->url,
             'is_active' => $request->has('is_active') ? 1 : 0,
+            'position'  => $request->input('position', 'top'),
         ]);
 
         return redirect()->route('admin.banner.index')

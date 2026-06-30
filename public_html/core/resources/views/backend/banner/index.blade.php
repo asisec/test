@@ -45,8 +45,9 @@
                                     <th>{{ __('Görsel') }}</th>
                                     <th>{{ __('Başlık') }}</th>
                                     <th>{{ __('URL') }}</th>
-                                    <th>{{ __('Durum') }}</th>
-                                    <th>{{ __('İşlemler') }}</th>
+                                     <th>{{ __('Konum') }}</th>
+                                     <th>{{ __('Durum') }}</th>
+                                     <th>{{ __('İşlemler') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,6 +69,7 @@
                                                 <span class="text-muted">—</span>
                                             @endif
                                         </td>
+                                        <td>{{ $banner->position === 'bottom' ? __('Alt') : __('Üst') }}</td>
                                         <td>
                                             <form action="{{ route('admin.banner.toggle', $banner->id) }}" method="POST" class="d-inline">
                                                 @csrf
@@ -92,7 +94,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center text-muted py-4">
+                                        <td colspan="7" class="text-center text-muted py-4">
                                             <i class="las la-image" style="font-size: 2rem;"></i>
                                             <p class="mt-2">{{ __('Henüz banner eklenmemiş.') }}</p>
                                         </td>
@@ -141,6 +143,13 @@
                             <label for="banner_url" class="form-label fw-semibold">{{ __('Yönlendirme URL') }} <span class="text-muted">({{ __('İsteğe bağlı') }})</span></label>
                             <input type="url" class="form-control" id="banner_url" name="url"
                                    placeholder="https://example.com" value="{{ old('url') }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="banner_position" class="form-label fw-semibold">{{ __('Konum') }}</label>
+                            <select class="form-select" id="banner_position" name="position">
+                                <option value="top" {{ old('position') !== 'bottom' ? 'selected' : '' }}>{{ __('Üst') }}</option>
+                                <option value="bottom" {{ old('position') === 'bottom' ? 'selected' : '' }}>{{ __('Alt') }}</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-switch">
