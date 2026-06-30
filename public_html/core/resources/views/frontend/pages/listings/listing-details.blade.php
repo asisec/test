@@ -157,74 +157,57 @@
             <div class="bradecrumb-wraper-div">
 
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Banner Yapısı</title>
+    @php
+        $activeBanners = \App\Models\Banner::where('is_active', 1)->get();
+    @endphp
+
+    @if($activeBanners->isNotEmpty())
     <style>
         .custom-banner-container {
             background-color: #FFFFFF;
         }
-
-        .custom-banner-container .desktop-banner-container, 
-        .custom-banner-container .mobile-banner-container {
-            display: none;
+        .custom-banner-container .dynamic-banner-wrapper {
+            display: flex;
             justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
             gap: 20px;
             padding: 5px;
         }
-
-        .custom-banner-container .desktop-banner-container img, 
-        .custom-banner-container .mobile-banner-container img {
+        .custom-banner-container .dynamic-banner-wrapper img {
             border-radius: 3px;
+            max-width: 100%;
+            height: auto;
         }
-
-        /* Masaüstü için görünüm */
         @media (min-width: 1024px) {
-            .custom-banner-container .desktop-banner-container {
-                display: flex;
-            }
-
-            .custom-banner-container .desktop-banner-container img {
-                width: 728px;
-                height: 90px;
+            .custom-banner-container .dynamic-banner-wrapper img {
+                max-height: 90px;
+                width: auto;
             }
         }
-
-        /* Mobil için görünüm */
         @media (max-width: 1023px) {
-            .custom-banner-container .mobile-banner-container {
-                display: flex;
+            .custom-banner-container .dynamic-banner-wrapper {
                 flex-direction: column;
             }
-
-            .custom-banner-container .mobile-banner-container img {
+            .custom-banner-container .dynamic-banner-wrapper img {
                 width: 100%;
-                height: auto;
             }
         }
     </style>
-
     <div class="custom-banner-container">
-        <!-- Masaüstü Banner'ları -->
-        <div class="desktop-banner-container">
-            <a href="https://example.com/sol" target="_blank">
-                <img src="https://textileforum.net/banner-resimleri/urun-sayfasi/masaustu/1.gif" alt="Sol Desktop Banner">
-            </a>
-            <a href="https://example.com/sag" target="_blank">
-                <img src="https://textileforum.net/banner-resimleri/urun-sayfasi/masaustu/2.gif" alt="Sağ Desktop Banner">
-            </a>
-        </div>
-
-        <!-- Mobil Banner'ları -->
-        <div class="mobile-banner-container">
-            <a href="https://example.com/sol" target="_blank">
-                <img src="https://textileforum.net/banner-resimleri/urun-sayfasi/mobil/1.gif" alt="Sol Mobile Banner">
-            </a>
+        <div class="dynamic-banner-wrapper">
+            @foreach($activeBanners as $banner)
+                @if($banner->url)
+                    <a href="{{ $banner->url }}" target="_blank" rel="noopener noreferrer">
+                        <img src="{{ asset($banner->image) }}" alt="{{ $banner->title ?? 'Banner' }}">
+                    </a>
+                @else
+                    <img src="{{ asset($banner->image) }}" alt="{{ $banner->title ?? 'Banner' }}">
+                @endif
+            @endforeach
         </div>
     </div>
-</body>
-</html>
+    @endif
 
                 <x-breadcrumb.user-profile-breadcrumb
                     :title="''"

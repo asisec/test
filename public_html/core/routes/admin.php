@@ -452,6 +452,14 @@ Route::middleware(['setlang'])->group(function () {
         Route::get('/hizli-ilan-bas', [\App\Http\Controllers\Backend\FastListingController::class, 'index'])->name('admin.hizli.ilan');
         Route::post('/hizli-ilan-bas', [\App\Http\Controllers\Backend\FastListingController::class, 'store'])->name('admin.hizli.ilan.store');
 
+        /*------------------ BANNER YÖNETİMİ --------------*/
+        Route::prefix('banners')->group(function () {
+            Route::get('/index', [\App\Http\Controllers\Backend\BannerController::class, 'index'])->name('admin.banner.index');
+            Route::post('/store', [\App\Http\Controllers\Backend\BannerController::class, 'store'])->name('admin.banner.store');
+            Route::post('/delete/{id}', [\App\Http\Controllers\Backend\BannerController::class, 'destroy'])->name('admin.banner.destroy');
+            Route::post('/toggle/{id}', [\App\Http\Controllers\Backend\BannerController::class, 'toggle'])->name('admin.banner.toggle');
+        });
+
 });
 
 
