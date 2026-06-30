@@ -155,3 +155,5 @@ Route::group(['middleware' => ['globalVariable', 'maintains_mode','setlang']], f
 
 
 //Tüp taktırdım hız deneme 1-2-3
+
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index']);
