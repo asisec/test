@@ -51,6 +51,13 @@ Route::group(['prefix'=>'user','as'=>'user.'],function() {
             });
         });
 
+          //seller profile verify
+          Route::post('user-profile-verify', [AccountSettingController::class, 'userProfileVerify'])->name('profile.verify');
+
+    });
+
+    // dashboard, add listing, and other routes - NO EMAIL VERIFICATION REQUIRED, only auth and phone verification
+    Route::group(['middleware'=>['auth','globalVariable', 'maintains_mode','setlang']],function(){
         //dashboard
         Route::controller(DashboardController::class)->group(function () {
             Route::group(['prefix'=>'dashboard'],function(){
@@ -58,13 +65,6 @@ Route::group(['prefix'=>'user','as'=>'user.'],function() {
             });
         });
 
-          //seller profile verify
-          Route::post('user-profile-verify', [AccountSettingController::class, 'userProfileVerify'])->name('profile.verify');
-
-    });
-
-    // add listing - NO EMAIL VERIFICATION REQUIRED, only auth and phone verification
-    Route::group(['middleware'=>['auth','globalVariable', 'maintains_mode','setlang']],function(){
         Route::controller(ListingController::class)->group(function () {
             Route::group(['prefix'=>'listing'],function(){
                 Route::get('all','allListing')->name('all.listing');
