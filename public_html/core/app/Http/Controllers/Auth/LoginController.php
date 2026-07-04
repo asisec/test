@@ -39,7 +39,7 @@ class LoginController extends Controller
      */
     public function redirectTo()
     {
-        return route('user.dashboard');
+        return route('user.home');
     }
 
     /**

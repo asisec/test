@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="col-lg-6 col-md-12">
-                                <label class="infoTitle">{{ __('Password') }} <small class="text-muted">(En az 1 büyük, 1 küçük harf ve 1 sayı içermelidir)</small></label>
+                                <label class="infoTitle">{{ __('Password') }}</label>
                                 <div class="input-form">
                                     <input type="password" name="password" id="password" placeholder="{{ __('Type Password') }}">
                                     <div class="icon"> <i class="las la-lock icon"></i></div>

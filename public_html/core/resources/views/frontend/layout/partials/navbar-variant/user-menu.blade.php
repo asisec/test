@@ -197,7 +197,7 @@
         <x-frontend.user.user-profile-image/>
     </li>
 @endif
-@auth
+@if(Auth::check())
     <li class="single">
         <div class="btn-wrapper">
             <a href="{{ route('user.add.listing') }}"  class="cmn-btn1 popup-modal">
@@ -208,27 +208,12 @@
 @else
     <li class="single">
         <div class="btn-wrapper">
-            <a href="javascript:void(0)" onclick="showGuestAlert()" class="cmn-btn1 popup-modal">
+            <a href="{{ route('guest.add.listing') }}"  class="cmn-btn1 popup-modal">
                 <i class="las la-plus-circle"></i><span class="text">{{ __('Post your ad') }}</span>
             </a>
         </div>
     </li>
-    <script>
-        function showGuestAlert() {
-            let alertBox = document.createElement('div');
-            alertBox.innerHTML = 'Önce kayıt adımlarını tamamlayın.';
-            alertBox.style.cssText = 'position:fixed; top:20px; right:20px; background:#dc3545; color:white; padding:15px 25px; border-radius:5px; z-index:9999; font-weight:bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: opacity 0.5s;';
-            document.body.appendChild(alertBox);
-            
-            setTimeout(() => {
-                alertBox.style.opacity = '0';
-                setTimeout(() => alertBox.remove(), 500);
-            }, 15000);
-            
-            setTimeout(() => { window.location.href = "{{ route('login') }}"; }, 2000);
-        }
-    </script>
-@endauth
+@endif
 <li class="single" style="margin-left: 20px !important;">
     <div class="dropdown">
         @if ($activeLanguage)

@@ -12,10 +12,9 @@ class EnsurePhoneIsVerified
      */
     public function handle(Request $request, Closure $next)
     {
-        // SMS/Phone verification check disabled - users can proceed without verification
-        // if (auth()->check() && auth()->user()->otp_verified != 1) {
-        //     return response()->view('frontend.user.verification-redirect');
-        // }
+        if (auth()->check() && auth()->user()->otp_verified != 1) {
+            return response()->view('frontend.user.verification-redirect');
+        }
 
         return $next($request);
     }

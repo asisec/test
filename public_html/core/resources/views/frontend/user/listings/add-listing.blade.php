@@ -264,7 +264,17 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                             <!-- Sub Category removed per business requirements -->
+                                                            <div class="col-sm-4">
+                                                                <div class="item-subcatagory-wraper">
+                                                                    <label
+                                                                        for="item-subcatagory">{{ __('Sub Category') }}</label>
+                                                                    <select name="sub_category_id" id="subcategory"
+                                                                        class="subcategory select2_activation">
+                                                                        <option value="">
+                                                                            {{ __('Select Sub Category') }}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                             <div class="col-sm-4">
                                                                 <div class="item-subcatagory-wraper">
                                                                     <label
@@ -564,7 +574,12 @@
                                                         placeholder="{{ __('Address') }}">
                                                 </div>
                                             </div>
-                                            <!-- Video URL removed per business requirements -->
+                                            <div class="video box-shadow1 p-24 mt-3 mb-3">
+                                                <label for="vedio-link">{{ __('Video Url') }}</label>
+                                                <input type="text" class="input-filed w-100" name="video_url"
+                                                    id="video_url" value="{{ old('video_url') }}"
+                                                    placeholder="{{ __('youtube url') }}">
+                                            </div>
                                         </div>
                                         <div class="col-xl-3">
                                             <div class="right-sidebar">
