@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'captcha_token' => ['nullable'],
             'username' => ['required', 'string', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/'],
         ],[
             'captcha_token.required' => __('google captcha is required'),
             'name.required' => __('name is required'),

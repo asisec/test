@@ -117,13 +117,13 @@ Route::group(['middleware' => ['globalVariable', 'maintains_mode','setlang']], f
     Route::post('/get-city-by-city', [FrontendSearchController::class, 'getCity'])->name('user.state.city');
 
 
-    // guest listing add without login
-    Route::controller(\App\Http\Controllers\Frontend\GuestListingController::class)->group(function () {
-        Route::group(['prefix'=>'listing'],function(){
-            Route::match(['get','post'],'/guest/add-listing','guestAddListing')->name('guest.add.listing');
-            Route::post('/guest/request-check','guestRequestCheck')->name('guest.request.check');
-        });
-    });
+    // GUEST LISTING ROUTE DISABLED - No longer allow guest listings
+    // Route::controller(\App\Http\Controllers\Frontend\GuestListingController::class)->group(function () {
+    //     Route::group(['prefix'=>'listing'],function(){
+    //         Route::match(['get','post'],'/guest/add-listing','guestAddListing')->name('guest.add.listing');
+    //         Route::post('/guest/request-check','guestRequestCheck')->name('guest.request.check');
+    //     });
+    // });
 
     // advertisement click and impression count route
     Route::get('/home/advertisement/click/store',[FrontendAdvertisementController::class, 'home_advertisement_click_store'])->name('frontend.home.advertisement.click.store');

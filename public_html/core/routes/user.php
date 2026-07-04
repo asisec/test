@@ -21,7 +21,7 @@ Route::group(['prefix'=>'user','as'=>'user.'],function() {
         });
     });
 
-      Route::group(['middleware'=>['auth','userEmailVerify', 'globalVariable', 'maintains_mode','setlang']],function(){
+       Route::group(['middleware'=>['auth','userEmailVerify', 'globalVariable', 'maintains_mode','setlang']],function(){
         Route::controller(UserController::class)->group(function () {
             Route::get('profile/settings','profile')->name('profile');
             Route::post('profile/edit-profile','edit_profile')->name('profile.edit');
@@ -58,20 +58,22 @@ Route::group(['prefix'=>'user','as'=>'user.'],function() {
             });
         });
 
-          // add listing
-          Route::controller(ListingController::class)->group(function () {
-              Route::group(['prefix'=>'listing'],function(){
-                  Route::get('all','allListing')->name('all.listing');
-                  Route::match(['get','post'],'/add','addListing')->name('add.listing')->middleware('check.phone');
-                  Route::match(['get','post'],'/edit/{id?}','editListing')->name('edit.listing');
-                  Route::post('delete/{id?}','deleteListing')->name('delete.listing');
-                  Route::post('published-on-off/{id}', 'listingPublishedStatus')->name('listing.published.status');
-              });
-          });
-
           //seller profile verify
           Route::post('user-profile-verify', [AccountSettingController::class, 'userProfileVerify'])->name('profile.verify');
 
+    });
+
+    // add listing - NO EMAIL VERIFICATION REQUIRED, only auth and phone verification
+    Route::group(['middleware'=>['auth','globalVariable', 'maintains_mode','setlang']],function(){
+        Route::controller(ListingController::class)->group(function () {
+            Route::group(['prefix'=>'listing'],function(){
+                Route::get('all','allListing')->name('all.listing');
+                Route::match(['get','post'],'/add','addListing')->name('add.listing')->middleware('check.phone');
+                Route::match(['get','post'],'/edit/{id?}','editListing')->name('edit.listing');
+                Route::post('delete/{id?}','deleteListing')->name('delete.listing');
+                Route::post('published-on-off/{id}', 'listingPublishedStatus')->name('listing.published.status');
+            });
+        });
     });
 
 
