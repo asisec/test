@@ -264,79 +264,6 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-4">
-                                                                <div class="item-subcatagory-wraper">
-                                                                    <label
-                                                                        for="item-subcatagory">{{ __('Sub Category') }}</label>
-                                                                    <select name="sub_category_id" id="subcategory"
-                                                                        class="subcategory select2_activation">
-                                                                        <option value="">
-                                                                            {{ __('Select Sub Category') }}</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <div class="item-subcatagory-wraper">
-                                                                    <label
-                                                                        for="item-subcatagory">{{ __('Child Category') }}
-                                                                    </label>
-                                                                    <select name="child_category_id" id="child_category"
-                                                                        class="select2_activation">
-                                                                        <option value="">
-                                                                            {{ __('Select Child Category') }}</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mt-3 g-3">
-                                                            <div class="col-sm-4">
-                                                                <div
-                                                                    class="item-condition-wraper input-filed p-24 mb-sm-0 mb-3">
-                                                                    <input type="checkbox" class="custom-check-box"
-                                                                        id="item-condition">
-                                                                    <label
-                                                                        for="item-condition">{{ __('This item has Condition') }}</label>
-                                                                    <div class="conditions condition_disable_enable mt-2">
-                                                                        <label>
-                                                                            <input type="radio" id="condition-1"
-                                                                                name="condition" value="used"
-                                                                                class="custom-radio-button radio_disable_color">
-                                                                            <span>{{ __('Used') }}</span>
-                                                                        </label>
-                                                                        <label class="ms-3">
-                                                                            <input type="radio" id="condition-2"
-                                                                                name="condition" value="new"
-                                                                                class="custom-radio-button radio_disable_color">
-                                                                            <span>{{ __('New') }}</span>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-sm-4">
-                                                                <div class="item-condition-wraper input-filed p-24">
-                                                                    <input type="checkbox" class="custom-check-box"
-                                                                        id="item-authenticity">
-                                                                    <label
-                                                                        for="item-authenticity">{{ __('This item has authenticity') }}</label>
-                                                                    <div
-                                                                        class="conditions authenticity_disable_enable mt-2">
-                                                                        <label>
-                                                                            <input type="radio" id="authenticity-1"
-                                                                                name="authenticity" value="original"
-                                                                                class="custom-radio-button radio_disable_color">
-                                                                            <span>{{ __('Original') }}</span>
-                                                                        </label>
-                                                                        <label class="ms-3">
-                                                                            <input type="radio" id="authenticity-2"
-                                                                                name="authenticity" value="refurbished"
-                                                                                class="custom-radio-button radio_disable_color">
-                                                                            <span>{{ __('Refurbished') }}</span>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -573,12 +500,6 @@
                                                         id="user_address" value="{{ old('address') }}"
                                                         placeholder="{{ __('Address') }}">
                                                 </div>
-                                            </div>
-                                            <div class="video box-shadow1 p-24 mt-3 mb-3">
-                                                <label for="vedio-link">{{ __('Video Url') }}</label>
-                                                <input type="text" class="input-filed w-100" name="video_url"
-                                                    id="video_url" value="{{ old('video_url') }}"
-                                                    placeholder="{{ __('youtube url') }}">
                                             </div>
                                         </div>
                                         <div class="col-xl-3">

@@ -86,6 +86,20 @@
                                        <i class="las la-eye"></i>
                                     </div>
                                 </div>
+                                <div id="password-criteria" style="margin-top: 10px; font-size: 13px;">
+                                    <div id="criteria-length" style="color: #999; margin-bottom: 5px;">
+                                        <span style="margin-right: 5px;">✓</span>{{ __('Min 8 characters') }}
+                                    </div>
+                                    <div id="criteria-uppercase" style="color: #999; margin-bottom: 5px;">
+                                        <span style="margin-right: 5px;">✓</span>{{ __('Uppercase letter') }}
+                                    </div>
+                                    <div id="criteria-lowercase" style="color: #999; margin-bottom: 5px;">
+                                        <span style="margin-right: 5px;">✓</span>{{ __('Lowercase letter') }}
+                                    </div>
+                                    <div id="criteria-number" style="color: #999;">
+                                        <span style="margin-right: 5px;">✓</span>{{ __('Number') }}
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-lg-6 col-md-12 mt-3">
                                 <label class="infoTitle">{{ __('Confirm Password') }}</label>
@@ -254,6 +268,34 @@
                     }
 
                 });
+
+                // Real-time password validation
+                document.getElementById('password').addEventListener('input', function() {
+                    let password = this.value;
+                    
+                    // Validation regex patterns
+                    let hasLength = password.length >= 8;
+                    let hasUppercase = /[A-Z]/.test(password);
+                    let hasLowercase = /[a-z]/.test(password);
+                    let hasNumber = /[0-9]/.test(password);
+                    
+                    // Update criteria display
+                    updateCriteria('criteria-length', hasLength);
+                    updateCriteria('criteria-uppercase', hasUppercase);
+                    updateCriteria('criteria-lowercase', hasLowercase);
+                    updateCriteria('criteria-number', hasNumber);
+                });
+
+                function updateCriteria(elementId, isMet) {
+                    let element = document.getElementById(elementId);
+                    if (isMet) {
+                        element.style.color = '#28a745';
+                        element.style.fontWeight = '500';
+                    } else {
+                        element.style.color = '#999';
+                        element.style.fontWeight = 'normal';
+                    }
+                }
 
                 //confirm signup
                 $(document).on('click', '.sign_up_now_button', function() {

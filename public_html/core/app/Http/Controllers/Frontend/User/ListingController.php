@@ -169,8 +169,8 @@ class ListingController extends Controller
             $listing = new Listing();
             $listing->user_id = $user->id;
             $listing->category_id = $request->category_id;
-            $listing->sub_category_id = $request->sub_category_id;
-            $listing->child_category_id = $request->child_category_id;
+            $listing->sub_category_id = null;
+            $listing->child_category_id = null;
             $listing->country_id = $country->id;
             $listing->state_id = null;
             $listing->city_id = $request->city_id;
@@ -186,13 +186,13 @@ class ListingController extends Controller
             $listing->price = $final_price;
             // AKILLI FİYAT FİLTRESİ BİTİŞ
             $listing->negotiable = $request->negotiable ?? 0;
-            $listing->condition = $request->condition;
-            $listing->authenticity = $request->authenticity;
+            $listing->condition = null;
+            $listing->authenticity = null;
             $listing->phone = $listing_phone;
             $listing->phone_hidden = $request->phone_hidden ?? 0;
             $listing->image = $request->image;
             $listing->gallery_images = $request->gallery_images;
-            $listing->video_url = $video_url;
+            $listing->video_url = null;
             $listing->address = $request->address;
             $listing->lat = $request->latitude;
             $listing->lon = $request->longitude;
@@ -396,8 +396,8 @@ class ListingController extends Controller
             $listing = Listing::with('listing_attributes')->findOrFail($id);
             $listing->user_id = $user->id;
             $listing->category_id = $request->category_id;
-            $listing->sub_category_id = $request->sub_category_id;
-            $listing->child_category_id = $request->child_category_id;
+            $listing->sub_category_id = null;
+            $listing->child_category_id = null;
             $listing->state_id = null;
             $listing->city_id = $request->city_id;
             $listing->brand_id = $request->brand_id;
@@ -406,12 +406,12 @@ class ListingController extends Controller
             $listing->description = $request->description;
             $listing->price = $request->price;
             $listing->negotiable = $request->negotiable ?? 0;
-            $listing->condition = $request->condition;
-            $listing->authenticity = $request->authenticity;
+            $listing->condition = null;
+            $listing->authenticity = null;
             $listing->phone_hidden = $request->phone_hidden ?? 0;
             $listing->image = $request->image;
             $listing->gallery_images = $request->gallery_images;
-            $listing->video_url = $video_url;
+            $listing->video_url = null;
             $listing->address = $request->address;
             $listing->lat = $request->latitude;
             $listing->lon = $request->longitude;
