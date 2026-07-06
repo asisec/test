@@ -61,7 +61,7 @@ class RegisterController extends Controller
             'captcha_token' => ['nullable'],
             'username' => ['required', 'string', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'confirmed'],
         ],[
             'captcha_token.required' => __('google captcha is required'),
             'name.required' => __('name is required'),
@@ -166,7 +166,7 @@ class RegisterController extends Controller
                     'email' => 'required|email|unique:users|max:191',
                     'username' => 'required|unique:users|max:191',
                     'phone' => 'required|unique:users|max:191',
-                    'password' => 'required|min:6|max:191',
+                    'password' => 'required|min:8|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|max:191',
                     'g-recaptcha-response' => 'required',
                 ]);
             }else{
@@ -176,7 +176,7 @@ class RegisterController extends Controller
                     'email' => 'required|email|unique:users|max:191',
                     'username' => 'required|unique:users|max:191',
                     'phone' => 'required|unique:users|max:191',
-                    'password' => 'required|min:6|max:191',
+                    'password' => 'required|min:8|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|max:191',
                 ]);
             }
 

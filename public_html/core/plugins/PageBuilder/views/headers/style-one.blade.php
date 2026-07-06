@@ -5,15 +5,16 @@
 
 @if($top1 || $top2)
 <div class="container mt-3 mb-3">
+    <h1 class="visually-hidden">TextileForum - B2B Toptan Kumaş ve Tekstil Pazarı</h1>
     <div class="row">
         @if($top1)
         <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
-            <a href="{{ $top1->url }}"><img src="{{ asset($top1->image) }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
+            <a href="{{ $top1->url }}"><img src="{{ asset($top1->image) }}" alt="{{ $top1->name ?? 'Tekstil Banner' }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
         </div>
         @endif
         @if($top2)
         <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
-            <a href="{{ $top2->url }}"><img src="{{ asset($top2->image) }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
+            <a href="{{ $top2->url }}"><img src="{{ asset($top2->image) }}" alt="{{ $top2->name ?? 'Tekstil Banner' }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
         </div>
         @endif
     </div>
@@ -415,12 +416,12 @@ $(document).ready(function () {
     <div class="row">
         @if($bottom1)
         <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
-            <a href="{{ $bottom1->url }}"><img src="{{ asset($bottom1->image) }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
+            <a href="{{ $bottom1->url }}"><img src="{{ asset($bottom1->image) }}" alt="{{ $bottom1->name ?? 'Tekstil Banner' }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
         </div>
         @endif
         @if($bottom2)
         <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
-            <a href="{{ $bottom2->url }}"><img src="{{ asset($bottom2->image) }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
+            <a href="{{ $bottom2->url }}"><img src="{{ asset($bottom2->image) }}" alt="{{ $bottom2->name ?? 'Tekstil Banner' }}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;" class="shadow-sm"></a>
         </div>
         @endif
     </div>
