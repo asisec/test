@@ -1,74 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Banner Yapısı</title>
-    <style>
-        body {
-            background-color: #FFFFFF;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .desktop-banner-container, .mobile-banner-container {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            padding: 5px;
-        }
-
-        .desktop-banner-container img, .mobile-banner-container img {
-            border-radius: 3px;
-        }
-
-        /* Masaüstü için görünüm */
-        @media (min-width: 1024px) {
-            .desktop-banner-container {
-                display: flex;
-            }
-
-            .desktop-banner-container img {
-                width: 728px;
-                height: 90px;
-            }
-        }
-
-        /* Mobil için görünüm */
-        @media (max-width: 1023px) {
-            .mobile-banner-container {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .mobile-banner-container img {
-                width: 100%;
-                height: auto;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Masaüstü Banner'ları -->
-    <div class="desktop-banner-container">
-        <a href="https://example.com/sol" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/urun-listeleme/masaustu/1.gif" alt="Sol Desktop Banner">
-        </a>
-        <a href="https://example.com/sag" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/urun-listeleme/masaustu/2.gif" alt="Sağ Desktop Banner">
-        </a>
+@if(($listingsTop1 ?? null) || ($listingsTop2 ?? null))
+    <div class="row mb-3">
+        @if($listingsTop1 ?? null)
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+                <a href="{{ $listingsTop1->url ?? '#' }}" target="_blank">
+                    <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? 'İlanlar Üst 1' }}" style="width: 100%; height: 120px; object-fit: cover;" class="shadow-sm">
+                </a>
+            </div>
+        @endif
+        @if($listingsTop2 ?? null)
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
+                <a href="{{ $listingsTop2->url ?? '#' }}" target="_blank">
+                    <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? 'İlanlar Üst 2' }}" style="width: 100%; height: 120px; object-fit: cover;" class="shadow-sm">
+                </a>
+            </div>
+        @endif
     </div>
-
-    <!-- Mobil Banner'ları -->
-    <div class="mobile-banner-container">
-        <a href="https://example.com/sol" target="_blank">
-            <img src="https://textileforum.net/banner-resimleri/urun-listeleme/mobil/1.gif" alt="Sol Mobile Banner">
-        </a>
-    </div>
-</body>
-
-</html>
+@endif
 @section('style')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css">
     <style>

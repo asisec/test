@@ -69,7 +69,7 @@
                                                 <span class="text-muted">—</span>
                                             @endif
                                         </td>
-                                        <td>{{ ['top_1' => 'Üst 1 (Sol)', 'top_2' => 'Üst 2 (Sağ)', 'bottom_1' => 'Alt 1 (Sol)', 'bottom_2' => 'Alt 2 (Sağ)'][$banner->position] ?? $banner->position }}</td>
+                                         <td>{{ ['top_1' => 'Üst 1 (Sol)', 'top_2' => 'Üst 2 (Sağ)', 'bottom_1' => 'Alt 1 (Sol)', 'bottom_2' => 'Alt 2 (Sağ)', 'listings_top_1' => 'İlanlar Üst 1', 'listings_top_2' => 'İlanlar Üst 2'][$banner->position] ?? $banner->position }}</td>
                                         <td>
                                             <form action="{{ route('admin.banner.toggle', $banner->id) }}" method="POST" class="d-inline">
                                                 @csrf
@@ -151,6 +151,8 @@
                                 <option value="top_2" {{ old('position') === 'top_2' ? 'selected' : '' }}>{{ __('Üst 2 (Sağ)') }}</option>
                                 <option value="bottom_1" {{ old('position') === 'bottom_1' ? 'selected' : '' }}>{{ __('Alt 1 (Sol)') }}</option>
                                 <option value="bottom_2" {{ old('position') === 'bottom_2' ? 'selected' : '' }}>{{ __('Alt 2 (Sağ)') }}</option>
+                                <option value="listings_top_1" {{ old('position') === 'listings_top_1' ? 'selected' : '' }}>{{ __('İlanlar Üst 1') }}</option>
+                                <option value="listings_top_2" {{ old('position') === 'listings_top_2' ? 'selected' : '' }}>{{ __('İlanlar Üst 2') }}</option>
                             </select>
                         </div>
                         <div class="mb-3">

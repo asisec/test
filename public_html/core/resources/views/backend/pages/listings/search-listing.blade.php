@@ -1,3 +1,4 @@
+<div class="table-responsive">
 <table class="dataTablesExample">
     <thead>
     @can('user-listing-bulk-delete')
@@ -7,25 +8,25 @@
             </div>
         </th>
     @endcan
-    <th>{{__('ID')}}</th>
-    <th>{{__('Image')}}</th>
-    <th>{{__('Title')}}</th>
-    <th>{{__('Category')}}</th>
+    <th style="width: 5%;">{{__('ID')}}</th>
+    <th style="width: 8%;">{{__('Image')}}</th>
+    <th style="width: 20%;">{{__('Title')}}</th>
+    <th style="width: 10%;">{{__('Category')}}</th>
     @if(empty(get_static_option('google_map_settings_on_off')))
-         <th>{{__('country')}}</th>
+         <th style="width: 8%;">{{__('country')}}</th>
     @endif
-    <th>{{__('Price')}}</th>
-    <th>{{__('User Name')}}</th>
-    <th>{{__('Crate Date')}}</th>
-    <th>{{__('Published Date')}}</th>
-    <th>{{__('Publishing Status')}}</th>
-    <th>
+    <th style="width: 8%;">{{__('Price')}}</th>
+    <th style="width: 10%;">{{__('User Name')}}</th>
+    <th style="width: 8%;">{{__('Crate Date')}}</th>
+    <th style="width: 8%;">{{__('Published Date')}}</th>
+    <th style="width: 8%;">{{__('Publishing Status')}}</th>
+    <th style="width: 10%;">
         {{__('Status')}}
         @can('user-listing-approved')
         <span><x-status.all-status-change :url="route('admin.listings.user.all.approved')"/></span>
         @endcan
     </th>
-    <th>{{__('Action')}}</th>
+    <th style="width: 8%;">{{__('Action')}}</th>
     </thead>
     <tbody>
     @foreach($all_listings as $data)
@@ -36,7 +37,11 @@
                 </td>
             @endcan
             <td>{{$data->id}}</td>
-            <td> {!! render_image_markup_by_attachment_id($data->image,'','thumb') !!}</td>
+            <td style="max-width: 60px;"> {!! render_image_markup_by_attachment_id($data->image,'','thumb') !!}
+                <style>
+                    .table-responsive td img { max-width: 60px !important; height: auto !important; border-radius: 4px; object-fit: cover; }
+                </style>
+            </td>
             <td>{{$data->title}}</td>
             <td>{{optional($data->category)->name}}</td>
             @if(empty(get_static_option('google_map_settings_on_off')))
@@ -71,9 +76,9 @@
             <!--status -->
             <td>
                 @if($data->status==1)
-                    <span class="alert alert-success">{{__('Approved')}}</span>
+                    <span class="badge bg-success px-3 py-2">{{__('Onaylandı')}}</span>
                 @else
-                    <span class="alert alert-warning">{{__('Pending')}}</span>
+                    <span class="badge bg-warning text-dark px-3 py-2">{{__('Beklemede')}}</span>
                 @endif
 
                @can('user-listing-status-change')
@@ -93,6 +98,7 @@
     @endforeach
     </tbody>
 </table>
+</div>
 <div class="custom_pagination mt-5 d-flex justify-content-end">
     {{ $all_listings->links() }}
 </div>

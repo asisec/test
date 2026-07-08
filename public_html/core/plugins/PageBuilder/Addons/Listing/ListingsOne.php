@@ -3,6 +3,7 @@
 
 namespace plugins\PageBuilder\Addons\Listing;
 
+use App\Models\Banner;
 use App\Models\Backend\Category;
 use App\Models\Backend\ListingTag;
 use App\Models\Backend\SubCategory;
@@ -666,6 +667,10 @@ class ListingsOne extends PageBuilderBase
         // listing list page url
         $url_search_listings_list = get_static_option('select_home_page_search_listing_page_url') ?? '/listings';
 
+        // Banner queries for listings page
+        $listingsTop1 = Banner::where('is_active', 1)->where('position', 'listings_top_1')->first();
+        $listingsTop2 = Banner::where('is_active', 1)->where('position', 'listings_top_2')->first();
+
         return $this->renderBlade('listing.listing-one',[
             'padding_top' => $padding_top,
             'padding_bottom' => $padding_bottom,
@@ -734,7 +739,11 @@ class ListingsOne extends PageBuilderBase
             'location_on_off' => $location_on_off,
             'price_range_on_off' => $price_range_on_off,
             'max_price_start_value' => $max_price_start_value,
-            'countryCodesStr' => $countryCodesStr
+            'countryCodesStr' => $countryCodesStr,
+
+            // listings page banners
+            'listingsTop1' => $listingsTop1,
+            'listingsTop2' => $listingsTop2,
         ]);
 
     }

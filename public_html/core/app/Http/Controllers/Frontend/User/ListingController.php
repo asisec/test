@@ -1,4 +1,4 @@
-<?php
+                                                    <?php
 
 namespace App\Http\Controllers\Frontend\User;
 
@@ -197,7 +197,7 @@ class ListingController extends Controller
             $listing->lat = $request->latitude;
             $listing->lon = $request->longitude;
             $listing->is_featured =  $request->is_featured ?? 0;
-            $listing->status = $status;
+            $listing->status = 0; // Listing onay sistemi: tüm ilanlar admin onayına düşer
 
 
             $tags_name = '';
@@ -272,8 +272,8 @@ class ListingController extends Controller
             AdminNotification::create([
                 'identity'=> $last_listing_id,
                 'user_id'=> $user_id,
-                'type'=>'Create Listing',
-                'message'=>__('A new listing has been created'),
+                'type'=>'Pending Listing',
+                'message'=>__('Yeni bir ilan onay bekliyor!'),
             ]);
 
             // sent email to admin
