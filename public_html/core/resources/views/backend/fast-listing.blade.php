@@ -1,5 +1,38 @@
 @extends('backend.admin-master')
 @section('site-title', 'Hızlı Seri İlan Bas')
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/backend/css/bootstrap-tagsinput.css') }}">
+    <style>
+        .select2-container .select2-selection--single {
+            background-color: var(--white-bg);
+            border: 1px solid #e3e3e3;
+            border-radius: 4px;
+            position: relative;
+            height: auto;
+            padding: 10px;
+        }
+        span.select2.select2-container.select2-container--default.select2-container--focus {
+            width: 100% !important;
+        }
+        .select-itms span.select2 {
+            width: 100% !important;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #e3e3e3;
+        }
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border: 1px solid #e3e3e3;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            font-size: 23px;
+        }
+        .select2-selection__choice__display {
+            font-size: 15px;
+            color: #000;
+            font-weight: 400;
+        }
+    </style>
+@endsection
 @section('content')
 <div class="col-lg-12 col-ml-12 padding-bottom-30">
     <div class="row">
@@ -98,7 +131,21 @@
                             <label><strong>Ülke ID (Örn: TR için --> 18)</strong></label>
                             <input type="number" class="form-control" name="country_id" value="18" placeholder="Varsayılan - Türkiye: 18">
                         </div>
-                        
+
+                        {{-- ETİKETLER / TAGS --}}
+                        @php $tags = \Modules\Blog\app\Models\Tag::where('status', 'publish')->get(); @endphp
+                        <div class="form-group mb-3">
+                            <label><strong>Etiketler / Tags</strong></label>
+                            <div class="select-itms">
+                                <select name="tags[]" id="tags" class="select2_activation" multiple>
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                    @endforeach
+                                </select>
+                                <small>Etiket seçin veya yeni etiket yazın (virgül/boşluk ile ayırın)</small>
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-primary mt-3" style="width: 100%; font-size: 18px; padding: 15px;">
                             <i class="ti-rocket"></i> İlanı Yayına Al
                         </button>
@@ -118,4 +165,17 @@
         }
     });
 </script>
+@endsection
+@section('scripts')
+    <script src="{{ asset('assets/backend/js/bootstrap-tagsinput.js') }}"></script>
+    <x-frontend.js.new-tag-add-js />
+    <script src="{{ asset('assets/backend/js/select2.min.js') }}"></script>
+    <script>
+        (function($) {
+            "use strict";
+            $(document).ready(function() {
+                $('#tags').select2();
+            });
+        })(jQuery);
+    </script>
 @endsection
