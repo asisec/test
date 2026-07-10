@@ -1,14 +1,14 @@
 @if(($listingsTop1 ?? null) || ($listingsTop2 ?? null))
-    <div class="row mb-3">
+    <div class="row g-2 mb-3">
         @if($listingsTop1 ?? null)
-            <div class="col-lg-6 col-md-6 col-sm-12 mb-2" style="aspect-ratio: 1456 / 180;">
+            <div class="col-lg-6 col-md-6 col-sm-12" style="aspect-ratio: 1456 / 180;">
                 <a href="{{ $listingsTop1->url ?? '#' }}" target="_blank">
                     <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? __('Listings Top 1') }}" style="width: 100%; height: 100%; object-fit: contain; background: #f0f0f0;" class="shadow-sm">
                 </a>
             </div>
         @endif
         @if($listingsTop2 ?? null)
-            <div class="col-lg-6 col-md-6 col-sm-12 mb-2" style="aspect-ratio: 1456 / 180;">
+            <div class="col-lg-6 col-md-6 col-sm-12" style="aspect-ratio: 1456 / 180;">
                 <a href="{{ $listingsTop2->url ?? '#' }}" target="_blank">
                     <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? __('Listings Top 2') }}" style="width: 100%; height: 100%; object-fit: contain; background: #f0f0f0;" class="shadow-sm">
                 </a>

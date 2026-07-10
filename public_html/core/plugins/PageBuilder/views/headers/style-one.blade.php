@@ -6,14 +6,14 @@
 @if($top1 || $top2)
 <div class="container mt-3 mb-3">
     <h1 class="visually-hidden">{{ __('TextileForum - B2B Wholesale Fabric and Textile Marketplace') }}</h1>
-    <div class="row">
+    <div class="row g-2">
         @if($top1)
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-2" style="aspect-ratio: 1456 / 180;">
+        <div class="col-lg-6 col-md-6 col-sm-12" style="aspect-ratio: 1456 / 180;">
             <a href="{{ $top1->url }}"><img src="{{ asset($top1->image) }}" alt="{{ $top1->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain; background: #f0f0f0; border-radius: 8px;" class="shadow-sm"></a>
         </div>
         @endif
         @if($top2)
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-2" style="aspect-ratio: 1456 / 180;">
+        <div class="col-lg-6 col-md-6 col-sm-12" style="aspect-ratio: 1456 / 180;">
             <a href="{{ $top2->url }}"><img src="{{ asset($top2->image) }}" alt="{{ $top2->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain; background: #f0f0f0; border-radius: 8px;" class="shadow-sm"></a>
         </div>
         @endif
@@ -413,14 +413,14 @@ $(document).ready(function () {
 
 @if($bottom1 || $bottom2)
 <div class="container mt-3 mb-3">
-    <div class="row">
+    <div class="row g-2">
         @if($bottom1)
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-2" style="aspect-ratio: 1456 / 180;">
+        <div class="col-lg-6 col-md-6 col-sm-12" style="aspect-ratio: 1456 / 180;">
             <a href="{{ $bottom1->url }}"><img src="{{ asset($bottom1->image) }}" alt="{{ $bottom1->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain; background: #f0f0f0; border-radius: 8px;" class="shadow-sm"></a>
         </div>
         @endif
         @if($bottom2)
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-2" style="aspect-ratio: 1456 / 180;">
+        <div class="col-lg-6 col-md-6 col-sm-12" style="aspect-ratio: 1456 / 180;">
             <a href="{{ $bottom2->url }}"><img src="{{ asset($bottom2->image) }}" alt="{{ $bottom2->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain; background: #f0f0f0; border-radius: 8px;" class="shadow-sm"></a>
         </div>
         @endif
