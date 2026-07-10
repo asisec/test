@@ -3,14 +3,14 @@
         @if($listingsTop1 ?? null)
             <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
                 <a href="{{ $listingsTop1->url ?? '#' }}" target="_blank">
-                    <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? 'İlanlar Üst 1' }}" style="width: 100%; height: 120px; object-fit: cover;" class="shadow-sm">
+                    <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? __('Listings Top 1') }}" style="width: 100%; height: 120px; object-fit: cover;" class="shadow-sm">
                 </a>
             </div>
         @endif
         @if($listingsTop2 ?? null)
             <div class="col-lg-6 col-md-6 col-sm-12 mb-2">
                 <a href="{{ $listingsTop2->url ?? '#' }}" target="_blank">
-                    <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? 'İlanlar Üst 2' }}" style="width: 100%; height: 120px; object-fit: cover;" class="shadow-sm">
+                    <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? __('Listings Top 2') }}" style="width: 100%; height: 120px; object-fit: cover;" class="shadow-sm">
                 </a>
             </div>
         @endif
@@ -226,6 +226,7 @@
                                     </select>
                                 </div>
                             @endif
+                           {{-- HIDDEN: Subcategory filter (preserved for future use)
                            @if(!empty($subcategory_on_off))
                                 <div class="catagories w-100">
                                     <select id="search_by_subcategory" name="subcat" class="categorySelect">
@@ -236,6 +237,8 @@
                                     </select>
                                 </div>
                              @endif
+                           --}}
+                           {{-- HIDDEN: Child Category filter (preserved for future use)
                            @if(!empty($child_category_on_off))
                                 <div class="catagories">
                                     <select id="search_by_child_category" name="child_cat" class="categorySelect">
@@ -246,6 +249,7 @@
                                     </select>
                                 </div>
                              @endif
+                           --}}
                         </div>
 
                         <!-- Location -->
