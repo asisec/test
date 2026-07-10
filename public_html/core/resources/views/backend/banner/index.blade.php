@@ -133,7 +133,7 @@
                             </label>
                             <input type="file" class="form-control" id="banner_image" name="image"
                                    accept="image/jpeg,image/png,image/jpg,image/gif,image/webp,image/svg+xml" required>
-                            <div class="form-text">{{ __('İzin verilen formatlar: JPG, PNG, GIF, WEBP, SVG. Maks. 5MB.') }}</div>
+                            <div class="form-text">{{ __('İzin verilen formatlar: JPG, PNG, GIF, WEBP, SVG. Maks. 10MB.') }}</div>
                             <div id="imagePreviewWrapper" class="mt-2" style="display:none;">
                                 <img id="imagePreview" src="#" alt="Önizleme"
                                      style="max-height: 120px; border-radius: 6px; border: 1px solid #dee2e6;">

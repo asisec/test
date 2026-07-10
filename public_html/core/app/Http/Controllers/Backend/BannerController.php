@@ -26,7 +26,7 @@ class BannerController extends Controller
     {
         $request->validate([
             'title'    => 'nullable|string|max:255',
-            'image'    => 'required|image|mimes:jpeg,png,jpg,gif,webp,svg|max:5120',
+            'image'    => 'required|image|mimes:jpeg,png,jpg,gif,webp,svg|max:10240',
             'url'      => 'nullable|url|max:500',
             'position' => 'nullable|in:top_1,top_2,bottom_1,bottom_2,listings_top_1,listings_top_2',
         ]);
