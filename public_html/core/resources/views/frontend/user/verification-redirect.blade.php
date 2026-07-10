@@ -1,5 +1,5 @@
 @extends('frontend.layout.master')
-@section('site_title', __('Telefon Doğrulama Gerekiyor'))
+@section('site_title', __('Phone Verification Required'))
 
 @section('content')
     <main class="section-padding2">
@@ -12,12 +12,12 @@
                                 <i class="fas fa-shield-alt"></i>
                             </div>
                         </div>
-                        <h3 class="mb-3">{{ __('Telefon doğrulaması gerekli') }}</h3>
+                        <h3 class="mb-3">{{ __('Phone verification required') }}</h3>
                         <p class="text-muted mb-4">
-                            {{ __('İlan ekleyebilmek için telefon numaranızı doğrulamanız gerekmektedir. 3 saniye içinde doğrulama merkezine yönlendiriliyorsunuz...') }}
+                            {{ __('You must verify your phone number to post listings. Redirecting to the verification center in 3 seconds...') }}
                         </p>
                         <div class="display-6 fw-bold text-primary mb-2" id="redirect-countdown">3</div>
-                        <div class="text-muted">{{ __('Doğrulama merkezine yönlendiriliyor...') }}</div>
+                        <div class="text-muted">{{ __('Redirecting to the verification center...') }}</div>
                     </div>
                 </div>
             </div>

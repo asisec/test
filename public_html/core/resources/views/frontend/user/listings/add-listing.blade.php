@@ -312,7 +312,7 @@
                                                         <label for="price">{{ __('Price') }}</label>
                                                         <input type="number" name="price" id="price"
                                                             value="{{ old('price') }}" class="input-filed w-100 mb-3"
-                                                            placeholder="{{ __('Fiyat Belirlememek için boş bırakın.') }}">
+                                                            placeholder="{{ __('Leave blank if you do not wish to set a price.') }}">
                                                         <label class="negotiable">
                                                             <input type="checkbox" class="custom-check-box"
                                                                 name="negotiable" id="negotiable">
@@ -320,7 +320,7 @@
                                                         </label>
                                                         <label class="contact-for-price d-block mt-2">
                                                             <input type="checkbox" class="custom-check-box" name="contact_for_price" id="contact_for_price" value="1">
-                                                            <span class="ms-2 fw-bold text-primary">{{ __('Fiyat İçin İletişime Geçin') }}</span>
+                                                            <span class="ms-2 fw-bold text-primary">{{ __('Contact for Price') }}</span>
                                                         </label>
                                                     </div>
                                                 </div>
