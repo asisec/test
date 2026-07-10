@@ -206,30 +206,8 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="item-subcatagory-wraper">
-                                                                <label for="item-subcatagory">{{__('Sub Category')}}</label>
-                                                                <select  name="sub_category_id" id="subcategory" class="subcategory select2_activation">
-                                                                    <option value="">{{__('Select Sub Category')}}</option>
-                                                                    @foreach($sub_categories as $sub_cat)
-                                                                        <option value="{{ $sub_cat->id }}" @if($sub_cat->id == $listing->sub_category_id) selected @endif>{{$sub_cat->name}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="item-subcatagory-wraper">
-                                                                <label for="item-subcatagory">{{__('Child Category')}} </label>
-                                                                <select  name="child_category_id" id="child_category" class="select2_activation">
-                                                                    <option value="">{{__('Select Child Category')}}</option>
-                                                                    @if(!empty($listing->child_category_id))
-                                                                        @foreach($child_categories as $child_cat)
-                                                                            <option value="{{$child_cat->id}}"  @if($child_cat->id == $listing->child_category_id) selected @endif>{{ $child_cat->name }}</option>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </select>
-                                                            </div>
-                                                        </div>
+                                                        {{-- Sub Category removed per UI simplification --}}
+                                                        {{-- Child Category removed per UI simplification --}}
                                                     </div>
                                                     <div class="row mt-3">
                                                         <div class="col-sm-6">
@@ -318,13 +296,15 @@
                                             <div class="box-shadow1 price p-24">
                                                 <div class="price-wraper">
                                                     <label for="price">{{ __('Price') }} <span class="text-danger">*</span> </label>
-                                                    <input type="number" name="price" id="price" value="{{$listing->price}}" class="input-filed w-100 mb-3" placeholder="{{__('0.00')}}">
-                                                    <div class="negotiable">
-                                                        <label>
-                                                            <input type="checkbox" class="custom-check-box" name="negotiable" id="negotiable"  value="{{$listing->negotiable}}" @if($listing->negotiable == 1) checked @endif>
-                                                            <span class="ms-2">{{ __('Negotiable') }}</span>
-                                                        </label>
-                                                    </div>
+                                                    <input type="number" name="price" id="price" value="{{$listing->price}}" class="input-filed w-100 mb-3" placeholder="{{ __('Leave blank if you do not wish to set a price.') }}">
+                                                    <label class="negotiable">
+                                                        <input type="checkbox" class="custom-check-box" name="negotiable" id="negotiable" @if($listing->negotiable == 1) checked @endif>
+                                                        <span class="ms-2">{{ __('Negotiable') }}</span>
+                                                    </label>
+                                                    <label class="contact-for-price d-block mt-2">
+                                                        <input type="checkbox" class="custom-check-box" name="contact_for_price" id="contact_for_price" value="1">
+                                                        <span class="ms-2 fw-bold text-primary">{{ __('Contact for Price') }}</span>
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="box-shadow1 hode-phone-number p-24 mt-3">
@@ -334,7 +314,7 @@
                                                 </label>
                                                 <div class="input-group mt-3">
                                                     <input type="hidden" id="country-code" name="country_code" value="{{strtolower($listing->country->country_code ?? '')}}">
-                                                    <input type="hidden" id="full-number" name="number_full">
+                                                    <input type="hidden" id="full-number" name="number_full" value="{{ $listing->phone }}">
                                                     <input type="tel" class="input-filed w-100" name="phone" id="phone" value="{{$listing->phone}}" placeholder="{{__('Phone')}}">
                                                     <span id="phone_availability"></span>
                                                     <div class="d-none">
@@ -412,30 +392,7 @@
                                             @if(get_static_option('google_map_settings_on_off') == null)
                                                 <div class="address-wraper">
                                                     <div class="row g-3">
-                                                        <div class="col-sm-4">
-                                                            <div class="country">
-                                                                <label for="country">{{ __('Select Your Country') }}</label>
-                                                                <select name="country_id" id="country_id" class="select2_activation">
-                                                                    <option value="">{{ __('Select Country') }}</option>
-                                                                    @foreach($all_countries as $country)
-                                                                        <option value="{{ $country->id }}" @if($country->id == $listing->country_id) selected @endif>{{ $country->country }}</option>
-                                                                    @endforeach
-                                                                </select><br>
-                                                                <span class="country_info"></span>
-                                                            </div>
-                                                        </div>
-                                                            <div class="col-sm-4 d-none">
-                                                            <div class="country">
-                                                                <label for="country">{{ __('Select Your State') }}</label>
-                                                                <select name="state_id" id="state_id" class="get_country_state select2_activation">
-                                                                    <option value="">{{ __('Select State') }}</option>
-                                                                    @foreach($all_states as $state)
-                                                                        <option value="{{ $state->id }}" @if($state->id == $listing->state_id) selected @endif>{{ $state->state }}</option>
-                                                                    @endforeach
-                                                                </select> <br>
-                                                                <span class="state_info"></span>
-                                                            </div>
-                                                        </div>
+                                                        {{-- Sub Category and Child Category removed per UI simplification --}}
                                                         <div class="col-sm-4 d-none" id="city_wrapper">
                                                             <div class="country">
                                                                 <label for="country">{{ __('Select Your City') }}</label>
@@ -612,56 +569,7 @@
                     $('.listing_slug').hide();
                 });
 
-                $('#category').on('change',function(){
-                    let category_id = $(this).val();
-                    $.ajax({
-                        method:'post',
-                        url:"{{route('get.subcategory')}}",
-                        data:{category_id:category_id},
-                        success:function(res){
-                            if(res.status=='success'){
-                                let alloptions = "<option value=''>{{__('Select Sub Category')}}</option>";
-                                let allSubCategory = res.sub_categories;
-                                $.each(allSubCategory,function(index,value){
-                                    alloptions +="<option value='" + value.id + "'>" + value.name + "</option>";
-                                });
-                                $(".subcategory").html(alloptions);
-                                $('#subcategory').niceSelect('update');
-                            }
-                        }
-                    })
-                });
-
-                // listing sub category and child category
-                $(document).on('change','#subcategory', function() {
-                    var sub_cat_id = $(this).val();
-                    $.ajax({
-                        method: 'post',
-                        url: "{{ route('get.subcategory.with.child.category') }}",
-                        data: {
-                            sub_cat_id: sub_cat_id
-                        },
-                        success: function(res) {
-
-                            if (res.status == 'success') {
-                                var alloptions = "<option value=''>{{__('Select Child Category')}}</option>";
-                                var allList = "<li data-value='' class='option'>{{__('Select Child Category')}}</li>";
-                                var allChildCategory = res.child_category;
-
-                                $.each(allChildCategory, function(index, value) {
-                                    alloptions += "<option value='" + value.id +
-                                        "'>" + value.name + "</option>";
-                                    allList += "<li class='option' data-value='" + value.id +
-                                        "'>" + value.name + "</li>";
-                                });
-
-                                $("#child_category").html(alloptions);
-                                $(".child_category_wrapper ul.list").html(allList);
-                                $(".child_category_wrapper").find(".current").html("Select Child Category");
-                            }
-                        }
-                    });
-                });
+                // Subcategory and child category AJAX removed per UI simplification
 
                 function toggleTurkeyCities() {
                     let countryId = $('#country_id').val();
