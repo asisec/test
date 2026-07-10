@@ -388,19 +388,19 @@
                             @if(($listingsTop1 ?? null) || ($listingsTop2 ?? null))
                             <div class="row g-3 mb-4">
                                 @if($listingsTop1 ?? null)
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="text-align: center;">
                                     <div style="width: 100%; aspect-ratio: 728 / 90; overflow: hidden; border-radius: 8px;">
                                         <a href="{{ $listingsTop1->url ?? '#' }}" target="_blank">
-                                            <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? __('Listings Top 1') }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                            <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? __('Listings Top 1') }}" style="max-width: 728px; height: 90px; display: block; margin: 0 auto; object-fit: cover;">
                                         </a>
                                     </div>
                                 </div>
                                 @endif
                                 @if($listingsTop2 ?? null)
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="text-align: center;">
                                     <div style="width: 100%; aspect-ratio: 728 / 90; overflow: hidden; border-radius: 8px;">
                                         <a href="{{ $listingsTop2->url ?? '#' }}" target="_blank">
-                                            <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? __('Listings Top 2') }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                            <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? __('Listings Top 2') }}" style="max-width: 728px; height: 90px; display: block; margin: 0 auto; object-fit: cover;">
                                         </a>
                                     </div>
                                 </div>
