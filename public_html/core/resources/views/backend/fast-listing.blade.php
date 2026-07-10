@@ -127,9 +127,27 @@
                             </div>
                         </div>
                         
-                        <div class="form-group col-md-6 mb-3">
-                            <label><strong>Ülke ID (Örn: TR için --> 18)</strong></label>
-                            <input type="number" class="form-control" name="country_id" value="18" placeholder="Varsayılan - Türkiye: 18">
+                        @php
+                            $all_countries = \Modules\CountryManage\app\Models\Country::all_countries();
+                        @endphp
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-3">
+                                <label><strong>Ülke</strong></label>
+                                <select name="country_id" id="country_id" class="form-control select2_activation">
+                                    <option value="">{{ __('Ülke Seçin') }}</option>
+                                    @foreach ($all_countries as $country)
+                                        <option value="{{ $country->id }}">{{ $country->country }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="country_info"></span>
+                            </div>
+                            <div class="form-group col-md-6 mb-3 d-none" id="city_wrapper">
+                                <label><strong>Şehir</strong></label>
+                                <select name="city_id" id="city_id" class="form-control get_state_city select2_activation">
+                                    <option value="">{{ __('Şehir Seçin') }}</option>
+                                </select>
+                                <span class="city_info"></span>
+                            </div>
                         </div>
 
                         {{-- ETİKETLER / TAGS --}}
@@ -175,6 +193,46 @@
             "use strict";
             $(document).ready(function() {
                 $('#tags').select2();
+
+                function toggleTurkeyCities() {
+                    let countryId = $('#country_id').val();
+                    let countryText = $('#country_id').find('option:selected').text().trim();
+                    let isTurkey = /^(turkey|türkiye)$/i.test(countryText);
+
+                    if (isTurkey && countryId) {
+                        $('#city_wrapper').removeClass('d-none');
+                        $('#city_id').prop('required', true);
+                        $.ajax({
+                            method: 'post',
+                            url: "{{ route('au.country.city.all') }}",
+                            data: {
+                                country_id: countryId
+                            },
+                            success: function(res) {
+                                if (res.status == 'success') {
+                                    let all_options = "<option value=''>{{ __('Select City') }}</option>";
+                                    let all_city = res.cities;
+                                    $.each(all_city, function(index, value) {
+                                        all_options += "<option value='" + value.id + "'>" + value.city + "</option>";
+                                    });
+                                    $(".get_state_city").html(all_options).trigger('change');
+                                    $(".city_info").html('');
+                                    if (all_city.length <= 0) {
+                                        $(".city_info").html('<span class="text-danger">{{ __('No city found for selected country!') }}</span>');
+                                    }
+                                }
+                            }
+                        })
+                    } else {
+                        $('#city_wrapper').addClass('d-none');
+                        $('#city_id').prop('required', false).val('');
+                        $(".get_state_city").html("<option value=''>{{ __('Select City') }}</option>").trigger('change');
+                        $(".city_info").html('');
+                    }
+                }
+
+                $(document).on('change', '#country_id', toggleTurkeyCities);
+                toggleTurkeyCities();
             });
         })(jQuery);
     </script>
