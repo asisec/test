@@ -720,6 +720,7 @@
 
                     if (isTurkey && countryId) {
                         $('#city_wrapper').removeClass('d-none');
+                        $('#city_id').prop('required', true);
                         $.ajax({
                             method: 'post',
                             url: "{{ route('au.country.city.all') }}",
@@ -743,6 +744,7 @@
                         })
                     } else {
                         $('#city_wrapper').addClass('d-none');
+                        $('#city_id').prop('required', false).val('');
                         $(".get_state_city").html("<option value=''>{{ __('Select City') }}</option>").trigger('change');
                         $(".city_info").html('');
                     }
