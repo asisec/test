@@ -1,21 +1,3 @@
-@if(($listingsTop1 ?? null) || ($listingsTop2 ?? null))
-    <div class="row g-3 mb-3">
-        @if($listingsTop1 ?? null)
-            <div style="width: 100%; aspect-ratio: 8 / 1; overflow: hidden; background: #f0f0f0; border-radius: 8px;">
-                <a href="{{ $listingsTop1->url ?? '#' }}" target="_blank">
-                    <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? __('Listings Top 1') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm">
-                </a>
-            </div>
-        @endif
-        @if($listingsTop2 ?? null)
-            <div style="width: 100%; aspect-ratio: 8 / 1; overflow: hidden; background: #f0f0f0; border-radius: 8px;">
-                <a href="{{ $listingsTop2->url ?? '#' }}" target="_blank">
-                    <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? __('Listings Top 2') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm">
-                </a>
-            </div>
-        @endif
-    </div>
-@endif
 @section('style')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css">
     <style>
@@ -403,6 +385,28 @@
 
                     <div class="cateRightContentWraper">
                         <div class="content-part">
+                            @if(($listingsTop1 ?? null) || ($listingsTop2 ?? null))
+                            <div class="row g-3 mb-4">
+                                @if($listingsTop1 ?? null)
+                                <div class="col-md-6">
+                                    <div style="width: 100%; aspect-ratio: 728 / 90; overflow: hidden; border-radius: 8px;">
+                                        <a href="{{ $listingsTop1->url ?? '#' }}" target="_blank">
+                                            <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? __('Listings Top 1') }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                        </a>
+                                    </div>
+                                </div>
+                                @endif
+                                @if($listingsTop2 ?? null)
+                                <div class="col-md-6">
+                                    <div style="width: 100%; aspect-ratio: 728 / 90; overflow: hidden; border-radius: 8px;">
+                                        <a href="{{ $listingsTop2->url ?? '#' }}" target="_blank">
+                                            <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? __('Listings Top 2') }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                        </a>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                            @endif
                             <div class="viewItems">
                                 <div class="row">
                                     <div class="col-lg-12">
