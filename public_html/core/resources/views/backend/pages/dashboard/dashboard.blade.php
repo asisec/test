@@ -210,6 +210,82 @@
                             </div>
                         </div>
 
+                        <div class="row g-4 mt-1">
+                            <div class="col-md-6">
+                                <div class="dashboard__card bg__white padding-20 radius-10">
+                                    <div class="dashboard__card__header">
+                                        <h5 class="dashboard__card__header__title">{{ __('Top Listings by Views') }}</h5>
+                                    </div>
+                                    <div class="dashboard__card__inner border_top_1">
+                                        <div class="dashboard__inventory__table custom_table">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th>{{ __('Listing Title') }}</th>
+                                                    <th>{{ __('Owner') }}</th>
+                                                    <th>{{ __('Views') }}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($top_listings as $listing)
+                                                    <tr class="table_row">
+                                                        <td>
+                                                            <a href="{{ route('admin.listings.updateRead', $listing->id) }}">
+                                                                {{ Str::limit($listing->title, 30) }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ optional($listing->user)->fullname ?? optional($listing->listing_creator)->fullname ?? __('Admin') }}</td>
+                                                        <td><span class="badge bg-info">{{ $listing->view }}</span></td>
+                                                    </tr>
+                                                @endforeach
+                                                @if($top_listings->isEmpty())
+                                                    <tr><td colspan="3" class="text-center text-muted">{{ __('No data yet') }}</td></tr>
+                                                @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-end mt-2">
+                                            <a href="{{ route('admin.user.all.listings') }}" class="cmnBtn btn_5 btn_bg_info btnIcon radius-5">{{ __('View All Listings') }} <i class="las la-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="dashboard__card bg__white padding-20 radius-10">
+                                    <div class="dashboard__card__header">
+                                        <h5 class="dashboard__card__header__title">{{ __('Top Banners by Clicks') }}</h5>
+                                    </div>
+                                    <div class="dashboard__card__inner border_top_1">
+                                        <div class="dashboard__inventory__table custom_table">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th>{{ __('Banner Title / Position') }}</th>
+                                                    <th>{{ __('Clicks') }}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($top_banners as $banner)
+                                                    <tr class="table_row">
+                                                        <td>{{ $banner->title ?: __('Position:') . ' ' . str_replace('_', ' ', $banner->position) }}</td>
+                                                        <td><span class="badge bg-info">{{ $banner->click_count }}</span></td>
+                                                    </tr>
+                                                @endforeach
+                                                @if($top_banners->isEmpty())
+                                                    <tr><td colspan="2" class="text-center text-muted">{{ __('No data yet') }}</td></tr>
+                                                @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-end mt-2">
+                                            <a href="{{ route('admin.banner.index') }}" class="cmnBtn btn_5 btn_bg_info btnIcon radius-5">{{ __('View All Banners') }} <i class="las la-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- HIDDEN: World Map (Ads Visitors by Country) - preserved for future use
                         @if($visitors->count() > 0)
                         <div class="row g-4 mt-1">
                             <div class="col-xxl-12 col-lg-12">
@@ -249,6 +325,7 @@
                             </div>
                         </div>
                         @endif
+                        --}}
 
                     </div>
                 </div>

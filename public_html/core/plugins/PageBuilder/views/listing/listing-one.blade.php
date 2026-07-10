@@ -391,7 +391,7 @@
                                 @if($listingsTop1 ?? null)
                                 <div class="col-md-6">
                                     <div style="width: 100%; height: 90px; overflow: hidden; border-radius: 8px;">
-                                        <a href="{{ $listingsTop1->url ?? '#' }}" target="_blank">
+                                        <a href="{{ route('banner.track', $listingsTop1->id) }}" target="_blank">
                                             <img src="{{ asset($listingsTop1->image) }}" alt="{{ $listingsTop1->title ?? __('Listings Top 1') }}" style="width: 100%; height: 100%; object-fit: contain;">
                                         </a>
                                     </div>
@@ -400,7 +400,7 @@
                                 @if($listingsTop2 ?? null)
                                 <div class="col-md-6">
                                     <div style="width: 100%; height: 90px; overflow: hidden; border-radius: 8px;">
-                                        <a href="{{ $listingsTop2->url ?? '#' }}" target="_blank">
+                                        <a href="{{ route('banner.track', $listingsTop2->id) }}" target="_blank">
                                             <img src="{{ asset($listingsTop2->image) }}" alt="{{ $listingsTop2->title ?? __('Listings Top 2') }}" style="width: 100%; height: 100%; object-fit: contain;">
                                         </a>
                                     </div>

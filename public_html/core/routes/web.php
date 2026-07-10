@@ -125,6 +125,9 @@ Route::group(['middleware' => ['globalVariable', 'maintains_mode','setlang']], f
         });
     });
 
+    // banner click tracking
+    Route::get('/banner/track/{id}', [\App\Http\Controllers\Backend\BannerController::class, 'track'])->name('banner.track');
+
     // advertisement click and impression count route
     Route::get('/home/advertisement/click/store',[FrontendAdvertisementController::class, 'home_advertisement_click_store'])->name('frontend.home.advertisement.click.store');
     Route::get('/home/advertisement/impression/store',[FrontendAdvertisementController::class, 'home_advertisement_impression_store'])->name('frontend.home.advertisement.impression.store');

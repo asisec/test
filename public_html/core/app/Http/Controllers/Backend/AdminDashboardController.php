@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Advertisement;
+use App\Models\Banner;
 use App\Models\Backend\Category;
 use App\Models\Backend\ChildCategory;
 use App\Models\Backend\Language;
@@ -117,6 +118,9 @@ class AdminDashboardController extends Controller
             ->limit($pageSize)
             ->get();
 
+        $top_listings = Listing::orderBy('view', 'DESC')->take(5)->get();
+        $top_banners = Banner::orderBy('click_count', 'DESC')->take(5)->get();
+
         return view('backend.pages.dashboard.dashboard', compact(
             'dashboardData',
             'total_user',
@@ -124,7 +128,9 @@ class AdminDashboardController extends Controller
             'recent_listings',
             'total_listings',
             'visitors',
-            'countryCodes'
+            'countryCodes',
+            'top_listings',
+            'top_banners'
         ));
     }
 

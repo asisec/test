@@ -73,6 +73,16 @@ class BannerController extends Controller
     }
 
     /**
+     * Track a banner click and redirect to its URL.
+     */
+    public function track($id)
+    {
+        $banner = Banner::findOrFail($id);
+        $banner->increment('click_count');
+        return redirect()->away($banner->url);
+    }
+
+    /**
      * Toggle the is_active status of a banner.
      */
     public function toggle($id)

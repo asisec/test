@@ -15,6 +15,7 @@ class Banner extends Model
         'url',
         'is_active',
         'position',
+        'click_count',
     ];
 
     protected $casts = [

@@ -9,12 +9,12 @@
     <div class="row g-3">
         @if($top1)
         <div style="width: 100%; aspect-ratio: 8 / 1; overflow: hidden; background: #f0f0f0; border-radius: 8px;">
-            <a href="{{ $top1->url }}"><img src="{{ asset($top1->image) }}" alt="{{ $top1->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm"></a>
+            <a href="{{ route('banner.track', $top1->id) }}"><img src="{{ asset($top1->image) }}" alt="{{ $top1->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm"></a>
         </div>
         @endif
         @if($top2)
         <div style="width: 100%; aspect-ratio: 8 / 1; overflow: hidden; background: #f0f0f0; border-radius: 8px;">
-            <a href="{{ $top2->url }}"><img src="{{ asset($top2->image) }}" alt="{{ $top2->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm"></a>
+            <a href="{{ route('banner.track', $top2->id) }}"><img src="{{ asset($top2->image) }}" alt="{{ $top2->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm"></a>
         </div>
         @endif
     </div>
@@ -416,12 +416,12 @@ $(document).ready(function () {
     <div class="row g-3">
         @if($bottom1)
         <div style="width: 100%; aspect-ratio: 8 / 1; overflow: hidden; background: #f0f0f0; border-radius: 8px;">
-            <a href="{{ $bottom1->url }}"><img src="{{ asset($bottom1->image) }}" alt="{{ $bottom1->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm"></a>
+            <a href="{{ route('banner.track', $bottom1->id) }}"><img src="{{ asset($bottom1->image) }}" alt="{{ $bottom1->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm"></a>
         </div>
         @endif
         @if($bottom2)
         <div style="width: 100%; aspect-ratio: 8 / 1; overflow: hidden; background: #f0f0f0; border-radius: 8px;">
-            <a href="{{ $bottom2->url }}"><img src="{{ asset($bottom2->image) }}" alt="{{ $bottom2->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm"></a>
+            <a href="{{ route('banner.track', $bottom2->id) }}"><img src="{{ asset($bottom2->image) }}" alt="{{ $bottom2->name ?? __('Textile Banner') }}" style="width: 100%; height: 100%; object-fit: contain;" class="shadow-sm"></a>
         </div>
         @endif
     </div>
