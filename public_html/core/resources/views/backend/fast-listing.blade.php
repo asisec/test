@@ -186,13 +186,51 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('assets/backend/js/bootstrap-tagsinput.js') }}"></script>
-    <x-frontend.js.new-tag-add-js />
     <script src="{{ asset('assets/backend/js/select2.min.js') }}"></script>
     <script>
         (function($) {
             "use strict";
             $(document).ready(function() {
-                $('#tags').select2();
+                // Custom Select2 for tags: free-text entry -> AJAX creation -> real DB ID
+                $('#tags').select2({
+                    tags: true,
+                    tokenSeparators: [',', ' '],
+                    createTag: function (params) {
+                        var term = $.trim(params.term);
+                        if (term === '') { return null; }
+                        return {
+                            id: term,
+                            text: term,
+                            newTag: true
+                        }
+                    }
+                }).on('select2:select', function (e) {
+                    var data = e.params.data;
+                    if (data.newTag) {
+                        var $select = $(this);
+                        $.ajax({
+                            url: "{{ route('add.new.tag') }}",
+                            type: "POST",
+                            data: {
+                                tag_name: data.text,
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function (response) {
+                                if (response.status === 'success') {
+                                    var realId = response.new_tag.id;
+                                    // Swap the temp string ID with the real DB ID
+                                    $select.find("option[value='" + data.text + "']")
+                                        .replaceWith("<option selected value='" + realId + "'>" + data.text + "</option>");
+                                } else if (response.status === 'exists') {
+                                    toastr.warning('Etiket zaten mevcut: ' + data.text);
+                                }
+                            },
+                            error: function(xhr) {
+                                toastr.error('Etiket oluşturulamadı: ' + (xhr.responseJSON?.errors?.tag_name?.[0] || xhr.statusText));
+                            }
+                        });
+                    }
+                });
 
                 function toggleTurkeyCities() {
                     let countryId = $('#country_id').val();
