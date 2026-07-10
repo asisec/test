@@ -166,8 +166,8 @@
                                     <div class="dashboard__card__header">
                                         <div class="dashboard__card__header__flex">
                                             <div class="dashboard__card__header__left">
-                                                <h5 class="dashboard__card__header__title">{{ __('Customers') }}
-                                                    <p>{{ __('Total Users:') }} {{ $total_user }}</p>
+                                                <h5 class="dashboard__card__header__title">{{ __('Müşteriler') }}
+                                                    <p>{{ __('Toplam Kullanıcı:') }} {{ $total_user }}</p>
                                                 </h5>
                                             </div>
                                             <div class="dashboard__card__header__right">
@@ -190,8 +190,8 @@
                                     <div class="dashboard__card__header">
                                         <div class="dashboard__card__header__flex">
                                             <div class="dashboard__card__header__left">
-                                                <h5 class="dashboard__card__header__title">{{ __('Listings') }}
-                                                    <p>{{ __('Total Listings:') }} {{ $total_listings }}</p>
+                                                <h5 class="dashboard__card__header__title">{{ __('İlanlar') }}
+                                                    <p>{{ __('Toplam İlan:') }} {{ $total_listings }}</p>
                                                 </h5>
                                             </div>
                                             <div class="dashboard__card__header__right">
@@ -214,16 +214,16 @@
                             <div class="col-md-6">
                                 <div class="dashboard__card bg__white padding-20 radius-10">
                                     <div class="dashboard__card__header">
-                                        <h5 class="dashboard__card__header__title">{{ __('Top Listings by Views') }}</h5>
+                                        <h5 class="dashboard__card__header__title">{{ __('En Çok Görüntülenen İlanlar') }}</h5>
                                     </div>
                                     <div class="dashboard__card__inner border_top_1">
                                         <div class="dashboard__inventory__table custom_table">
                                             <table>
                                                 <thead>
                                                 <tr>
-                                                    <th>{{ __('Listing Title') }}</th>
-                                                    <th>{{ __('Owner') }}</th>
-                                                    <th>{{ __('Views') }}</th>
+                                                    <th>{{ __('Başlık') }}</th>
+                                                    <th>{{ __('Sahibi') }}</th>
+                                                    <th>{{ __('Görüntülenme') }}</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -245,7 +245,7 @@
                                             </table>
                                         </div>
                                         <div class="text-end mt-2">
-                                            <a href="{{ route('admin.user.all.listings') }}" class="cmnBtn btn_5 btn_bg_info btnIcon radius-5">{{ __('View All Listings') }} <i class="las la-arrow-right"></i></a>
+                                            <a href="{{ route('admin.tracking.index') }}" class="cmnBtn btn_5 btn_bg_info btnIcon radius-5">{{ __('Tüm Raporu Gör') }} <i class="las la-arrow-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -253,15 +253,15 @@
                             <div class="col-md-6">
                                 <div class="dashboard__card bg__white padding-20 radius-10">
                                     <div class="dashboard__card__header">
-                                        <h5 class="dashboard__card__header__title">{{ __('Top Banners by Clicks') }}</h5>
+                                        <h5 class="dashboard__card__header__title">{{ __('En Çok Tıklanan Bannerlar') }}</h5>
                                     </div>
                                     <div class="dashboard__card__inner border_top_1">
                                         <div class="dashboard__inventory__table custom_table">
                                             <table>
                                                 <thead>
                                                 <tr>
-                                                    <th>{{ __('Banner Title / Position') }}</th>
-                                                    <th>{{ __('Clicks') }}</th>
+                                                    <th>{{ __('Banner Adı / Alanı') }}</th>
+                                                    <th>{{ __('Tıklanma') }}</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -278,7 +278,7 @@
                                             </table>
                                         </div>
                                         <div class="text-end mt-2">
-                                            <a href="{{ route('admin.banner.index') }}" class="cmnBtn btn_5 btn_bg_info btnIcon radius-5">{{ __('View All Banners') }} <i class="las la-arrow-right"></i></a>
+                                            <a href="{{ route('admin.tracking.index') }}" class="cmnBtn btn_5 btn_bg_info btnIcon radius-5">{{ __('Tüm Raporu Gör') }} <i class="las la-arrow-right"></i></a>
                                         </div>
                                     </div>
                                 </div>

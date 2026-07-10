@@ -23,7 +23,7 @@
                     </li>
                 @endcan
 
-                <li class="dashboard__bottom__list__item has-children @if(request()->is('admin/fast-listing*') || request()->is('admin/sms-test*') || request()->is('admin/banners*')) active open show @endif">
+                <li class="dashboard__bottom__list__item has-children @if(request()->is('admin/fast-listing*') || request()->is('admin/sms-test*') || request()->is('admin/banners*') || request()->is('admin/tracking*')) active open show @endif">
     <a href="javascript:void(0)"> 
         <i class="las la-tools"></i> 
         <span class="icon_title">{{ __('Özel Eklentiler') }}</span> 
@@ -37,6 +37,9 @@
         </li>
         <li class="dashboard__bottom__list__item @if(request()->is('admin/banners*')) selected @endif">
             <a href="{{ route('admin.banner.index') }}"> {{ __('Banner Yönetimi') }} </a>
+        </li>
+        <li class="dashboard__bottom__list__item @if(request()->is('admin/tracking')) selected @endif">
+            <a href="{{ route('admin.tracking.index') }}"> {{ __('Tık Takip') }} </a>
         </li>
     </ul>
 </li>

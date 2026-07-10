@@ -223,6 +223,13 @@ class AdminDashboardController extends Controller
     }
 
 
+    public function tracking()
+    {
+        $listings = Listing::orderBy('view', 'DESC')->take(50)->get();
+        $banners = Banner::orderBy('click_count', 'DESC')->get();
+        return view('backend.tracking.index', compact('listings', 'banners'));
+    }
+
     public function darkModeToggle(Request $request){
 
         $data = get_static_option('site_admin_dark_mode');

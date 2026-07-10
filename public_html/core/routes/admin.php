@@ -452,6 +452,9 @@ Route::middleware(['setlang'])->group(function () {
         Route::get('/hizli-ilan-bas', [\App\Http\Controllers\Backend\FastListingController::class, 'index'])->name('admin.hizli.ilan');
         Route::post('/hizli-ilan-bas', [\App\Http\Controllers\Backend\FastListingController::class, 'store'])->name('admin.hizli.ilan.store');
 
+        /*------------------ TIK TAKİP RAPORU --------------*/
+        Route::get('/tracking', [AdminDashboardController::class, 'tracking'])->name('admin.tracking.index');
+
         /*------------------ BANNER YÖNETİMİ --------------*/
         Route::prefix('banners')->group(function () {
             Route::get('/index', [\App\Http\Controllers\Backend\BannerController::class, 'index'])->name('admin.banner.index');
