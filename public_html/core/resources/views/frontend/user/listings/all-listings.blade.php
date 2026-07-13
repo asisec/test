@@ -75,7 +75,7 @@
                                                         @else
                                                             <a href="javascript:void(0)" class="pending-btn">{{ __('PENDING') }}</a>
                                                         @endif
-                                                        <a href="javascript:void(0)" class="listing-view-btn"><i class="fa-regular fa-eye"></i>{{ $listing->view }}</a>
+                                                        <a href="javascript:void(0)" class="listing-view-btn"><i class="las la-eye"></i> {{ $listing->view ?? 0 }} {{ __('Views') }}</a>
                                                     </div>
                                                 </div>
                                             </div>
