@@ -1,17 +1,17 @@
 @extends('frontend.layout.master')
 @section('site-title')
     @if($category !='')
-        {{ $category->name }}
+        {{ __($category->name) }}
     @endif
 @endsection
 @section('page-title')
     @if($category !='')
-        {{ $category->name }}
+        {{ __($category->name) }}
     @endif
 @endsection
 @section('inner-title')
     @if($category !='')
-        {{ $category->name }}
+        {{ __($category->name) }}
     @endif
 @endsection
 @section('page-meta-data')
@@ -22,7 +22,7 @@
         <div class="container-1440">
             <x-breadcrumb.user-profile-breadcrumb
                 :title="''"
-                :innerTitle="$category->name"
+                :innerTitle="__($category->name)"
                 :subInnerTitle="''"
                 :chidInnerTitle="''"
                 :routeName="'#'"
@@ -41,7 +41,7 @@
                     </div>
                 @endif
 
-                    <h3 class="catagory-wise-title">{{ $category->name }} {{ __('Available Categories') }}</h3>
+                    <h3 class="catagory-wise-title">{{ __($category->name) }} {{ __('Available Categories') }}</h3>
                     <div class="catagory-wise-list-wraper exploreCategories">
                         <div id="services_sub_category_load_wrap">
                             <div class="services_sub_category_load_wraper mt-4">
@@ -83,7 +83,7 @@
                         <section class="featureListing mb-5 mt-5">
                             <div class="container-1440">
                                 <div class="titleWithBtn d-flex justify-content-between align-items-center mb-40">
-                                    <h3 class="catagory-wise-title">{{ $category->name }} {{ __('Available Listings') }} </h3>
+                                    <h3 class="catagory-wise-title">{{ __($category->name) }} {{ __('Available Listings') }} </h3>
                                     <form id="filter_with_listing_page_category" action="{{ url('/') .'/'. get_static_option('listing_filter_page_url') ?? url('/listings') }}" method="get">
                                         <input type="hidden" name="cat" value="{{$category->id}}"/>
                                         <a href="#" id="submit_form_listing_filter_category" class="see-all">{{ __('See All') }}<i class="las la-angle-right"></i></a>

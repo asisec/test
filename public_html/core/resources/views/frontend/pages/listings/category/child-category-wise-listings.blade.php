@@ -1,17 +1,17 @@
 @extends('frontend.layout.master')
 @section('site-title')
     @if($child_category !='')
-        {{ $child_category->name }}
+        {{ __($child_category->name) }}
     @endif
 @endsection
 @section('page-title')
     @if($child_category !='')
-        {{ $child_category->name }}
+        {{ __($child_category->name) }}
     @endif
 @endsection
 @section('inner-title')
     @if($child_category !='')
-        {{ $child_category->name }}
+        {{ __($child_category->name) }}
     @endif
 @endsection
 @section('page-meta-data')
@@ -22,9 +22,9 @@
         <div class="container-1440">
             <x-breadcrumb.user-profile-breadcrumb
                 :title="''"
-                :innerTitle="$child_category->category?->name"
-                :subInnerTitle="$child_category->subcategory?->name"
-                :chidInnerTitle="$child_category->name"
+                :innerTitle="__($child_category->category?->name)"
+                :subInnerTitle="__($child_category->subcategory?->name)"
+                :chidInnerTitle="__($child_category->name)"
                 :routeName="route('frontend.show.listing.by.category', $child_category->category?->slug ?? 'x')"
                 :subRouteName="route('frontend.show.listing.by.subcategory', $child_category->subcategory?->slug ?? 'x')"
             />
@@ -46,7 +46,7 @@
                     <section class="featureListing mb-5 mt-5">
                         <div class="container-1440">
                             <div class="titleWithBtn d-flex justify-content-between align-items-center mb-40">
-                                <h3 class="catagory-wise-title">{{ $child_category->name }} {{ __('Available Listings') }}</h3>
+                                <h3 class="catagory-wise-title">{{ __($child_category->name) }} {{ __('Available Listings') }}</h3>
                                 <form id="filter_with_listing_page_subcategory" action="{{ url('/') .'/'. get_static_option('listing_filter_page_url') ?? url('/listings') }}" method="get">
                                     <input type="hidden" name="cat" value="{{$child_category->category_id}}"/>
                                     <input type="hidden" name="subcat" value="{{$child_category->sub_category_id}}"/>

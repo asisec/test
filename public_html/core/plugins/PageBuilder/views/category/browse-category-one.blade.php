@@ -22,7 +22,7 @@
                             </div>
                         <div class="categorie-text">
                             <h4 class="text-center">
-                                <a href="{{ route('frontend.show.listing.by.category', $category->slug ?? 'x') }}" class="title oneLine mt-2"> {{ $category->name }}   </a>
+                                <a href="{{ route('frontend.show.listing.by.category', $category->slug ?? 'x') }}" class="title oneLine mt-2"> {{ __($category->name) }}   </a>
                             </h4>
                         </div>
                     </div>

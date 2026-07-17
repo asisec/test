@@ -309,7 +309,7 @@
                                     <div class="col-2 text-end text-muted hide-mobile">
                                         @if ($listing->category)
                                             <a href="/listing/category/{{$listing->category->slug}}">
-                                                {{$listing->category->name}}
+                                                {{__($listing->category->name)}}
                                             </a>
                                         @else
                                             -
@@ -354,7 +354,7 @@
                                         <div class="col-2 text-end text-muted hide-mobile">
                                             @if ($listing->category)
                                                 <a href="/listing/category/{{$listing->category->slug}}">
-                                                    {{$listing->category->name}}
+                                                    {{__($listing->category->name)}}
                                                 </a>
                                             @else
                                                 -
