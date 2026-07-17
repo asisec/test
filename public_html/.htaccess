@@ -3,7 +3,7 @@
 
     # Serve robots.txt and sitemap.xml directly with HTTP 200, bypassing all redirects
     RewriteRule ^robots\.txt$ - [L]
-    RewriteRule ^sitemap\.xml$ - [L]
+    RewriteRule ^sitemap\.xml$ core/index.php [L]
 
     # Block core/ from search engines
     RewriteRule ^core/ - [L]
