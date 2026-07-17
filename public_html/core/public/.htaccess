@@ -1,4 +1,15 @@
 <IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Serve robots.txt and sitemap.xml directly with HTTP 200, bypassing all redirects
+    RewriteRule ^robots\.txt$ - [L]
+    RewriteRule ^sitemap\.xml$ - [L]
+
+    # Serve core/index.php directly if someone hits /core/ (block from search)
+    RewriteRule ^core/ - [L]
+</IfModule>
+
+<IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>

@@ -117,7 +117,7 @@ class ListingController extends Controller
                 'number_full' => 'nullable',
                 'category_id' => 'required',
                 'title' => 'required|max:191',
-                'description' => 'required|min:10',
+                'description' => 'required|min:25',
                 'slug' => 'required|max:255|unique:listings',
                 'price' => 'nullable|numeric',
                 // Attributes Validation
@@ -200,12 +200,16 @@ class ListingController extends Controller
             $listing->status = 0; // Listing onay sistemi: tüm ilanlar admin onayına düşer
 
 
+            // Load category name for SEO title
+            $categoryName = \App\Models\Backend\Category::where('id', $request->category_id)->value('name');
+            $seoTitle = $request->title . ' Üreticileri ve Toptan Fiyatları | TextileForum ' . ($categoryName ?? 'Satılık');
+
             $tags_name = '';
             if (!empty($request->tags)) {
                 $tags_name = Tag::whereIn('id', $request->tags)->pluck('name')->implode(', ');
             }
             $Metas = [
-                'meta_title' => purify_html($request->title),
+                'meta_title' => purify_html($seoTitle),
                 'meta_tags' => purify_html($tags_name),
                 'meta_description' => substr(strip_tags(purify_html($request->description)), 0, 100),
                 'facebook_meta_tags' => purify_html($tags_name),
@@ -357,7 +361,7 @@ class ListingController extends Controller
             $request->validate([
                 'category_id' => 'required',
                 'title' => 'required|max:191',
-                'description' => 'required|min:10',
+                'description' => 'required|min:25',
                 'slug' => 'required|unique:listings,slug,' . $id . ',id',
                 'price' => 'required|numeric',
                 // Attributes Validation
@@ -433,12 +437,16 @@ class ListingController extends Controller
             $listing_phone = $request->number_full ?? $listing->phone;
             $listing->phone = $listing_phone;
 
+            // Load category name for SEO title
+            $categoryName = \App\Models\Backend\Category::where('id', $request->category_id)->value('name');
+            $seoTitle = $request->title . ' Üreticileri ve Toptan Fiyatları | TextileForum ' . ($categoryName ?? 'Satılık');
+
             $tags_name = '';
             if (!empty($request->tags)) {
                 $tags_name = Tag::whereIn('id', $request->tags)->pluck('name')->implode(', ');
             }
             $Metas = [
-                'meta_title' => purify_html($request->title),
+                'meta_title' => purify_html($seoTitle),
                 'meta_tags' => purify_html($tags_name),
                 'meta_description' => substr(strip_tags(purify_html($request->description)), 0, 100),
                 'facebook_meta_tags' => purify_html($tags_name),
