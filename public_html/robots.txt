@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /core/
+Disallow: /vendor/
+Disallow: /storage/
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+Disallow: /user
+Disallow: /reset-password
+Disallow: /forgot-password
+Disallow: /assets/
+
+Sitemap: https://textileforum.net/sitemap.xml
