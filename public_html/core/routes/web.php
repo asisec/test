@@ -22,6 +22,8 @@ use \App\Http\Controllers\Frontend\FrontendUserProfileController;
 require_once __DIR__ . '/admin.php';
 require_once __DIR__ . '/user.php';
 
+// Sitemap route — must be defined before any catch-all wildcard routes
+Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
 Route::group(['middleware' => ['globalVariable','setlang']], function () {
     Route::controller(LoginController::class)->group(function(){
@@ -157,6 +159,4 @@ Route::group(['middleware' => ['globalVariable', 'maintains_mode','setlang']], f
 
 
 
-//Tüp taktırdım hız deneme 1-2-3
 
-Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index']);
