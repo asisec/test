@@ -19,14 +19,14 @@ class DispatchBackupEmail extends Command
      *
      * @var string
      */
-    protected $description = 'Email the latest database backup file from the Textile Forum storage directory';
+    protected $description = 'Email the latest .sql.gz database backup from the textileforumDB directory';
 
     /**
      * Execute the console command.
      */
     public function handle(): int
     {
-        $directory = storage_path('app/Textile Forum');
+        $directory = base_path('../backups/databases/textileforumDB');
 
         if (! is_dir($directory)) {
             $this->error("Backup directory not found: {$directory}");
@@ -34,22 +34,22 @@ class DispatchBackupEmail extends Command
             return self::FAILURE;
         }
 
-        $files = glob($directory . '/*');
+        $files = glob($directory . '/*.sql.gz');
 
         if (empty($files)) {
-            $this->warn("No backup files found in: {$directory}");
+            $this->warn("No .sql.gz backup files found in: {$directory}");
 
             return self::FAILURE;
         }
 
-        // Identify the single most recently modified file
+        // Identify the single most recently modified .sql.gz file
         $latestFile = collect($files)
             ->filter(fn (string $file) => is_file($file))
             ->sortByDesc(fn (string $file) => filemtime($file))
             ->first();
 
         if (! $latestFile) {
-            $this->warn("No valid files found in: {$directory}");
+            $this->warn("No valid .sql.gz files found in: {$directory}");
 
             return self::FAILURE;
         }

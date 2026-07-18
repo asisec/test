@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('backup:run')->cron('0 0 */3 * *');
-        $schedule->command('backup:dispatch-email')->cron('5 3 */3 * *');
+        $schedule->command('backup:dispatch-email')->dailyAt('06:20');
         $schedule->command('backup:clean')->daily();
     }
 
