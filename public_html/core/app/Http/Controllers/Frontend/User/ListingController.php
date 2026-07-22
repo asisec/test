@@ -120,11 +120,6 @@ class ListingController extends Controller
                 'description' => 'required|min:25',
                 'slug' => 'required|max:255|unique:listings',
                 'price' => 'nullable|numeric',
-                // Attributes Validation
-                'attributes_title' => 'nullable|array',
-                'attributes_title.*' => 'nullable|string|max:255',
-                'attributes_description' => 'nullable|array',
-                'attributes_description.*' => 'nullable|string|max:1000',
             ], [
                 'title.required' => __('The title field is required.'),
                 'title.max' => __('The title must not exceed 191 characters.'),

@@ -268,6 +268,7 @@
                                                     </div>
                                                 </div>
 
+                                                {{-- 
                                                 <div class="attribute-box box-shadow1 p-24 mt-3">
                                                     <h3 class="head4 mb-3">
                                                         {{ get_static_option('listing_attribute_section_title') ?? __('Attributes') }}
@@ -295,6 +296,7 @@
                                                         <i class="las la-plus-circle"></i>{{ __('Add More') }}
                                                     </button>
                                                 </div>
+                                                --}}
 
                                                 <div class="description box-shadow1 p-24 mt-4">
                                                         <label for="description">{{ __('Description') }} <span
@@ -505,6 +507,7 @@
                                         <div class="col-xl-3">
                                             <div class="right-sidebar">
 
+                                                {{-- 
                                                 <div class="box-shadow1 feature p-24">
                                                     <label>
                                                         <input type="checkbox" name="is_featured" id="is_featured"
@@ -518,6 +521,7 @@
                                                         </p>
                                                     @endif
                                                 </div>
+                                                --}}
 
                                                 <div class="box-shadow1 tags p-24 mt-3">
                                                     <label for="tags">{{ __('Tags') }}</label>
