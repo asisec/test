@@ -137,10 +137,37 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
             acceptedFiles: 'image/*',
             success: function (file, response) {
                 if (file.previewElement) {
-                    return file.previewElement.classList.add("dz-success");
+                    file.previewElement.classList.add("dz-success");
                 }
-                $('#load_all_media_images').trigger('click');
-                $('.media-uploader-image-list li:first-child').addClass('selected');
+                var imageId = response.id;
+                var imgUrl = response.img_url;
+                if (!imageId || !imgUrl) return;
+
+                var isMultiple = typeof $('#media_upload_modal').attr('data-mulitple') !== 'undefined';
+                var $input = mainUploadBtn.prev('input');
+                var $imgWrap = mainUploadBtn.parent().find('.img-wrap');
+
+                if (isMultiple) {
+                    var currentVal = $input.val();
+                    var newVal = currentVal ? currentVal + '|' + imageId : String(imageId);
+                    $input.val(newVal);
+                } else {
+                    $imgWrap.html('');
+                    $input.val(imageId);
+                }
+
+                $imgWrap.append(
+                    '<div class="img-inner-wrap">' +
+                    '<div class="rmv-span" data-imageid="' + imageId + '"><i class="{{$trash_icon}}"></i></div>' +
+                    '<div class="attachment-preview"><div class="thumbnail"><div class="centered">' +
+                    '<img src="' + imgUrl + '">' +
+                    '</div></div></div></div>'
+                );
+
+                mainUploadBtn.text('{{__("Change Image")}}');
+            },
+            queuecomplete: function () {
+                $('#media_upload_modal').modal('hide');
             },
             error: function (file, message) {
                 if (file.previewElement) {

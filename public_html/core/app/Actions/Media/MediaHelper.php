@@ -167,7 +167,7 @@ class MediaHelper
             });
             $resize_full_image->save($folder_path .'/'. $image_db);
 
-            MediaUpload::create([
+            $image_details = MediaUpload::create([
                 'title' => $image_name_with_ext,
                 'size' => formatBytes($image_size_for_db),
                 'path' => $image_db,
@@ -197,6 +197,8 @@ class MediaHelper
                 $resize_semi_large_image->save($folder_path . 'semi-large/' . $image_semi_large);
                 $resize_tiny_image->save($folder_path . 'tiny/' .$image_tiny);
             }
+
+            return $image_details;
         }
 
     }

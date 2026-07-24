@@ -18,9 +18,20 @@ class MediaUploadController extends Controller
     public function uploadMediaFile(Request $request)
     {
         $this->validate($request, [
-            'file' => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:11000'
+            'file' => 'nullable|mimes:jpg,jpeg,png,gif,webp|max:2048'
         ]);
-        MediaHelper::insert_media_image($request,'web');
+        $image_details = MediaHelper::insert_media_image($request,'web');
+        if ($image_details) {
+            $img_url = asset('assets/uploads/media-uploader/' . $image_details->path);
+            if (file_exists('assets/uploads/media-uploader/grid-' . $image_details->path)) {
+                $img_url = asset('assets/uploads/media-uploader/grid-' . $image_details->path);
+            }
+            return response()->json([
+                'id' => $image_details->id,
+                'img_url' => $img_url,
+            ]);
+        }
+        return response()->json(['error' => 'Upload failed'], 422);
     }
 
     public function allUploadMediaFile(Request $request)
