@@ -270,16 +270,15 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
         $(document).on('click','.media-upload-btn-wrapper .img-wrap > .rmv-span,.media-upload-btn-wrapper .img-wrap .img-inner-wrap > .rmv-span',function (e) {
             //imlement remove image icon
             var el = $(this);
-            let parentClass = el.parent().attr('class');
-            let $removedThumb = el.parent(); // the .img-inner-wrap being removed (if applicable)
-            let $galleryWrapper = el.closest('.media-upload-btn-wrapper');
-            let removedImageId = el.data('imageid') ? String(el.data('imageid')) : null;
+            var $thumbWrap = el.closest('.img-inner-wrap'); // robust: traverses up to the grid-cell wrapper
+            var $galleryWrapper = el.closest('.media-upload-btn-wrapper');
+            var removedImageId = el.data('imageid') ? String(el.data('imageid')) : null;
 
-            if( parentClass === 'img-inner-wrap'){
-                // Fully remove the thumbnail wrapper from the DOM (not just hide it)
-                $removedThumb.remove();
+            if ($thumbWrap.length) {
+                // Fully amputate the entire grid-cell wrapper from the DOM
+                $thumbWrap.remove();
 
-                // Recalculate the hidden input value from the remaining visible thumbnails
+                // Rebuild the hidden input value from remaining visible thumbnails
                 recalculateGalleryOrder($galleryWrapper);
 
                 // Update the media_upload_form_btn data attribute
@@ -287,10 +286,12 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
                 var $uploadBtn = $galleryWrapper.find('.media_upload_form_btn');
                 $uploadBtn.attr('data-imgid', $hiddenInput.val());
 
-            }else {
-                el.parent().parent().find('.attachment-preview').html('');
-                el.parent().parent().parent().find('input[type="hidden"]').val('');
-                el.parent().parent().parent().find('.media_upload_form_btn').attr('data-imgid','');
+            } else {
+                // Fallback for single-image upload blocks (no .img-inner-wrap)
+                var $preview = el.closest('.img-wrap').find('.attachment-preview');
+                $preview.html('');
+                $galleryWrapper.find('input[type="hidden"]').first().val('');
+                $galleryWrapper.find('.media_upload_form_btn').attr('data-imgid','');
                 el.hide();
             }
 
