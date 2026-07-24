@@ -276,39 +276,23 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
             let removedImageId = el.data('imageid') ? String(el.data('imageid')) : null;
 
             if( parentClass === 'img-inner-wrap'){
-                let button = el.parent().parent().parent().find('.media_upload_form_btn');
-                let value = el.parent().parent().parent().find('input[type="hidden"]').val();
+                // Fully remove the thumbnail wrapper from the DOM (not just hide it)
+                $removedThumb.remove();
 
-                el.parent().hide();
-                //work on remove only the remove item
-                if(el.parent().parent().find('.img-inner-wrap').length > 1){
-                    let oldValue = el.parent().parent().parent().find('input[type="hidden"]').val('');
-                    let currentImageId = '';
-                    let newValue = '';
+                // Recalculate the hidden input value from the remaining visible thumbnails
+                recalculateGalleryOrder($galleryWrapper);
 
-                    if (button.data('mulitple') != undefined){
-                        let oldImageId = el.data('imageid');
-                        let allImageArry = value.split('|');
-
-                        let result  = arrayRemove(allImageArry,oldImageId);
-                        allImageArry = result;
-                        el.parent().parent().parent().find('input[type="hidden"]').val(allImageArry.join("|"));
-                        el.parent().parent().parent().find('.media_upload_form_btn').attr('data-imgid',allImageArry.join("|"));
-                    }
-
-                }else {
-                    el.parent().parent().parent().find('input[type="hidden"]').val('');
-                    el.parent().parent().parent().find('.media_upload_form_btn').attr('data-imgid','');
-                }
+                // Update the media_upload_form_btn data attribute
+                var $hiddenInput = $galleryWrapper.find('input[type="hidden"]').first();
+                var $uploadBtn = $galleryWrapper.find('.media_upload_form_btn');
+                $uploadBtn.attr('data-imgid', $hiddenInput.val());
 
             }else {
                 el.parent().parent().find('.attachment-preview').html('');
                 el.parent().parent().parent().find('input[type="hidden"]').val('');
                 el.parent().parent().parent().find('.media_upload_form_btn').attr('data-imgid','');
+                el.hide();
             }
-            //check if this coming from -img-inner-wrap or not
-
-            el.hide();
 
             // ---- Deletion Failsafe: reassign cover if the deleted image was the current cover ----
             if (removedImageId) {
@@ -424,15 +408,22 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
 
 
         function recalculateGalleryOrder($galleryWrapper) {
-            var ids = [];
-            $galleryWrapper.find('.img-wrap .img-inner-wrap').each(function () {
-                var $rmv = $(this).find('.rmv-span');
-                var imgId = $rmv.data('imageid');
-                if (imgId !== undefined && imgId !== null && imgId !== '') {
-                    ids.push(String(imgId));
-                }
-            });
-            $galleryWrapper.find('input[type="hidden"]').first().val(ids.join('|'));
+            try {
+                var ids = [];
+                $galleryWrapper.find('.img-wrap .img-inner-wrap').each(function () {
+                    // Skip hidden/ghost elements that may have been left behind
+                    if (!$(this).is(':visible')) return;
+                    var $rmv = $(this).find('.rmv-span');
+                    if (!$rmv.length) return;
+                    var imgId = $rmv.data('imageid');
+                    if (imgId !== undefined && imgId !== null && imgId !== '') {
+                        ids.push(String(imgId));
+                    }
+                });
+                $galleryWrapper.find('input[type="hidden"]').first().val(ids.join('|'));
+            } catch (e) {
+                // Silently fail — a single corrupt element must not crash the gallery
+            }
         }
 
         $(document).on('dragstart', '.img-wrap .img-inner-wrap[draggable="true"]', function (e) {
