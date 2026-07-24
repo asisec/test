@@ -64,6 +64,21 @@ class UserController extends Controller
                     'city_id'=>$request->city ?: null,
                     'image'=>$request->image,
                 ]);
+
+                // Crop and resize profile image to 300x300 square
+                if ($request->image) {
+                    $mediaUpload = \App\Models\Backend\MediaUpload::find($request->image);
+                    if ($mediaUpload && file_exists('assets/uploads/media-uploader/' . $mediaUpload->path)) {
+                        $profile_dir = base_path('../assets/images/user/profile');
+                        if (!is_dir($profile_dir)) {
+                            @mkdir($profile_dir, 0755, true);
+                        }
+                        $processed = Image::make('assets/uploads/media-uploader/' . $mediaUpload->path)->fit(300, 300, function ($constraint) {
+                            $constraint->upsize();
+                        });
+                        $processed->save($profile_dir . '/' . $mediaUpload->path);
+                    }
+                }
             }
 
             return response()->json([

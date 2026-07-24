@@ -324,8 +324,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="upload-img text-center mt-3">
-                                                <div class="media-upload-btn-wrapper">
+                                            {{-- Cover image UI hidden: cover is now auto-selected/manually set from the Gallery upload block below (see .make-cover-btn logic in media/js.blade.php). The hidden input is preserved so the backend payload is unaffected. --}}
+                                            <div class="upload-img text-center mt-3" style="display: none">
+                                                <div class="media-upload-btn-wrapper cover-image-wrapper">
                                                     <div class="img-wrap new_image_add_listing">
                                                         {!! render_attachment_preview_for_admin($listing->image ?? '') !!}
                                                     </div>

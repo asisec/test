@@ -156,16 +156,44 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
                     $input.val(imageId);
                 }
 
-                $imgWrap.append(
-                    '<div class="img-inner-wrap">' +
+                // Locate the sibling "cover" (featured image) hidden input, if this upload
+                // originated from the gallery block. The cover block is visually hidden
+                // (see .cover-image-wrapper) but its hidden input still drives the backend payload.
+                var $coverWrapper = mainUploadBtn.closest('.right-sidebar, form').find('.cover-image-wrapper');
+                var $coverInput = $coverWrapper.find('input[type="hidden"]').first();
+                var isCoverBlock = mainUploadBtn.closest('.cover-image-wrapper').length > 0;
+
+                var isCoverImage = false;
+                if (isCoverBlock) {
+                    // Direct cover upload (legacy path, block is hidden but still functional)
+                    isCoverImage = true;
+                } else if (isMultiple && $coverInput.length && $coverInput.val() === '') {
+                    // Auto-select: first gallery image becomes the cover when none is set yet
+                    $coverInput.val(imageId);
+                    isCoverImage = true;
+                }
+
+                var coverBadge = isCoverImage
+                    ? '<span class="cover-badge badge bg-primary position-absolute" style="top:4px;left:4px;z-index:2;">{{__("Kapak")}}</span>'
+                    : '';
+                var coverBtnClass = isCoverImage ? 'make-cover-btn active-cover' : 'make-cover-btn';
+
+                var $newThumb = $(
+                    '<div class="img-inner-wrap position-relative"' + (isMultiple ? ' draggable="true"' : '') + '>' +
                     '<div class="rmv-span" data-imageid="' + imageId + '"><i class="{{$trash_icon}}"></i></div>' +
+                    coverBadge +
+                    (isMultiple ? '<button type="button" class="' + coverBtnClass + '" data-id="' + imageId + '" title="{{__("Kapak Yap")}}"><i class="las la-star"></i></button>' : '') +
                     '<div class="attachment-preview"><div class="thumbnail"><div class="centered">' +
                     '<img src="' + imgUrl + '">' +
                     '</div></div></div></div>'
                 );
 
+                $imgWrap.append($newThumb);
+
+
                 mainUploadBtn.text('{{__("Change Image")}}');
             },
+
             queuecomplete: function () {
                 $('#media_upload_modal').modal('hide');
             },
@@ -223,6 +251,10 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
             //imlement remove image icon
             var el = $(this);
             let parentClass = el.parent().attr('class');
+            let $removedThumb = el.parent(); // the .img-inner-wrap being removed (if applicable)
+            let $galleryWrapper = el.closest('.media-upload-btn-wrapper');
+            let removedImageId = el.data('imageid') ? String(el.data('imageid')) : null;
+
             if( parentClass === 'img-inner-wrap'){
                 let button = el.parent().parent().parent().find('.media_upload_form_btn');
                 let value = el.parent().parent().parent().find('input[type="hidden"]').val();
@@ -257,10 +289,173 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
             //check if this coming from -img-inner-wrap or not
 
             el.hide();
+
+            // ---- Deletion Failsafe: reassign cover if the deleted image was the current cover ----
+            if (removedImageId) {
+                var $coverWrapper = $galleryWrapper.closest('.right-sidebar, form').find('.cover-image-wrapper');
+                var $coverInput = $coverWrapper.find('input[type="hidden"]').first();
+
+                if ($coverInput.length && $coverInput.val() === removedImageId) {
+                    $coverInput.val('');
+
+                    // Find the first remaining (still-visible) thumbnail in this gallery
+                    var $remainingThumb = $galleryWrapper.find('.img-wrap .img-inner-wrap').filter(function () {
+                        return $(this).is(':visible');
+                    }).first();
+
+                    if ($remainingThumb.length) {
+                        var $newCoverBtn = $remainingThumb.find('.make-cover-btn');
+                        if ($newCoverBtn.length) {
+                            $newCoverBtn.trigger('click');
+                        }
+                    }
+                }
+            }
+        });
+
+
+        // Manual "Kapak Yap" (Set Cover) selection.
+        // Clicking a thumbnail's cover button sets that image's ID as the
+        // listing's featured image (hidden input[name="image"]) and moves
+        // the visual "cover" highlight to the clicked thumbnail only.
+        $(document).on('click', '.make-cover-btn', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var $btn = $(this);
+            var imageId = $btn.data('id');
+            if (!imageId) return;
+
+            var $galleryWrapper = $btn.closest('.media-upload-btn-wrapper');
+            var $coverWrapper = $galleryWrapper.closest('.right-sidebar, form').find('.cover-image-wrapper');
+            var $coverInput = $coverWrapper.find('input[type="hidden"]').first();
+
+            if ($coverInput.length) {
+                $coverInput.val(imageId);
+            }
+
+            // Reset highlight on all thumbnails within this gallery, then apply to the clicked one
+            $galleryWrapper.find('.img-inner-wrap').each(function () {
+                $(this).find('.cover-badge').remove();
+                $(this).find('.make-cover-btn').removeClass('active-cover');
+            });
+
+            $btn.addClass('active-cover');
+            $btn.closest('.img-inner-wrap').prepend(
+                '<span class="cover-badge badge bg-primary position-absolute" style="top:4px;left:4px;z-index:2;">{{__("Kapak")}}</span>'
+            );
+        });
+
+        // ---- Gallery Sorting (native HTML5 drag-and-drop) ----
+        // No Sortable library (jQuery UI / SortableJS) is loaded in this project,
+        // so a lightweight native DnD implementation is used instead.
+
+        var $draggedThumb = null;
+
+        // Normalize pre-rendered gallery thumbnails (server-side rendered on page load via
+        // render_gallery_image_attachment_preview(), which outputs bare .attachment-preview
+        // divs with NO .img-inner-wrap/.rmv-span/data-imageid) into the same DOM structure
+        // used by the Dropzone-uploaded thumbnails, so delete/cover/sort logic works uniformly.
+        $('.picture .img-wrap.new_image_gallery_add_listing').each(function () {
+            var $imgWrap = $(this);
+            var $galleryWrapper = $imgWrap.closest('.media-upload-btn-wrapper');
+            var $hiddenInput = $galleryWrapper.find('input[type="hidden"]').first();
+            var idsStr = $hiddenInput.val() || '';
+            var ids = idsStr.split('|').filter(function (v) { return v !== ''; });
+
+            var $coverWrapper = $galleryWrapper.closest('.right-sidebar, form').find('.cover-image-wrapper');
+            var $coverInput = $coverWrapper.find('input[type="hidden"]').first();
+            var coverId = $coverInput.length ? String($coverInput.val()) : '';
+
+            var $rawPreviews = $imgWrap.find('> .attachment-preview');
+            if ($rawPreviews.length && $rawPreviews.length === ids.length) {
+                $rawPreviews.each(function (index) {
+                    var imageId = ids[index];
+                    var $preview = $(this);
+                    var isCover = imageId === coverId;
+
+                    var coverBadge = isCover
+                        ? '<span class="cover-badge badge bg-primary position-absolute" style="top:4px;left:4px;z-index:2;">{{__("Kapak")}}</span>'
+                        : '';
+                    var coverBtnClass = isCover ? 'make-cover-btn active-cover' : 'make-cover-btn';
+
+                    var $wrap = $('<div class="img-inner-wrap position-relative" draggable="true"></div>');
+                    $wrap.append('<div class="rmv-span" data-imageid="' + imageId + '"><i class="{{$trash_icon}}"></i></div>');
+                    if (coverBadge) $wrap.append(coverBadge);
+                    $wrap.append('<button type="button" class="' + coverBtnClass + '" data-id="' + imageId + '" title="{{__("Kapak Yap")}}"><i class="las la-star"></i></button>');
+                    $preview.before($wrap);
+                    $wrap.append($preview);
+                });
+            }
+        });
+
+        // Mark any remaining pre-rendered gallery thumbnails as draggable too (safety net).
+        $('.media-upload-btn-wrapper[data-mulitple] .img-wrap .img-inner-wrap, .picture .img-wrap .img-inner-wrap').attr('draggable', 'true');
+
+
+        function recalculateGalleryOrder($galleryWrapper) {
+            var ids = [];
+            $galleryWrapper.find('.img-wrap .img-inner-wrap').each(function () {
+                var $rmv = $(this).find('.rmv-span');
+                var imgId = $rmv.data('imageid');
+                if (imgId !== undefined && imgId !== null && imgId !== '') {
+                    ids.push(String(imgId));
+                }
+            });
+            $galleryWrapper.find('input[type="hidden"]').first().val(ids.join('|'));
+        }
+
+        $(document).on('dragstart', '.img-wrap .img-inner-wrap[draggable="true"]', function (e) {
+            $draggedThumb = $(this);
+            $(this).addClass('dragging');
+            if (e.originalEvent && e.originalEvent.dataTransfer) {
+                e.originalEvent.dataTransfer.effectAllowed = 'move';
+                try {
+                    e.originalEvent.dataTransfer.setData('text/plain', '');
+                } catch (err) {}
+            }
+        });
+
+        $(document).on('dragend', '.img-wrap .img-inner-wrap[draggable="true"]', function () {
+            $(this).removeClass('dragging');
+            $draggedThumb = null;
+        });
+
+        $(document).on('dragover', '.img-wrap .img-inner-wrap[draggable="true"]', function (e) {
+            e.preventDefault();
+            if (!$draggedThumb || $draggedThumb.is($(this))) return;
+
+            var $target = $(this);
+            var draggedIndex = $draggedThumb.index();
+            var targetIndex = $target.index();
+
+            if (draggedIndex < targetIndex) {
+                $draggedThumb.insertAfter($target);
+            } else {
+                $draggedThumb.insertBefore($target);
+            }
+        });
+
+        $(document).on('drop', '.img-wrap .img-inner-wrap[draggable="true"]', function (e) {
+            e.preventDefault();
+            var $galleryWrapper = $(this).closest('.media-upload-btn-wrapper');
+            recalculateGalleryOrder($galleryWrapper);
+        });
+
+        // Also allow dropping on the container itself (e.g. dropping past the last item)
+        $(document).on('dragover', '.img-wrap', function (e) {
+            e.preventDefault();
+        });
+        $(document).on('drop', '.img-wrap', function (e) {
+            e.preventDefault();
+            var $galleryWrapper = $(this).closest('.media-upload-btn-wrapper');
+            recalculateGalleryOrder($galleryWrapper);
         });
 
         function loadAllImages() {
+
             var selectedImage = $('#load_all_media_images').attr('data-selectedimage');
+
 
             $.ajax({
                 type: "POST",
