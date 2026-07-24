@@ -189,10 +189,11 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
                 );
 
                 $imgWrap.append($newThumb);
-
+                togglePlaceholderVisibility($imgWrap);
 
                 mainUploadBtn.text('{{__("Change Image")}}');
             },
+
 
             queuecomplete: function () {
                 $('#media_upload_modal').modal('hide');
@@ -247,6 +248,25 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
                 return ele != value;
             });
         }
+
+        // Toggle the default placeholder image/icon inside a gallery's .img-wrap.
+        // If any .img-inner-wrap thumbnails exist, the placeholder (a direct-child
+        // <img> of .img-wrap, not wrapped in .img-inner-wrap) is hidden; otherwise
+        // it is restored to its default display state.
+        function togglePlaceholderVisibility($imgWrap) {
+            if (!$imgWrap || !$imgWrap.length) return;
+            var $placeholder = $imgWrap.children('img');
+            var hasThumbnails = $imgWrap.find('.img-inner-wrap').filter(function () {
+                return $(this).is(':visible');
+            }).length > 0;
+
+            if (hasThumbnails) {
+                $placeholder.hide();
+            } else {
+                $placeholder.show();
+            }
+        }
+
         $(document).on('click','.media-upload-btn-wrapper .img-wrap > .rmv-span,.media-upload-btn-wrapper .img-wrap .img-inner-wrap > .rmv-span',function (e) {
             //imlement remove image icon
             var el = $(this);
@@ -311,7 +331,10 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
                     }
                 }
             }
+
+            togglePlaceholderVisibility($galleryWrapper.find('.img-wrap'));
         });
+
 
 
         // Manual "Kapak Yap" (Set Cover) selection.
@@ -391,6 +414,13 @@ $spinner_icon =  $type === 'admin' ? 'fas fa-spinner fa-spin' : 'fa-spin las la-
 
         // Mark any remaining pre-rendered gallery thumbnails as draggable too (safety net).
         $('.media-upload-btn-wrapper[data-mulitple] .img-wrap .img-inner-wrap, .picture .img-wrap .img-inner-wrap').attr('draggable', 'true');
+
+        // Sync the placeholder icon visibility on page load for every gallery/upload block
+        // (covers both pre-rendered gallery thumbnails and the single cover image block).
+        $('.media-upload-btn-wrapper .img-wrap').each(function () {
+            togglePlaceholderVisibility($(this));
+        });
+
 
 
         function recalculateGalleryOrder($galleryWrapper) {

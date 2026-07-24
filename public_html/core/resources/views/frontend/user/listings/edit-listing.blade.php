@@ -110,8 +110,8 @@
         }
 
         .new_image_gallery_add_listing .attachment-preview {
-            width: 100px;
-            height: 100px;
+            width: 100%;
+            height: 100%;
             border-radius: 6px;
             overflow: hidden;
         }
@@ -125,7 +125,35 @@
         .media-upload-btn-wrapper .img-wrap .rmv-span {
             padding: 0;
         }
+
+        /* 3-column gallery grid layout */
+        .media-upload-btn-wrapper .img-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .media-upload-btn-wrapper .img-wrap .img-inner-wrap {
+            width: calc(33.333% - 10px);
+            margin: 0;
+            aspect-ratio: 1 / 1;
+        }
+
+        .media-upload-btn-wrapper .img-wrap .img-inner-wrap .attachment-preview,
+        .media-upload-btn-wrapper .img-wrap .img-inner-wrap .attachment-preview .thumbnail,
+        .media-upload-btn-wrapper .img-wrap .img-inner-wrap .attachment-preview .thumbnail .centered {
+            width: 100%;
+            height: 100%;
+        }
+
+        .media-upload-btn-wrapper .img-wrap .img-inner-wrap img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
     </style>
+
     <x-css.phone-number-css/>
 @endsection
 @section('content')
