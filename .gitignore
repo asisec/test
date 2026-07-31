@@ -1,0 +1,58 @@
+# ---------------------------------------------------
+# TEXTILE FORUM SOLID .GITIGNORE
+# ---------------------------------------------------
+
+# 1. Dependencies (Devasa klasörler)
+/public_html/core/vendor/
+/vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 2. Secrets & Configurations (Hayati Güvenlik)
+.env
+.env.*
+public_html/core/.env
+public_html/.env
+*.key
+auth.json
+Homestead.json
+Homestead.yaml
+
+# 3. Database Dumps & Archives (Sızıntı Önleyici)
+*.sql
+*.rar
+*.zip
+*.tar.gz
+*.sqlite
+
+# 4. Laravel Storage & Cache (İçerik silinir, klasör yapısı korunur)
+/public_html/core/storage/*.key
+/public_html/core/storage/logs/*
+!/public_html/core/storage/logs/.gitignore
+/public_html/core/storage/framework/cache/data/*
+!/public_html/core/storage/framework/cache/data/.gitignore
+/public_html/core/storage/framework/sessions/*
+!/public_html/core/storage/framework/sessions/.gitignore
+/public_html/core/storage/framework/testing/*
+!/public_html/core/storage/framework/testing/.gitignore
+/public_html/core/storage/framework/views/*
+!/public_html/core/storage/framework/views/.gitignore
+/public_html/core/bootstrap/cache/*
+!/public_html/core/bootstrap/cache/.gitignore
+/public_html/core/storage/debugbar/*
+!/public_html/core/storage/debugbar/.gitignore
+
+# 5. User Uploads & Media (Müşteri verisi repoda tutulmaz)
+/public_html/assets/images/*/*
+!/public_html/assets/images/*/.gitignore
+
+# 6. IDE & OS Junk (Geliştirici Kalıntıları)
+.DS_Store
+Thumbs.db
+.phpunit.result.cache
+.phpactor.json
+/.vagrant
+desktop.ini
+.idea/
+.vscode/
