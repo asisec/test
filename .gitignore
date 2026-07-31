@@ -2,14 +2,14 @@
 # TEXTILE FORUM SOLID .GITIGNORE
 # ---------------------------------------------------
 
-# 1. Dependencies (Devasa klasörler)
+# 1. Dependencies 
 /public_html/core/vendor/
 /vendor/
 node_modules/
 npm-debug.log
 yarn-error.log
 
-# 2. Secrets & Configurations (Hayati Güvenlik)
+# 2. Secrets & Configurations
 .env
 .env.*
 public_html/core/.env
@@ -19,14 +19,14 @@ auth.json
 Homestead.json
 Homestead.yaml
 
-# 3. Database Dumps & Archives (Sızıntı Önleyici)
+# 3. Database Dumps & Archives 
 *.sql
 *.rar
 *.zip
 *.tar.gz
 *.sqlite
 
-# 4. Laravel Storage & Cache (İçerik silinir, klasör yapısı korunur)
+# 4. Laravel Storage & Cache 
 /public_html/core/storage/*.key
 /public_html/core/storage/logs/*
 !/public_html/core/storage/logs/.gitignore
@@ -43,11 +43,11 @@ Homestead.yaml
 /public_html/core/storage/debugbar/*
 !/public_html/core/storage/debugbar/.gitignore
 
-# 5. User Uploads & Media (Müşteri verisi repoda tutulmaz)
+# 5. User Uploads & Media 
 /public_html/assets/images/*/*
 !/public_html/assets/images/*/.gitignore
 
-# 6. IDE & OS Junk (Geliştirici Kalıntıları)
+# 6. IDE & OS Junk 
 .DS_Store
 Thumbs.db
 .phpunit.result.cache
