@@ -30,13 +30,13 @@ class LanguageHelper
     public static function user_lang()
     {
         if (self::$user_lang === null) {
-            $session_lang = session()->get('lang');
-            if ( !empty($session_lang) && $session_lang !== self::default_slug()){
-                self::$user_lang = self::lang_instance()->where('slug',session()->get('lang'))->first();
-            }else{
+            $activeSlug = app()->getLocale() ?: session()->get('lang') ?: request()->cookie('app_user_lang');
+            if (!empty($activeSlug)) {
+                self::$user_lang = self::lang_instance()->where('slug', $activeSlug)->first();
+            }
+            if (!self::$user_lang) {
                 self::$user_lang = self::default();
             }
-
         }
         return self::$user_lang;
     }
@@ -60,7 +60,7 @@ class LanguageHelper
         try {
             if (self::$default_slug === null) {
                 $default = self::lang_instance()->where('default', '1')->first();
-                self::$default_slug = $default->slug;
+                self::$default_slug = $default ? $default->slug : 'tr_TR';
             }
         }catch (\Exception $exception){
 
@@ -79,13 +79,14 @@ class LanguageHelper
 
         }
 
-        return self::$default->direction;
+        return self::$default ? self::$default->direction : 'ltr';
     }
     public static function user_lang_slug(){
         try {
             if (self::$user_lang_slug === null) {
+                $activeSlug = app()->getLocale() ?: session()->get('lang') ?: request()->cookie('app_user_lang');
                 $default = self::lang_instance()->where('default', '1')->first();
-                self::$user_lang_slug = session()->get('lang') ?? $default->slug;
+                self::$user_lang_slug = $activeSlug ?: ($default ? $default->slug : 'tr_TR');
             }
         }catch (\Exception $exception){
 
