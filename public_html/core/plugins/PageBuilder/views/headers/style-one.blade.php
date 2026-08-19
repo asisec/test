@@ -258,14 +258,14 @@
                 <ul class="nav nav-pills home-category-tabs" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="active" id="home-category-latest-tab" data-bs-toggle="pill" data-bs-target="#home-category-latest-content" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
-                            <span>{{ __('Latest listing') }}</span>
+                            <span>{{ deepl_translate(__('Latest listing')) }}</span>
                         </button>
                     </li>
 
                     @foreach($all_category as $category)
                         <li class="nav-item" role="presentation">
                             <button class="" id="home-category-{{$category->id ?? 0}}-tab" data-bs-toggle="pill" data-bs-target="#home-category-{{$category->id ?? 0}}-content" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">
-                                <span>{{__($category->name ?? '')}}</span>
+                                <span>{{deepl_translate($category->name ?? '')}}</span>
                             </button>
                         </li>
                     @endforeach
@@ -279,10 +279,10 @@
                     <div class="tab-pane fade show active" id="home-category-latest-content" role="tabpanel" aria-labelledby="home-category-latest-tab">
                         <!-- Header -->
                         <div class="row table-header py-2 mt-1 hide-mobile">
-                            <div class="col-6">{{ __('Listing Title') }}</div>
-                            <div class="col-2 text-center">{{ __('Country') }}</div>
-                            <div class="col-2 text-center">{{ __('Owner') }}</div>
-                            <div class="col-2 text-end">{{ __('Category') }}</div>
+                            <div class="col-6">{{ deepl_translate(__('Listing Title')) }}</div>
+                            <div class="col-2 text-center">{{ deepl_translate(__('Country')) }}</div>
+                            <div class="col-2 text-center">{{ deepl_translate(__('Owner')) }}</div>
+                            <div class="col-2 text-end">{{ deepl_translate(__('Category')) }}</div>
                         </div>
 
                         <!-- Row 1 -->
@@ -291,7 +291,7 @@
                                 <div class="row py-2 home-category-listing-item {{ $loop->last ? 'last' : '' }}">
                                     <div class="col-12 col-md-6">
                                         <a href="/listing/{{$listing->slug}}" class="l-title">
-                                            {{$listing->title}}
+                                            {{deepl_translate($listing->title)}}
                                         </a>
                                     </div>
                                     <div class="col-2 text-center hide-mobile">
@@ -309,7 +309,7 @@
                                     <div class="col-2 text-end text-muted hide-mobile">
                                         @if ($listing->category)
                                             <a href="/listing/category/{{$listing->category->slug}}">
-                                                {{__($listing->category->name)}}
+                                                {{deepl_translate($listing->category->name)}}
                                             </a>
                                         @else
                                             -
@@ -324,10 +324,10 @@
                         <div class="tab-pane fade show" id="home-category-{{$category->id ?? 0}}-content" role="tabpanel" aria-labelledby="home-category-{{$category->id ?? 0}}-tab">
                             <!-- Header -->
                             <div class="row table-header py-2 mt-1 hide-mobile">
-                                <div class="col-6">{{ __('Listing Title') }}</div>
-                                <div class="col-2 text-center">{{ __('Country') }}</div>
-                                <div class="col-2 text-center">{{ __('Owner') }}</div>
-                                <div class="col-2 text-end">{{ __('Category') }}</div>
+                                <div class="col-6">{{ deepl_translate(__('Listing Title')) }}</div>
+                                <div class="col-2 text-center">{{ deepl_translate(__('Country')) }}</div>
+                                <div class="col-2 text-center">{{ deepl_translate(__('Owner')) }}</div>
+                                <div class="col-2 text-end">{{ deepl_translate(__('Category')) }}</div>
                             </div>
 
                             <!-- Row 1 -->
@@ -336,7 +336,7 @@
                                     <div class="row py-2 home-category-listing-item {{ $loop->last ? 'last' : '' }}">
                                         <div class="col-12 col-md-6">
                                             <a href="/listing/{{$listing->slug}}" class="l-title">
-                                                {{$listing->title}}
+                                                {{deepl_translate($listing->title)}}
                                             </a>
                                         </div>
                                         <div class="col-2 text-center hide-mobile">
@@ -354,7 +354,7 @@
                                         <div class="col-2 text-end text-muted hide-mobile">
                                             @if ($listing->category)
                                                 <a href="/listing/category/{{$listing->category->slug}}">
-                                                    {{__($listing->category->name)}}
+                                                    {{deepl_translate($listing->category->name)}}
                                                 </a>
                                             @else
                                                 -
@@ -368,7 +368,7 @@
                             <div class="s-m-wrapper">
                                 @if($category->show_more)
                                     <div class="row b-0 px-0">
-                                        <a href="/listing/category/{{$category->slug}}" class="col-12 text-center home-category-show-more-btn">{{__('Show More')}}</a>
+                                        <a href="/listing/category/{{$category->slug}}" class="col-12 text-center home-category-show-more-btn">{{ deepl_translate(__('Show More')) }}</a>
                                     </div>
                                 @endif
                             </div>

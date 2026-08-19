@@ -203,7 +203,7 @@
     <li class="single">
         <div class="btn-wrapper">
             <a href="{{ route('user.add.listing') }}"  class="cmn-btn1 popup-modal">
-                <i class="las la-plus-circle"></i><span class="text">{{ __('Post your ad') }}</span>
+                <i class="las la-plus-circle"></i><span class="text">{{ deepl_translate(__('Post your ad')) }}</span>
             </a>
         </div>
     </li>
@@ -211,7 +211,7 @@
     <li class="single">
         <div class="btn-wrapper">
             <a href="{{ route('guest.add.listing') }}"  class="cmn-btn1 popup-modal">
-                <i class="las la-plus-circle"></i><span class="text">{{ __('Post your ad') }}</span>
+                <i class="las la-plus-circle"></i><span class="text">{{ deepl_translate(__('Post your ad')) }}</span>
             </a>
         </div>
     </li>
