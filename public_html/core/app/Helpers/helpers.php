@@ -1864,7 +1864,7 @@ function render_frontend_sidebar($location, $args = [])
 
     }
     
-    return $output;
+    return function_exists('deepl_translate') ? deepl_translate($output) : $output;
 }
 function get_all_language()
 {
