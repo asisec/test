@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('site-title')
-    {{__('Account Settings')}}
+    {{deepl_translate(__('Account Settings'))}}
 @endsection
 @section('style')
     <x-media.css/>
@@ -130,25 +130,25 @@
                                 <x-frontend.user.responsive-icon/>
                                 <div class="setting-btn-part">
                                     <div class="setting-tab nav nav-tabs" id="setting-tabbuttons">
-                                        {{-- <a href="javascript:void(0)" class="nav-link active" data-bs-toggle="tab" data-bs-target="#identity-verification">{{ __('Identity Verification') }}</a> --}}
-                                        <a href="javascript:void(0)" class="nav-link active" data-bs-toggle="tab" data-bs-target="#change-password">{{ __('Change Password') }}</a>
+                                        {{-- <a href="javascript:void(0)" class="nav-link active" data-bs-toggle="tab" data-bs-target="#identity-verification">{{ deepl_translate(__('Identity Verification')) }}</a> --}}
+                                        <a href="javascript:void(0)" class="nav-link active" data-bs-toggle="tab" data-bs-target="#change-password">{{ deepl_translate(__('Change Password')) }}</a>
                                         @if(moduleExists('Membership'))
                                             @if(membershipModuleExistsAndEnable('Membership'))
                                                 @php
                                                     $user_membership = \Modules\Membership\app\Models\UserMembership::where('user_id', \Illuminate\Support\Facades\Auth::guard('web')->user()->id)->first();
                                                 @endphp
                                                 @if($user_membership->business_hour === 1)
-                                                      <a href="javascript:void(0)" class="nav-link" data-bs-toggle="tab" data-bs-target="#business-hours">{{ __('Business Hours') }}</a>
+                                                      <a href="javascript:void(0)" class="nav-link" data-bs-toggle="tab" data-bs-target="#business-hours">{{ deepl_translate(__('Business Hours')) }}</a>
                                                 @endif
                                             @endif
                                         @endif
-                                        <a href="javascript:void(0)" class="nav-link" data-bs-toggle="tab" data-bs-target="#deactivate-delete-account">{{ __('Deactivate/Delete Account') }}</a>
+                                        <a href="javascript:void(0)" class="nav-link" data-bs-toggle="tab" data-bs-target="#deactivate-delete-account">{{ deepl_translate(__('Deactivate/Delete Account')) }}</a>
                                     </div>
                                     <div class="setting-tab-content tab-content">
                                         <div class="tab-pane fade show active" id="change-password">
                                             <div class="tab-content-wraper box-shadow1 change-password-part">
-                                                <h3 class="head4">{{ __('Change Password') }}</h3>
-                                                <p class="dashboard_accountSettings__para mb-24">{{ __('Last changed') }}
+                                                <h3 class="head4">{{ deepl_translate(__('Change Password')) }}</h3>
+                                                <p class="dashboard_accountSettings__para mb-24">{{ deepl_translate(__('Last changed')) }}
                                                     @if(Auth::guard('web')->user()->password_changed_at)
                                                         {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Auth::guard('web')->user()->password_changed_at)->diffForHumans() }}
                                                     @endif
@@ -156,19 +156,19 @@
                                                 <form action="{{route('user.account.settings')}}" method="post">
                                                     @csrf
                                                     <div class="input-wraper">
-                                                        <label for="#current-password">{{ __('Current Password') }}</label>
-                                                        <input type="password" name="current_password" id="current_password" placeholder="{{ __('Current Password') }}">
+                                                        <label for="#current-password">{{ deepl_translate(__('Current Password')) }}</label>
+                                                        <input type="password" name="current_password" id="current_password" placeholder="{{ deepl_translate(__('Current Password')) }}">
                                                     </div>
                                                     <div class="input-wraper mt-3">
-                                                        <label for="#new-password">{{ __('New Password') }}</label>
-                                                        <input type="password" name="new_password" id="new_password" placeholder="{{ __('New Password') }}">
+                                                        <label for="#new-password">{{ deepl_translate(__('New Password')) }}</label>
+                                                        <input type="password" name="new_password" id="new_password" placeholder="{{ deepl_translate(__('New Password')) }}">
                                                     </div>
                                                     <div class="input-wraper mt-3">
-                                                        <label for="#re-new-password">{{ __('Re-Enter New Password') }}</label>
-                                                        <input type="password" name="confirm_password" id="confirm_password" placeholder="{{ __('Re-Enter New Password') }}">
+                                                        <label for="#re-new-password">{{ deepl_translate(__('Re-Enter New Password')) }}</label>
+                                                        <input type="password" name="confirm_password" id="confirm_password" placeholder="{{ deepl_translate(__('Re-Enter New Password')) }}">
                                                     </div>
                                                     <div class="save-change-btn mt-3">
-                                                        <button type="submit" class="red-btn">{{ __('Save Changes') }}</button>
+                                                        <button type="submit" class="red-btn">{{ deepl_translate(__('Save Changes')) }}</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -184,8 +184,8 @@
                                                         <path d="M24.5903 36.2106C24.1101 36.2106 23.6538 36.0185 23.3177 35.6823L16.5223 28.8869C15.8259 28.1906 15.8259 27.038 16.5223 26.3417C17.2186 25.6453 18.3712 25.6453 19.0675 26.3417L24.5903 31.8644L36.9325 19.5223C37.6288 18.8259 37.6288 18.8259 39.4777 19.5223C40.1741 20.2186 40.1741 21.3712 39.4777 22.0675L25.8629 35.6823C25.5268 36.0185 25.0705 36.2106 24.5903 36.2106Z" fill="white"/>
                                                     </svg>
                                                     <div class="text-part">
-                                                        <h3 class="head4">{{ __('Your identity is verified') }}</h3>
-                                                        <p>{{ __('Your identity has been verified by our team.') }}</p>
+                                                        <h3 class="head4">{{ deepl_translate(__('Your identity is verified')) }}</h3>
+                                                        <p>{{ deepl_translate(__('Your identity has been verified by our team.')) }}</p>
                                                     </div>
                                                 </div>
                                             @elseif(!is_null($user_verify_info) && $user_verify_info->status === 0)
@@ -197,8 +197,8 @@
                                                         <path d="M28 40H28.01" stroke="white" stroke-width="4" stroke-linecap="round"/>
                                                     </svg>
                                                     <div class="text-part">
-                                                        <h3 class="head4">{{ __('Your identity verification is pending') }}</h3>
-                                                        <p>{{ __('Your identity verification is under review. We will notify you once the review is complete.') }}</p>
+                                                        <h3 class="head4">{{ deepl_translate(__('Your identity verification is pending')) }}</h3>
+                                                        <p>{{ deepl_translate(__('Your identity verification is under review. We will notify you once the review is complete.')) }}</p>
                                                     </div>
                                                 </div>
                                             @else
@@ -210,7 +210,7 @@
                                                             <path d="M28 14V32" stroke="white" stroke-width="4" stroke-linecap="round"/>
                                                             <path d="M28 40H28.01" stroke="white" stroke-width="4" stroke-linecap="round"/>
                                                         </svg>
-                                                            <span class="text-danger mt-2 mb-2">{{ __('Your account identity verification has been declined. Please resubmit your information.') }}</span>
+                                                            <span class="text-danger mt-2 mb-2">{{ deepl_translate(__('Your account identity verification has been declined. Please resubmit your information.')) }}</span>
                                                     </div>
                                                 @endif
 
@@ -219,11 +219,11 @@
                                                         <path d="M15.5 6.33335H17.8333M15.5 11H17.8333M6.16667 15.6667H17.8333M1.5 5.16669C1.5 4.23843 1.86875 3.34819 2.52513 2.69181C3.1815 2.03544 4.07174 1.66669 5 1.66669H19C19.9283 1.66669 20.8185 2.03544 21.4749 2.69181C22.1313 3.34819 22.5 4.23843 22.5 5.16669V16.8334C22.5 17.7616 22.1313 18.6519 21.4749 19.3082C20.8185 19.9646 19.9283 20.3334 19 20.3334H5C4.07174 20.3334 3.1815 19.9646 2.52513 19.3082C1.86875 18.6519 1.5 17.7616 1.5 16.8334V5.16669ZM6.16667 8.66669C6.16667 9.28553 6.4125 9.87902 6.85008 10.3166C7.28767 10.7542 7.88116 11 8.5 11C9.11884 11 9.71233 10.7542 10.1499 10.3166C10.5875 9.87902 10.8333 9.28553 10.8333 8.66669C10.8333 8.04785 10.5875 7.45436 10.1499 7.01677C9.71233 6.57919 9.11884 6.33335 8.5 6.33335C7.88116 6.33335 7.28767 6.57919 6.85008 7.01677C6.4125 7.45436 6.16667 8.04785 6.16667 8.66669Z" stroke="#F76631" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                     </svg>
                                                     <div class="text-part">
-                                                        <h3 class="head4">{{ __('Verify your identity') }}</h3>
-                                                        <p>{{ __('We require you to verify your identity to keep the platform safe') }}</p>
+                                                        <h3 class="head4">{{ deepl_translate(__('Verify your identity')) }}</h3>
+                                                        <p>{{ deepl_translate(__('We require you to verify your identity to keep the platform safe')) }}</p>
                                                         <a href="javascript:void(0)" class="red-btn"
                                                            data-bs-toggle="modal"
-                                                           data-bs-target="#identifyVerifyModal">{{ __('Verify Identity') }}
+                                                           data-bs-target="#identifyVerifyModal">{{ deepl_translate(__('Verify Identity')) }}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -237,16 +237,16 @@
                                         <div class="tab-pane fade" id="deactivate-delete-account">
                                             <div class="tab-content-wraper box-shadow1 business-hours">
                                                 <div class="account-info">
-                                                    <h4 class="title"> {{ __('Deactivate/Delete account') }} </h4>
+                                                    <h4 class="title"> {{ deepl_translate(__('Deactivate/Delete account')) }} </h4>
                                                     <p class="text-danger mt-2">
                                                         @if(!empty($user_account_info))
                                                             @if($user_account_info->status === 0)
-                                                                {{ __('Currently your account is deactivated. You can activate from here.') }}
+                                                                {{ deepl_translate(__('Currently your account is deactivated. You can activate from here.')) }}
                                                             @elseif($user_account_info->status === 1)
-                                                                {{ __('Your account has been deleted') }}
+                                                                {{ deepl_translate(__('Your account has been deleted')) }}
                                                             @endif
                                                         @else
-                                                            {{ __('You can deactivate your account temporarily or Delete permanently') }}
+                                                            {{ deepl_translate(__('You can deactivate your account temporarily or Delete permanently')) }}
                                                         @endif
                                                     </p>
                                                 </div>
@@ -256,7 +256,7 @@
                                                         @if(empty($user_account_info))
                                                             <a href="javascript:void(0)" class="red-btn"
                                                                data-bs-toggle="modal"
-                                                               data-bs-target="#deactivateAccount">{{ __('Deactivate') }}
+                                                               data-bs-target="#deactivateAccount">{{ deepl_translate(__('Deactivate')) }}
                                                             </a>
                                                         @endif
                                                     </div>
@@ -264,7 +264,7 @@
                                                         <a href="javascript:void(0)" class="btn btn-danger"
                                                            data-bs-toggle="modal"
                                                            data-bs-target="#deleteAccount">
-                                                            {{ __('Delete') }}
+                                                            {{ deepl_translate(__('Delete')) }}
                                                         </a>
                                                     </div>
 
@@ -272,9 +272,9 @@
                                                         @if(!empty($user_account_info))
                                                             @if($user_account_info->status === 0)
                                                                 <a href="{{route('user.account.deactive.cancel',$user_account_info->user_id)}}" class="success-btn">
-                                                                    {{__('Activate Your Account')}}</a>
+                                                                    {{deepl_translate(__('Activate Your Account'))}}</a>
                                                             @elseif($user_account_info->status === 1)
-                                                                <a href="javascript:void(0)" class="danger-btn">{{__('Already Delete Account')}}</a>
+                                                                <a href="javascript:void(0)" class="danger-btn">{{deepl_translate(__('Already Delete Account'))}}</a>
                                                             @endif
                                                         @endif
                                                     </div>
@@ -297,7 +297,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ __('Verify identity') }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ deepl_translate(__('Verify identity')) }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-3">
@@ -307,23 +307,23 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-form">
-                                        <label>{{ __('Select Identification Type') }} <span class="text-danger">*</span></label>
+                                        <label>{{ deepl_translate(__('Select Identification Type')) }} <span class="text-danger">*</span></label>
                                         <div class="checkbox-group">
                                             <input type="hidden" name="identification_type" value="{{ $user_verify_info?->identification_type }}">
                                             <label>
                                                 <input type="checkbox" value="national">
                                                 <span></span>
-                                                {{ __('National ID') }}
+                                                {{ deepl_translate(__('National ID')) }}
                                             </label>
                                             <label>
                                                 <input type="checkbox" value="passport">
                                                 <span></span>
-                                                {{ __('Passport') }}
+                                                {{ deepl_translate(__('Passport')) }}
                                             </label>
                                             <label>
                                                 <input type="checkbox" value="driving">
                                                 <span></span>
-                                                {{ __('Driving License') }}
+                                                {{ deepl_translate(__('Driving License')) }}
                                             </label>
                                         </div>
                                     </div>
@@ -333,9 +333,9 @@
                                     <div class="single-flex-input">
 
                                         <div class="single-input">
-                                            <label class="label-title">{{ __('Select Your Country') }}  <span class="text-danger">*</span></label>
+                                            <label class="label-title">{{ deepl_translate(__('Select Your Country')) }}  <span class="text-danger">*</span></label>
                                             <select name="country_id" id="country_id" class="select2_activation">
-                                                <option value="">{{ __('Select Country') }}</option>
+                                                <option value="">{{ deepl_translate(__('Select Country')) }}</option>
                                                 @foreach($all_countries = \Modules\CountryManage\app\Models\Country::all_countries() as $country)
                                                     <option value="{{ $country->id }}" @if(!empty($user_verify_info) && $country->id == $user_verify_info->country_id) selected @endif>{{ $country->country }}</option>
                                                 @endforeach
@@ -344,9 +344,9 @@
                                         </div>
 
                                         <div class="single-input d-none" id="state-wrapper">
-                                            <label class="label-title">{{ __('Select Your State') }}  <span class="text-danger">*</span></label>
+                                            <label class="label-title">{{ deepl_translate(__('Select Your State')) }}  <span class="text-danger">*</span></label>
                                             <select name="state_id" id="state_id" class="select2_activation">
-                                                <option value="">{{ __('Select State') }}</option>
+                                                <option value="">{{ deepl_translate(__('Select State')) }}</option>
                                                 @foreach($all_states = \Modules\CountryManage\app\Models\State::all_states() as $state)
                                                     <option value="{{ $state->id }}" @if(!empty($user_verify_info) && $state->id == $user_verify_info->state_id) selected @endif>{{ $state->state }}</option>
                                                 @endforeach
@@ -354,9 +354,9 @@
                                             <span class="country_info"></span>
                                         </div>
                                         <div class="single-input d-none" id="city-wrapper">
-                                            <label class="label-title">{{ __('Select Your City') }}  <span class="text-danger">*</span></label>
+                                            <label class="label-title">{{ deepl_translate(__('Select Your City')) }}  <span class="text-danger">*</span></label>
                                             <select name="city_id" id="city_id" class="select2_activation">
-                                                <option value="">{{ __('Select City') }}</option>
+                                                <option value="">{{ deepl_translate(__('Select City')) }}</option>
                                                 @foreach($all_cities = \Modules\CountryManage\app\Models\City::all_cities() as $city)
                                                     <option value="{{ $city->id }}" @if(!empty($user_verify_info) && $city->id == $user_verify_info->city_id) selected @endif>{{ $city->city }}</option>
                                                 @endforeach
@@ -367,28 +367,28 @@
                                </div>
                                 <div class="col-12 mt-3">
                                     <div class="input-form">
-                                        <label class="d-block" for="national-id-number">{{ __('Zip Code') }} <span class="text-danger">*</span> </label>
+                                        <label class="d-block" for="national-id-number">{{ deepl_translate(__('Zip Code')) }} <span class="text-danger">*</span> </label>
                                         <input class="form-control w-100" type="number" name="zip_code" id="zip_code" value="{{  $user_verify_info?->zip_code }}">
                                     </div>
                                 </div>
                                 <div class="col-12 mt-3">
                                     <div class="input-form">
-                                        <label class="d-block" for="address">{{ __('Address') }} <span class="text-danger">*</span> </label>
+                                        <label class="d-block" for="address">{{ deepl_translate(__('Address')) }} <span class="text-danger">*</span> </label>
                                         <input class="form-control w-100" type="text" name="address" id="address" value="{{  $user_verify_info?->address }}">
                                     </div>
                                 </div>
                                 <div class="col-12 mt-3">
                                     <div class="input-form">
-                                        <label class="d-block" for="identification_number">{{ __('National NID/Passport/Driving License Number') }} <span class="text-danger">*</span> </label>
+                                        <label class="d-block" for="identification_number">{{ deepl_translate(__('National NID/Passport/Driving License Number')) }} <span class="text-danger">*</span> </label>
                                         <input class="form-control w-100" type="number" name="identification_number" id="identification_number" value="{{ $user_verify_info?->identification_number }}">
                                     </div>
                                 </div>
                                 <div class="col-6 mb-3 mt-3">
                                     <div class="input-form">
                                         <div class="id-front">
-                                            <label class="d-block file-name" for="id-front">{{__('Upload Front Part')}} <span class="text-danger">*</span> </label>
+                                            <label class="d-block file-name" for="id-front">{{deepl_translate(__('Upload Front Part'))}} <span class="text-danger">*</span> </label>
                                             <label for="id-front" class="id-upload-btn">
-                                                <i class="las la-arrow-alt-circle-up fs-5"></i>{{__('Upload Front Part')}}
+                                                <i class="las la-arrow-alt-circle-up fs-5"></i>{{deepl_translate(__('Upload Front Part'))}}
                                             </label>
                                             <input class="w-100" name="front_document" id="id-front" type="file" value="{{$user_verify_info->front_document ?? ''}}">
                                         </div>
@@ -401,9 +401,9 @@
                                 <div class="col-6 mb-3 mt-3">
                                     <div class="input-form">
                                         <div class="id-back">
-                                            <label class="d-block file-name" for="id-back">{{__('Upload Back Part')}} <span class="text-danger">*</span> </label>
+                                            <label class="d-block file-name" for="id-back">{{deepl_translate(__('Upload Back Part'))}} <span class="text-danger">*</span> </label>
                                             <label for="id-back" class="id-upload-btn">
-                                                <i class="las la-arrow-alt-circle-up fs-5"></i>{{__('Upload Back Part')}}
+                                                <i class="las la-arrow-alt-circle-up fs-5"></i>{{deepl_translate(__('Upload Back Part'))}}
                                             </label>
                                             <input class="w-100 file-name" name="back_document" id="id-back" type="file" value="{{$user_verify_info->back_document ?? ''}}">
                                         </div>
@@ -415,8 +415,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">{{ __('Submit') }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ deepl_translate(__('Cancel')) }}</button>
+                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">{{ deepl_translate(__('Submit')) }}</button>
                             </div>
                         </form>
                     </div>
@@ -431,7 +431,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ __('Deactivate Account') }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ deepl_translate(__('Deactivate Account')) }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -441,12 +441,12 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-form">
-                                        <label for="CurrentPassword" class="label_title__postition">{{ __('Deactivation reason') }} <span class="text-danger">*</span> </label>
+                                        <label for="CurrentPassword" class="label_title__postition">{{ deepl_translate(__('Deactivation reason')) }} <span class="text-danger">*</span> </label>
                                         <div class="input-form-select radius-10">
                                             <select class="select2_activation" name="reason" id="reason2">
-                                                <option value="For Vacation">{{__('For Vacation')}}</option>
-                                                <option value="Personal Reasons">{{__('Personal Reasons')}}</option>
-                                                <option value="Others">{{__('Others')}}</option>
+                                                <option value="For Vacation">{{deepl_translate(__('For Vacation'))}}</option>
+                                                <option value="Personal Reasons">{{deepl_translate(__('Personal Reasons'))}}</option>
+                                                <option value="Others">{{deepl_translate(__('Others'))}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -454,14 +454,14 @@
 
                                 <div class="col-12 mt-3">
                                     <div class="input-form">
-                                        <label for="newPassword" class="label_title__postition">{{ __('Describe') }} <span class="text-danger">*</span> </label>
-                                        <textarea class="form-control radius-10"  name="description" id="description" cols="30" rows="4" placeholder="{{ __('e.g. explain why you are deactivating') }}"></textarea>
+                                        <label for="newPassword" class="label_title__postition">{{ deepl_translate(__('Describe')) }} <span class="text-danger">*</span> </label>
+                                        <textarea class="form-control radius-10"  name="description" id="description" cols="30" rows="4" placeholder="{{ deepl_translate(__('e.g. explain why you are deactivating')) }}"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">{{ __('Deactivate Now') }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ deepl_translate(__('Cancel')) }}</button>
+                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">{{ deepl_translate(__('Deactivate Now')) }}</button>
                             </div>
                         </form>
                     </div>
@@ -475,7 +475,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ __('Delete account') }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{ deepl_translate(__('Delete account')) }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -485,34 +485,34 @@
                             <div class="row g-4">
                                 <div class="col-12">
                                     <div class="dashboard_accountDelete">
-                                        <p class="dashboard_accountDelete__reason">{{ __('Account deletion is permanent') }}</p>
-                                        <p class="dashboard_accountDelete__reason">{{ __('We remove all your data') }}</p>
-                                        <p class="dashboard_accountDelete__reason">{{ __('You can’t log in to this account anymore') }}</p>
-                                        <p class="dashboard_accountDelete__reason">{{ __('Any services that are currently on progress will be suspended') }}</p>
+                                        <p class="dashboard_accountDelete__reason">{{ deepl_translate(__('Account deletion is permanent')) }}</p>
+                                        <p class="dashboard_accountDelete__reason">{{ deepl_translate(__('We remove all your data')) }}</p>
+                                        <p class="dashboard_accountDelete__reason">{{ deepl_translate(__('You can’t log in to this account anymore')) }}</p>
+                                        <p class="dashboard_accountDelete__reason">{{ deepl_translate(__('Any services that are currently on progress will be suspended')) }}</p>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-form">
-                                        <label for="CurrentPassword" class="label_title__postition">{{ __('Delete reason') }} <span class="text-danger">*</span> </label>
+                                        <label for="CurrentPassword" class="label_title__postition">{{ deepl_translate(__('Delete reason')) }} <span class="text-danger">*</span> </label>
                                         <div class="input-form-select radius-10">
                                             <select class="select2_activation" name="reason" id="reason">
-                                                <option value="For Vacation">{{__('For Vacation')}}</option>
-                                                <option value="Personal Reasons">{{__('Personal Reasons')}}</option>
-                                                <option value="Others">{{__('Others')}}</option>
+                                                <option value="For Vacation">{{deepl_translate(__('For Vacation'))}}</option>
+                                                <option value="Personal Reasons">{{deepl_translate(__('Personal Reasons'))}}</option>
+                                                <option value="Others">{{deepl_translate(__('Others'))}}</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-form">
-                                        <label for="newPassword" class="label_title__postition">{{ __('Describe') }} <span class="text-danger">*</span> </label>
-                                        <textarea class="form-control radius-10"  name="description" id="description" cols="30" rows="4"  placeholder="{{ __('e.g. explain why you are deactivating') }}"></textarea>
+                                        <label for="newPassword" class="label_title__postition">{{ deepl_translate(__('Describe')) }} <span class="text-danger">*</span> </label>
+                                        <textarea class="form-control radius-10"  name="description" id="description" cols="30" rows="4"  placeholder="{{ deepl_translate(__('e.g. explain why you are deactivating')) }}"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">{{ __('Delete Now') }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ deepl_translate(__('Cancel')) }}</button>
+                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">{{ deepl_translate(__('Delete Now')) }}</button>
                             </div>
                         </form>
                     </div>
@@ -572,7 +572,7 @@
                                     $(input).closest('.input-form').find('.file-preview img').attr('src', '').hide();
                                 }
                             } else {
-                                let error_message_for_file = '{{__('Unsupported file type. Please select a PDF, JPG, PNG, JPEG, or WEBP file.')}}'
+                                let error_message_for_file = '{{deepl_translate(__('Unsupported file type. Please select a PDF, JPG, PNG, JPEG, or WEBP file.'))}}'
                                 alert(error_message_for_file);
                                 $(input).val('');
                                 $(input).siblings('.file-name').text('');
@@ -581,7 +581,7 @@
                             }
                         } else {
                             // File size exceeds the maximum limit
-                            let error_message_for_file = '{{__('File size exceeds the maximum limit of 10 MB.')}}'
+                            let error_message_for_file = '{{deepl_translate(__('File size exceeds the maximum limit of 10 MB.'))}}'
                             alert(error_message_for_file);
                             $(input).val('');
                             $(input).siblings('.file-name').text('');

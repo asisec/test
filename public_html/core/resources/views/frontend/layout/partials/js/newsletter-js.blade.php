@@ -21,7 +21,7 @@
                     },
                     success: function(res){
                         if(res.status=='success'){
-                            toastr_success_js("{{ __('Thanks to Subscription Us.') }}")
+                            toastr_success_js("{{ deepl_translate(__('Thanks to Subscription Us.')) }}")
                             $('input[name="email"]').val('')
                         }
                         if(res.status == 'failed'){
@@ -49,7 +49,7 @@
                     },
                     success: function(res){
                         if(res.status=='success'){
-                            toastr_success_js("{{ __('Thanks to Subscription Us.') }}")
+                            toastr_success_js("{{ deepl_translate(__('Thanks to Subscription Us.')) }}")
                             $('input[name="email"]').val('')
                         }
                         if(res.status == 'failed'){

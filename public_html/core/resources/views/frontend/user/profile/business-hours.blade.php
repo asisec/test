@@ -15,7 +15,7 @@
                                     @if($business_hours_data && isset($business_hours_data['opening_times'][strtolower($day)]) && isset($business_hours_data['closing_times'][strtolower($day)]))
                                         {{ $business_hours_data['opening_times'][strtolower($day)] }} - {{ $business_hours_data['closing_times'][strtolower($day)] }}
                                     @else
-                                        {{ __('Closed') }}
+                                        {{ deepl_translate(__('Closed')) }}
                                     @endif
 
                                 </div>
@@ -23,14 +23,14 @@
                         @endforeach
                     </div>
                     <div class="customize-btn mt-3">
-                        <a href="javascript:void(0)" class="red-btn" data-bs-toggle="modal" data-bs-target="#customize-business-hour">{{ __('Customize') }}</a>
+                        <a href="javascript:void(0)" class="red-btn" data-bs-toggle="modal" data-bs-target="#customize-business-hour">{{ deepl_translate(__('Customize')) }}</a>
                     </div>
                     <!--Business Hour Customize Modal-->
                     <div class="modal fade customize-business-hour" id="customize-business-hour">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-wraper">
-                                    <h3 class="head4 mb-4">{{ __('Business Hours') }}</h3>
+                                    <h3 class="head4 mb-4">{{ deepl_translate(__('Business Hours')) }}</h3>
                                     <form action="{{ route('user.business.hours.add') }}" method="POST">
                                         @csrf
                                         @foreach(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
@@ -40,16 +40,16 @@
                                                     <label for="{{ strtolower($day) }}">{{ __($day) }}</label>
                                                 </div>
                                                 <div class="right-part">
-                                                    <input type="text" name="opening_times[{{ strtolower($day) }}]" placeholder="{{__('opening time')}}" value="{{ $business_hours_data && isset($business_hours_data['opening_times'][strtolower($day)]) ? $business_hours_data['opening_times'][strtolower($day)] : '' }}">
+                                                    <input type="text" name="opening_times[{{ strtolower($day) }}]" placeholder="{{deepl_translate(__('opening time'))}}" value="{{ $business_hours_data && isset($business_hours_data['opening_times'][strtolower($day)]) ? $business_hours_data['opening_times'][strtolower($day)] : '' }}">
                                                     -
-                                                    <input type="text" name="closing_times[{{ strtolower($day) }}]" placeholder="{{__('closing time')}}" value="{{ $business_hours_data && isset($business_hours_data['closing_times'][strtolower($day)]) ? $business_hours_data['closing_times'][strtolower($day)] : '' }}">
+                                                    <input type="text" name="closing_times[{{ strtolower($day) }}]" placeholder="{{deepl_translate(__('closing time'))}}" value="{{ $business_hours_data && isset($business_hours_data['closing_times'][strtolower($day)]) ? $business_hours_data['closing_times'][strtolower($day)] : '' }}">
                                                 </div>
                                             </div>
                                         @endforeach
 
                                         <div class="buttons">
-                                            <button class="red-btn cancle-btn hours_modal_hide" type="button">{{ __('Cancel') }}</button>
-                                            <button class="red-btn" type="submit">{{ __('Save') }}</button>
+                                            <button class="red-btn cancle-btn hours_modal_hide" type="button">{{ deepl_translate(__('Cancel')) }}</button>
+                                            <button class="red-btn" type="submit">{{ deepl_translate(__('Save')) }}</button>
                                         </div>
                                     </form>
                                 </div>

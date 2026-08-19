@@ -14,7 +14,7 @@
                         $(this).prop("disabled", true);
                     });
                     // $("#error_message_images").show();
-                    let error_message_for_images = "{{ __('You can only select up to') }}" + " " + maxPhotosAllowed + " " + "{{ __('photos') }}";
+                    let error_message_for_images = "{{ deepl_translate(__('You can only select up to')) }}" + " " + maxPhotosAllowed + " " + "{{ deepl_translate(__('photos')) }}";
                     errorMessageDisplayed = true;
                     toastr.error(error_message_for_images);
                 }else if(selectedPhotos.length <= maxPhotosAllowed){

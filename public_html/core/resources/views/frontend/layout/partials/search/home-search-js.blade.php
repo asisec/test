@@ -3,7 +3,7 @@
         // empty check
         $(document).on('click', '.setLocation_btn', function() {
             var get_home_search_value = $('#home_search').val();
-            var errorMessage = '{{ __('Please enter a search term.') }}';
+            var errorMessage = '{{ deepl_translate(__('Please enter a search term.')) }}';
             if (get_home_search_value === null || get_home_search_value === "") {
                 toastr.warning(errorMessage);
                 $(this).prop("disabled", true);

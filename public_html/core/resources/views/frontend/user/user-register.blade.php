@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('site_title')
- {{ __('User Register') }}
+ {{ deepl_translate(__('User Register')) }}
 @endsection
 @section('style')
     <style>
@@ -19,8 +19,8 @@
                 <div class="col-xl-5 col-lg-5 p-0  order-lg-1 order-1 loginLeft-img">
                     <div class="loginLeft-img">
                         <div class="login-cap">
-                            <h3 class="tittle">{{ get_static_option('register_page_title') ?? __('Register') }}</h3>
-                            <p class="pera">{{ get_static_option('register_page_description') ?? __('Buy or Sell any items.') }}</p>
+                            <h3 class="tittle">{{ get_static_option('register_page_title') ?? deepl_translate(__('Register')) }}</h3>
+                            <p class="pera">{{ get_static_option('register_page_description') ?? deepl_translate(__('Buy or Sell any items.')) }}</p>
                         </div>
                         <div class="login-img">
                             {!! render_image_markup_by_attachment_id(get_static_option('register_page_image')) !!}
@@ -36,27 +36,27 @@
                         @csrf
                     <div class="row">
                             <div class="col-lg-6 col-md-12">
-                                <label class="infoTitle">{{ __('First Name') }}</label>
+                                <label class="infoTitle">{{ deepl_translate(__('First Name')) }}</label>
                                 <div class="input-form input-form2">
-                                    <input type="text" class="ps-3"  name="first_name" value="{{old('first_name')}}" id="first_name" placeholder="{{ __('First Name') }}">
+                                    <input type="text" class="ps-3"  name="first_name" value="{{old('first_name')}}" id="first_name" placeholder="{{ deepl_translate(__('First Name')) }}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
-                                <label class="infoTitle">{{ __('Last Name') }}</label>
+                                <label class="infoTitle">{{ deepl_translate(__('Last Name')) }}</label>
                                 <div class="input-form input-form2">
-                                    <input type="text" class="ps-3"  name="last_name" value="{{old('last_name')}}" id="last_name" placeholder="{{ __('Last Name') }}">
+                                    <input type="text" class="ps-3"  name="last_name" value="{{old('last_name')}}" id="last_name" placeholder="{{ deepl_translate(__('Last Name')) }}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
-                                <label class="infoTitle">{{ __('Username') }}</label>
+                                <label class="infoTitle">{{ deepl_translate(__('Username')) }}</label>
                                 <div class="input-form input-form2">
-                                    <input type="text"  class="ps-3" name="username" value="{{old('username')}}"  id="username" placeholder="{{ __('Type Username') }}">
+                                    <input type="text"  class="ps-3" name="username" value="{{old('username')}}"  id="username" placeholder="{{ deepl_translate(__('Type Username')) }}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
-                                <label class="infoTitle">{{ __('Email') }}</label>
+                                <label class="infoTitle">{{ deepl_translate(__('Email')) }}</label>
                                 <div class="input-form input-form2">
-                                    <input type="email" name="email" value="{{old('email')}}" placeholder="{{__('Type Email')}}">
+                                    <input type="email" name="email" value="{{old('email')}}" placeholder="{{deepl_translate(__('Type Email'))}}">
                                     <div class="icon">
                                         <i class="lar la-envelope icon"></i>
                                     </div>
@@ -64,10 +64,10 @@
                             </div>
 
                             <div class="col-lg-6 col-md-12">
-                                <label class="infoTitle">{{ __('Phone Number') }}</label>
+                                <label class="infoTitle">{{ deepl_translate(__('Phone Number')) }}</label>
                                 <div class="input-form input-form2">
                                     <input type="hidden" id="country-code" name="country_code">
-                                    <input type="tel" name="phone" value="{{old('phone')}}" id="phone" placeholder="{{__('Type Phone')}}">
+                                    <input type="tel" name="phone" value="{{old('phone')}}" id="phone" placeholder="{{deepl_translate(__('Type Phone'))}}">
                                     <span id="phone_availability"></span>
 
                                     <div class="d-none">
@@ -78,9 +78,9 @@
                             </div>
 
                             <div class="col-lg-6 col-md-12">
-                                <label class="infoTitle">{{ __('Password') }}</label>
+                                <label class="infoTitle">{{ deepl_translate(__('Password')) }}</label>
                                 <div class="input-form">
-                                    <input type="password" name="password" id="password" placeholder="{{ __('Type Password') }}">
+                                    <input type="password" name="password" id="password" placeholder="{{ deepl_translate(__('Type Password')) }}">
                                     <div class="icon"> <i class="las la-lock icon"></i></div>
                                     <div class="icon toggle-password">
                                        <i class="las la-eye"></i>
@@ -88,23 +88,23 @@
                                 </div>
                                 <div id="password-criteria" style="margin-top: 10px; font-size: 13px;">
                                     <div id="criteria-length" style="color: #999; margin-bottom: 5px;">
-                                        <span style="margin-right: 5px;">✓</span>{{ __('Min 8 characters') }}
+                                        <span style="margin-right: 5px;">✓</span>{{ deepl_translate(__('Min 8 characters')) }}
                                     </div>
                                     <div id="criteria-uppercase" style="color: #999; margin-bottom: 5px;">
-                                        <span style="margin-right: 5px;">✓</span>{{ __('Uppercase letter') }}
+                                        <span style="margin-right: 5px;">✓</span>{{ deepl_translate(__('Uppercase letter')) }}
                                     </div>
                                     <div id="criteria-lowercase" style="color: #999; margin-bottom: 5px;">
-                                        <span style="margin-right: 5px;">✓</span>{{ __('Lowercase letter') }}
+                                        <span style="margin-right: 5px;">✓</span>{{ deepl_translate(__('Lowercase letter')) }}
                                     </div>
                                     <div id="criteria-number" style="color: #999;">
-                                        <span style="margin-right: 5px;">✓</span>{{ __('Number') }}
+                                        <span style="margin-right: 5px;">✓</span>{{ deepl_translate(__('Number')) }}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12 mt-3">
-                                <label class="infoTitle">{{ __('Confirm Password') }}</label>
+                                <label class="infoTitle">{{ deepl_translate(__('Confirm Password')) }}</label>
                                 <div class="input-form">
-                                    <input type="password" name="confirm_password" id="confirm_password" placeholder="{{ __('Confirm Password') }}">
+                                    <input type="password" name="confirm_password" id="confirm_password" placeholder="{{ deepl_translate(__('Confirm Password')) }}">
                                     <div class="icon"> <i class="las la-lock icon"></i></div>
                                     <div class="icon toggle-password">
                                        <i class="las la-eye"></i>
@@ -116,8 +116,8 @@
 
                             <!-- Terms and Conditions -->
                             <div class="col-lg-12 col-md-12">
-                                <label class="checkWrap2 terms-conditions"> {{ __('I agree with the') }}
-                                    <a href="{{ url('/'.get_static_option('select_terms_condition_page')) }}" target="_blank" class="text-primary"> {{ __('Terms and Conditions') }} </a>
+                                <label class="checkWrap2 terms-conditions"> {{ deepl_translate(__('I agree with the')) }}
+                                    <a href="{{ url('/'.get_static_option('select_terms_condition_page')) }}" target="_blank" class="text-primary"> {{ deepl_translate(__('Terms and Conditions')) }} </a>
                                     <input class="effectBorder check-input" type="checkbox" name="terms_conditions" id="terms_conditions" value="1">
                                     <span class="checkmark"></span>
                                 </label>
@@ -134,7 +134,7 @@
 
                             <div class="col-sm-12 mt-2">
                                 <div class="btn-wrapper text-center">
-                                    <button type="submit" class="cmn-btn4 w-100 user-register-form sign_up_now_button">{{ __('Register') }}
+                                    <button type="submit" class="cmn-btn4 w-100 user-register-form sign_up_now_button">{{ deepl_translate(__('Register')) }}
                                         <span id="user_register_load_spinner"></span>
                                     </button>
                                     <!--social login -->
@@ -142,26 +142,26 @@
                                         @if(get_static_option('enable_google_login') || get_static_option('enable_facebook_login'))
                                             <div class="bar-wrap">
                                                 <span class="bar"></span>
-                                                <p class="or">{{ __('or') }}</p>
+                                                <p class="or">{{ deepl_translate(__('or')) }}</p>
                                                 <span class="bar"></span>
                                             </div>
                                         @endif
 
                                         @if(get_static_option('enable_google_login'))
                                             <a href="{{ route('login.google.redirect') }}" class="cmn-btn-outline4  mb-20 w-100">
-                                                <img src="{{ asset('assets/frontend/img/icon/googleIocn.svg') }}" alt="images" class="icon"> {{ __('Register With Google') }}
+                                                <img src="{{ asset('assets/frontend/img/icon/googleIocn.svg') }}" alt="images" class="icon"> {{ deepl_translate(__('Register With Google')) }}
                                             </a>
                                         @endif
                                         @if(get_static_option('enable_facebook_login'))
                                              <a href="{{ route('login.facebook.redirect') }}" class="cmn-btn-outline4 mb-20  w-100">
-                                                 <img src="{{ asset('assets/frontend/img/icon/fbIcon.svg') }}" alt="images" class="icon">{{ __('Register With Facebook') }}
+                                                 <img src="{{ asset('assets/frontend/img/icon/fbIcon.svg') }}" alt="images" class="icon">{{ deepl_translate(__('Register With Facebook')) }}
                                              </a>
                                         @endif
                                     @endif
 
                                     <p class="sinUp">
-                                        <span>{{ __('Already have an account?') }} </span>
-                                        <a href="{{ route('user.login') }}" class="singApp">{{ __('Login') }}</a>
+                                        <span>{{ deepl_translate(__('Already have an account?')) }} </span>
+                                        <a href="{{ route('user.login') }}" class="singApp">{{ deepl_translate(__('Login')) }}</a>
                                     </p>
 
                                 </div>
@@ -204,7 +204,7 @@
                         });
                     } else {
                         $("#user_name_availability").html(
-                            "<span style='color: red;'>{{ __('Enter valid username') }}</span>");
+                            "<span style='color: red;'>{{ deepl_translate(__('Enter valid username')) }}</span>");
                     }
                 });
 
@@ -232,7 +232,7 @@
                         });
                     } else {
                         $("#email_availability").html(
-                            "<span style='color: red;'>{{ __('Enter valid email') }}</span>");
+                            "<span style='color: red;'>{{ deepl_translate(__('Enter valid email')) }}</span>");
                     }
                 });
 
@@ -314,37 +314,37 @@
                     let phone_validation_text = $('#phone_availability span').text();
 
                     if(first_name == '' || last_name == '' || username == '' || email == '' || phone == '' || password == '' || confirm_password == ''){
-                        toastr_warning_js("{{ __('Please fill all fields') }}")
+                        toastr_warning_js("{{ deepl_translate(__('Please fill all fields')) }}")
                         return false
                     }else if(username_validation_text == 'Sorry! Username name is not available' || username_validation_text == 'Enter valid username'){
-                        toastr_warning_js("{{ __('Please enter a valid username') }}")
+                        toastr_warning_js("{{ deepl_translate(__('Please enter a valid username')) }}")
                         return false
                     }else if(email_validation_text == 'Sorry! Email has already taken' || email_validation_text == 'Enter valid email'){
-                        toastr_warning_js("{{ __('Please enter a valid email') }}")
+                        toastr_warning_js("{{ deepl_translate(__('Please enter a valid email')) }}")
                         return false
                     }else if(phone_validation_text == 'Sorry! Phone Number has already taken' || phone_validation_text == 'Enter valid phone number'){
-                        toastr_warning_js("{{ __('Please enter a valid phone number') }}")
+                        toastr_warning_js("{{ deepl_translate(__('Please enter a valid phone number')) }}")
                         return false
                     }else if(password.length < 6){
-                        toastr_warning_js("{{ __('Password must be 6 character at least') }}")
+                        toastr_warning_js("{{ deepl_translate(__('Password must be 6 character at least')) }}")
                         return false
                     }else if(confirm_password.length < 6){
-                        toastr_warning_js("{{ __('Password must be 6 character at least') }}")
+                        toastr_warning_js("{{ deepl_translate(__('Password must be 6 character at least')) }}")
                         return false
                     }else if(password_validation_text == 'Password does not match !'){
-                        toastr_warning_js("{{ __('Password does not match') }}")
+                        toastr_warning_js("{{ deepl_translate(__('Password does not match')) }}")
                         return false
                     }
 
 
                     // terms and condition check
                     if (!$('.terms-conditions .check-input').is(":checked")) {
-                        toastr_warning_js("{{ __('Please agree with terms and conditions') }}")
+                        toastr_warning_js("{{ deepl_translate(__('Please agree with terms and conditions')) }}")
                         return false;
                     }
 
                     $(this).attr("disabled", "disabled");
-                    $(this).html('<i class="fas fa-spinner fa-spin mr-1"></i> {{__("Registering")}}');
+                    $(this).html('<i class="fas fa-spinner fa-spin mr-1"></i> {{deepl_translate(__("Registering"))}}');
                   // Submit the form
                     $(this).closest('form').trigger('submit');
 

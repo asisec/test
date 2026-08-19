@@ -46,13 +46,13 @@
                        $('.error_msg_container').html('');
                        if(res.status=='success'){
                            $('#password_change_form').load(location.href + " #password_change_form");
-                           toastr_success_js("{{ __('Password successfully changed.') }}");
+                           toastr_success_js("{{ deepl_translate(__('Password successfully changed.')) }}");
                        }
                        if(res.status=='not_match'){
-                           toastr_warning_js("{{ __('Password and confirm password not match.') }}");
+                           toastr_warning_js("{{ deepl_translate(__('Password and confirm password not match.')) }}");
                        }
                        if(res.status=='current_pass_wrong'){
-                           toastr_warning_js("{{ __('Current password is wrong.') }}");
+                           toastr_warning_js("{{ deepl_translate(__('Current password is wrong.')) }}");
                        }
                    },
                    error: function (err) {

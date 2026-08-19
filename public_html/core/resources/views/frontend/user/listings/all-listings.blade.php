@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('site_title')
-    {{ __('My Listings') }}
+    {{ deepl_translate(__('My Listings')) }}
 @endsection
 @section('style')
     <x-media.css/>
@@ -48,7 +48,7 @@
                                                                 <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M4 0V3.88889H7L3 10V6.11111H0L4 0Z" fill="white"/>
                                                                 </svg>
-                                                                {{ __('FEATURED') }}
+                                                                {{ deepl_translate(__('FEATURED')) }}
                                                             </span>
                                                         @endif
                                                     </div>
@@ -71,24 +71,24 @@
                                                     </div>
                                                     <div class="btn-wraper">
                                                         @if($listing->status === 1)
-                                                           <a href="javascript:void(0)" class="approved-btn">{{ __('APPROVED') }}</a>
+                                                           <a href="javascript:void(0)" class="approved-btn">{{ deepl_translate(__('APPROVED')) }}</a>
                                                         @else
-                                                            <a href="javascript:void(0)" class="pending-btn">{{ __('PENDING') }}</a>
+                                                            <a href="javascript:void(0)" class="pending-btn">{{ deepl_translate(__('PENDING')) }}</a>
                                                         @endif
-                                                        <a href="javascript:void(0)" class="listing-view-btn"><i class="las la-eye"></i> {{ $listing->view ?? 0 }} {{ __('Views') }}</a>
+                                                        <a href="javascript:void(0)" class="listing-view-btn"><i class="las la-eye"></i> {{ $listing->view ?? 0 }} {{ deepl_translate(__('Views')) }}</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="right-buttons">
                                                 <span class="text">
                                                     @if($listing->is_published === 1)
-                                                        {{ __('Published') }}
+                                                        {{ deepl_translate(__('Published')) }}
                                                     @else
-                                                        {{ __('Unpublished') }}
+                                                        {{ deepl_translate(__('Unpublished')) }}
                                                     @endif
                                                 </span>
                                                     <div class="publish-btn">
-                                                      <x-status.frontend-listing-published-change :title="__('Change Status')" :url="route('user.listing.published.status', $listing->id)" :published="$listing->is_published"/>
+                                                      <x-status.frontend-listing-published-change :title="deepl_translate(__('Change Status'))" :url="route('user.listing.published.status', $listing->id)" :published="$listing->is_published"/>
                                                     </div>
                                                 <div class="setting-btn-wraper">
                                                     <a href="javascript:void(0)" class="setting-btn">
@@ -97,11 +97,11 @@
                                                     <div class="settings-wraper">
                                                         <a href="{{ route('user.edit.listing', $listing->id) }}">
                                                             <i class="las la-pen-alt"></i>
-                                                            {{ __('Edit Ad') }}
+                                                            {{ deepl_translate(__('Edit Ad')) }}
                                                         </a>
                                                         <a href="{{route('frontend.listing.details',$listing->slug ?? 'x')}}" target="_blank">
                                                             <i class="las la-eye"></i>
-                                                            {{ __('View Ad') }}
+                                                            {{ deepl_translate(__('View Ad')) }}
                                                         </a>
                                                         <x-popup.frontend-listing-delete-popup :url="route('user.delete.listing',$listing->id)"/>
                                                     </div>
@@ -116,7 +116,7 @@
                                                 </div>
                                             </div>
                                         @else
-                                            <x-pagination.empty-data-placeholder :title="__('No Listing Created Yet')"/>
+                                            <x-pagination.empty-data-placeholder :title="deepl_translate(__('No Listing Created Yet'))"/>
                                         @endif
                                  </div>
                             </div>
@@ -143,14 +143,14 @@
                 $(document).on('click','.swal_delete_button',function(e){
                     e.preventDefault();
                     Swal.fire({
-                        title: '{{__("Are you sure?")}}',
-                        text: '{{__("You would not be able to revert this item!")}}',
+                        title: '{{deepl_translate(__("Are you sure?"))}}',
+                        text: '{{deepl_translate(__("You would not be able to revert this item!"))}}',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: "{{__('Yes, delete it!')}}",
-                        cancelButtonText: "{{__('Cancel')}}"
+                        confirmButtonText: "{{deepl_translate(__('Yes, delete it!'))}}",
+                        cancelButtonText: "{{deepl_translate(__('Cancel'))}}"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $(this).next().find('.swal_form_submit_btn').trigger('click');
@@ -162,13 +162,13 @@
                 $(document).on('click','.swal_status_change',function(e){
                     e.preventDefault();
                     Swal.fire({
-                        title: '{{__("Are you sure?")}}',
-                        text: '{{__("You would not be able to revert this item!")}}',
+                        title: '{{deepl_translate(__("Are you sure?"))}}',
+                        text: '{{deepl_translate(__("You would not be able to revert this item!"))}}',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: "{{ __('Yes, change it!') }}"
+                        confirmButtonText: "{{ deepl_translate(__('Yes, change it!')) }}"
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $(this).next().find('.swal_form_submit_btn').trigger('click');
@@ -224,7 +224,7 @@
                         data:{category_id:category_id},
                         success:function(res){
                             if(res.status=='success'){
-                                let alloptions = "<option value=''>{{__('Select Sub Category')}}</option>";
+                                let alloptions = "<option value=''>{{deepl_translate(__('Select Sub Category'))}}</option>";
                                 let allSubCategory = res.sub_categories;
                                 $.each(allSubCategory,function(index,value){
                                     alloptions +="<option value='" + value.id + "'>" + value.name + "</option>";
@@ -248,8 +248,8 @@
                         success: function(res) {
 
                             if (res.status == 'success') {
-                                var alloptions = "<option value=''>{{__('Select Child Category')}}</option>";
-                                var allList = "<li data-value='' class='option'>{{__('Select Child Category')}}</li>";
+                                var alloptions = "<option value=''>{{deepl_translate(__('Select Child Category'))}}</option>";
+                                var allList = "<li data-value='' class='option'>{{deepl_translate(__('Select Child Category'))}}</li>";
                                 var allChildCategory = res.child_category;
 
                                 $.each(allChildCategory, function(index, value) {
@@ -278,7 +278,7 @@
                         },
                         success: function(res) {
                             if (res.status == 'success') {
-                                let all_options = "<option value=''>{{__('Select State')}}</option>";
+                                let all_options = "<option value=''>{{deepl_translate(__('Select State'))}}</option>";
                                 let all_state = res.states;
                                 $.each(all_state, function(index, value) {
                                     all_options += "<option value='" + value.id +
@@ -287,7 +287,7 @@
                                 $(".get_country_state").html(all_options);
                                 $(".state_info").html('');
                                 if(all_state.length <= 0){
-                                    $(".state_info").html('<span class="text-danger"> {{ __('No state found for selected country!') }} <span>');
+                                    $(".state_info").html('<span class="text-danger"> {{ deepl_translate(__('No state found for selected country!')) }} <span>');
                                 }
                             }
                         }
@@ -305,7 +305,7 @@
                         },
                         success: function(res) {
                             if (res.status == 'success') {
-                                let all_options = "<option value=''>{{__('Select City')}}</option>";
+                                let all_options = "<option value=''>{{deepl_translate(__('Select City'))}}</option>";
                                 let all_city = res.cities;
                                 $.each(all_city, function(index, value) {
                                     all_options += "<option value='" + value.id +
@@ -315,7 +315,7 @@
 
                                 $(".city_info").html('');
                                 if(all_city.length <= 0){
-                                    $(".city_info").html('<span class="text-danger"> {{ __('No city found for selected state!') }} <span>');
+                                    $(".city_info").html('<span class="text-danger"> {{ deepl_translate(__('No city found for selected state!')) }} <span>');
                                 }
                             }
                         }

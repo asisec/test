@@ -1,5 +1,5 @@
 <div class="relevant-ads box-shadow1">
-    <h4 class="disTittle">{{ function_exists('deepl_translate') ? deepl_translate(get_static_option('listing_relevant_title') ?? __('Relevant Ads')) : (get_static_option('listing_relevant_title') ?? __('Relevant Ads')) }}</h4>
+    <h4 class="disTittle">{{ function_exists('deepl_translate') ? deepl_translate(get_static_option('listing_relevant_title') ?? deepl_translate(__('Relevant Ads'))) : (get_static_option('listing_relevant_title') ?? deepl_translate(__('Relevant Ads'))) }}</h4>
     <div class="add-wraper relevant-listing-wrapper">
        @include('frontend.pages.listings.relevant-markup')
     </div>

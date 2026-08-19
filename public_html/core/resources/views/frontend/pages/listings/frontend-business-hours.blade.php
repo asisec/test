@@ -9,7 +9,7 @@
     @endphp
     @if($business_hours_data)
         <div class="business-hour box-shadow1">
-            <h3 class="head5 business-head d-flex">{{ __('Business Hours') }} </h3>
+            <h3 class="head5 business-head d-flex">{{ deepl_translate(__('Business Hours')) }} </h3>
             <div class="hours-wraper">
                 @foreach(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
                     <div class="days">
@@ -22,7 +22,7 @@
                             @if($business_hours_data && isset($business_hours_data['opening_times'][strtolower($day)]) && isset($business_hours_data['closing_times'][strtolower($day)]))
                                 {{ $business_hours_data['opening_times'][strtolower($day)] }} - {{ $business_hours_data['closing_times'][strtolower($day)] }}
                             @else
-                                {{ __('Closed') }}
+                                {{ deepl_translate(__('Closed')) }}
                             @endif
                         </div>
                     </div>

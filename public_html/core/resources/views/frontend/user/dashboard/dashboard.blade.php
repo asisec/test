@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('site_title')
-    {{ __('Listing Favorite') }}
+    {{ deepl_translate(__('Listing Favorite')) }}
 @endsection
 @section('content')
     <div class="profile-setting my-account section-padding2">
@@ -36,8 +36,8 @@
                                                         <x-badge.user-verified-badge :user="$user"/>
                                                     </div>
                                                     <div class="member-listing">
-                                                        <span class="listing">{{ $user_ads_posted }} {{ __('listing') }} </span>
-                                                        <span class="dot"></span> {{ __('Member since') }} {{ optional($user->created_at)->format('Y') }}
+                                                        <span class="listing">{{ $user_ads_posted }} {{ deepl_translate(__('listing')) }} </span>
+                                                        <span class="dot"></span> {{ deepl_translate(__('Member since')) }} {{ optional($user->created_at)->format('Y') }}
                                                     </div>
                                                     <div class="seller-ratings mt-3">
                                                         @if($averageRating >=1)
@@ -48,7 +48,7 @@
                                                 </div>
                                             </div>
                                             <div class="edit-btn">
-                                                <a href="{{ route('user.profile') }}">{{ __('Edit Profile') }}</a>
+                                                <a href="{{ route('user.profile') }}">{{ deepl_translate(__('Edit Profile')) }}</a>
                                             </div>
                                         </div>
                                         <div class="devider"></div>
@@ -84,35 +84,35 @@
                                         <div class="col-md-3 col-md-3 col-6">
                                             <div class="list-state ad-posted">
                                                 <h4 class="list-head">{{ $user_ads_posted }}</h4>
-                                                <p class="post-state">{{ __('Ads Posted') }}</p>
+                                                <p class="post-state">{{ deepl_translate(__('Ads Posted')) }}</p>
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-md-3 col-6">
                                             <div class="list-state active-posted">
                                                 <h4 class="list-head">{{ $user_active_listings }}</h4>
-                                                <p class="post-state">{{ __('Active Listing') }}</p>
+                                                <p class="post-state">{{ deepl_translate(__('Active Listing')) }}</p>
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-md-3 col-6">
                                             <div class="list-state deactivated-posted">
                                                 <h4 class="list-head">{{  $user_deactivated_ads }}</h4>
-                                                <p class="post-state">{{ __('Deactive Ads') }}</p>
+                                                <p class="post-state">{{ deepl_translate(__('Deactive Ads')) }}</p>
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-md-3 col-6">
                                             <div class="list-state favorit-posted">
                                                 <h4 class="list-head">{{ $user_favorite_ads }}</h4>
-                                                <p class="post-state">{{ __('Favorite Ads') }}</p>
+                                                <p class="post-state">{{ deepl_translate(__('Favorite Ads')) }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!--All Reviews-->
                                 <div class="all-reviews box-shadow1 mt-20">
-                                    <h4 class="dis-title">{{ __('All Reviews') }}</h4>
+                                    <h4 class="dis-title">{{ deepl_translate(__('All Reviews')) }}</h4>
                                     <div class="review-tab-btn">
-                                        <button class="review-recived me-4 active" data-target="#review-recived">{{ __('Reviews Received') }}</button>
-                                        <button class="review-given" data-target="#review-given">{{ __('Reviews Given') }}</button>
+                                        <button class="review-recived me-4 active" data-target="#review-recived">{{ deepl_translate(__('Reviews Received')) }}</button>
+                                        <button class="review-given" data-target="#review-given">{{ deepl_translate(__('Reviews Given')) }}</button>
                                     </div>
                                     <div class="review-wraper mt-20 active" id="review-recived">
                                         @if($user->reviews)

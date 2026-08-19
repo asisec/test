@@ -11,7 +11,7 @@
                 </a>
             @endforeach
         @else
-            <p class="text-left text-warning">{{ __("Nothing Found") }}</p>
+            <p class="text-left text-warning">{{ deepl_translate(__("Nothing Found")) }}</p>
         @endif
     </div>
 </div>

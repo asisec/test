@@ -21,9 +21,9 @@
                         success: function(res){
                             if(res.status == 'ok'){
                                 window.location.reload();
-                                toastr_success_js("{{ __('Profile Info Successfully Updated') }}");
+                                toastr_success_js("{{ deepl_translate(__('Profile Info Successfully Updated')) }}");
                             }else if(res.status == 'demo_route_on'){
-                                toastr_warning_js("{{ __('This is demonstration purpose only, you may not able to change few settings, once your purchase this script you will get access to all settings.') }}");
+                                toastr_warning_js("{{ deepl_translate(__('This is demonstration purpose only, you may not able to change few settings, once your purchase this script you will get access to all settings.')) }}");
                             }
                         },
                         error: function (err) {

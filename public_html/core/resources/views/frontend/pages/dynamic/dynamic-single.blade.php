@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="alert alert-warning">
-                                <p><a class="text-primary" href="{{route('user.login')}}">{{__('Login')}}</a> {{__('to see this page')}} </p>
+                                <p><a class="text-primary" href="{{route('user.login')}}">{{deepl_translate(__('Login'))}}</a> {{deepl_translate(__('to see this page'))}} </p>
                             </div>
                         </div>
                     </div>

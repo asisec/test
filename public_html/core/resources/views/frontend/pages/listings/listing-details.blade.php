@@ -29,7 +29,7 @@
     $str = explode("/",request()->url());
     $page_info = $str[count($str)-2];
     ?>
-    {{ __(ucwords(str_replace("-", " ", $page_info))) }}
+    {{ deepl_translate(__(ucwords(str_replace("-", " ", $page_info)))) }}
 @endsection
 @section('inner-title')
     {{ deepl_translate($listing->title) }}
@@ -211,7 +211,7 @@
 
                 <x-breadcrumb.user-profile-breadcrumb
                     :title="''"
-                    :innerTitle="__('Listing Details')"
+                    :innerTitle="deepl_translate(__('Listing Details'))"
                     :subInnerTitle="''"
                     :chidInnerTitle="''"
                     :routeName="'#'"
@@ -460,7 +460,7 @@
                                         <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1 10H15L10.5 5.5L15 1H1V17" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
-                                        <span id="addReportModal">{{ __('Report') }}</span>
+                                        <span id="addReportModal">{{ deepl_translate(__('Report')) }}</span>
                                     </a>
                                 </div>
                             </div>
@@ -480,7 +480,7 @@
                         @include('frontend.pages.listings.frontend-enquiry-form')
 
                         <div class="map-wraper box-shadow1">
-                            <h3 class="head5">{{ __('Map') }}</h3>
+                            <h3 class="head5">{{ deepl_translate(__('Map')) }}</h3>
                             <p>{{ $listing->address }}</p>
                             <div class="map">
                                 @if (!empty(get_static_option("google_map_settings_on_off")))
@@ -492,7 +492,7 @@
 
                         @if(!empty($listing->video_url))
                             <div class="map-wraper box-shadow1">
-                                <h3 class="head5">{{ __('Video') }}</h3>
+                                <h3 class="head5">{{ deepl_translate(__('Video')) }}</h3>
                                 <iframe width="700" height="370"
                                         src="{{ 'https://www.youtube.com/embed/' . $listing->video_url }}"
                                         title="YouTube video player" frameborder="0"

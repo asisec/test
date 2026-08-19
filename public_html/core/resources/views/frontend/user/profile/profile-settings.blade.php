@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('site_title')
-    {{ __('Profile Settings') }}
+    {{ deepl_translate(__('Profile Settings')) }}
 @endsection
 @section('style')
     <x-media.css/>
@@ -50,8 +50,8 @@
 
                                                    <input type="hidden" id="image" name="image" value="{{Auth::guard('web')->user()->image}}">
                                                    <button type="button" class="btn media_upload_form_btn"
-                                                           data-btntitle="{{__('Select Image')}}"
-                                                           data-modaltitle="{{__('Upload Image')}}"
+                                                           data-btntitle="{{deepl_translate(__('Select Image'))}}"
+                                                           data-modaltitle="{{deepl_translate(__('Upload Image'))}}"
                                                            data-bs-toggle="modal"
                                                            data-bs-target="#media_upload_modal">
                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +59,7 @@
                                                            <path d="M14.1673 6.66667L10.0007 2.5L5.83398 6.66667" stroke="#1E293B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                                            <path d="M10 2.5V12.5" stroke="#1E293B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                                                        </svg>
-                                                       {{__('Upload Photo')}}
+                                                       {{deepl_translate(__('Upload Photo'))}}
                                                    </button>
 
                                             </div>
@@ -69,41 +69,41 @@
                                     <div class="input-form-wraper">
                                         <div class="d-flex justify-content-between gap-3">
                                             <div class="input-form">
-                                                <label for="title">{{ __('First Name') }} <span class="text-danger">*</span> </label>
+                                                <label for="title">{{ deepl_translate(__('First Name')) }} <span class="text-danger">*</span> </label>
                                                 <input id="first_name" value="{{ Auth::guard('web')->user()->first_name ?? '' }}" class="w-100 input-field">
                                             </div>
 
                                             <div class="input-form">
-                                                <label for="title">{{ __('Last Name') }} <span class="text-danger">*</span> </label>
+                                                <label for="title">{{ deepl_translate(__('Last Name')) }} <span class="text-danger">*</span> </label>
                                                 <input id="last_name" value="{{ Auth::guard('web')->user()->last_name ?? '' }}" class="w-100 input-field">
                                             </div>
                                         </div>
 
                                         <div class="input-form">
-                                            <label for="title">{{ __('Your Email') }} <span class="text-danger">*</span> </label>
+                                            <label for="title">{{ deepl_translate(__('Your Email')) }} <span class="text-danger">*</span> </label>
                                             <input id="email" value="{{ Auth::guard('web')->user()->email ?? '' }}" class="w-100 input-field">
                                         </div>
 
                                         <div class="input-form">
-                                            <label for="title">{{ __('Your Phone') }} <span class="text-danger">*</span> </label>
+                                            <label for="title">{{ deepl_translate(__('Your Phone')) }} <span class="text-danger">*</span> </label>
                                             <input id="phone" type="tel" value="{{ Auth::guard('web')->user()->phone ?? '' }}" class="w-100 input-field">
                                         </div>
 
                                         <div class="input-form">
-                                            <x-form.country-dropdown :title="__('Select Your Country')" :id="'country_id'" :required="true"/>
+                                            <x-form.country-dropdown :title="deepl_translate(__('Select Your Country'))" :id="'country_id'" :required="true"/>
                                         </div>
 
                                         <div class="d-flex justify-content-between gap-3">
                                             <div class="input-form d-none">
-                                                <x-form.state-dropdown :title="__('Select Your State')" :id="'state_id'" :required="true"/>
+                                                <x-form.state-dropdown :title="deepl_translate(__('Select Your State'))" :id="'state_id'" :required="true"/>
                                             </div>
                                             <div class="input-form d-none" id="city-wrapper">
-                                                <x-form.city-dropdown :title="__('Select Your City')" :id="'city_id'" :required="false"/>
+                                                <x-form.city-dropdown :title="deepl_translate(__('Select Your City'))" :id="'city_id'" :required="false"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="btn-wrapper mt-3">
-                                        <button type="submit" id="user_profile_info_update" class="red-btn"> {{ __('Save changes') }} </button>
+                                        <button type="submit" id="user_profile_info_update" class="red-btn"> {{ deepl_translate(__('Save changes')) }} </button>
                                     </div>
                                 </form>
                             </div>

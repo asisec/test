@@ -10,7 +10,7 @@
             }
 
             function resetCityDropdown() {
-                let all_options = "<option value=''>{{__('Select City')}}</option>";
+                let all_options = "<option value=''>{{deepl_translate(__('Select City'))}}</option>";
                 $('.get_state_city').html(all_options);
                 $('.city_info').html('');
                 $('#city_id').val('');
@@ -36,7 +36,7 @@
                     },
                     success: function(res) {
                         if (res.status == 'success') {
-                            let all_options = "<option value=''>{{__('Select City')}}</option>";
+                            let all_options = "<option value=''>{{deepl_translate(__('Select City'))}}</option>";
                             let all_city = res.cities;
                             $.each(all_city, function(index, value) {
                                 all_options += "<option value='" + value.id +
@@ -49,7 +49,7 @@
 
                             $('.city_info').html('');
                             if(all_city.length <= 0){
-                                $('.city_info').html('<span class="text-danger"> {{ __('No city found for selected country!') }} <span>');
+                                $('.city_info').html('<span class="text-danger"> {{ deepl_translate(__('No city found for selected country!')) }} <span>');
                             }
                         }
                     }
@@ -73,7 +73,7 @@
                 }else{
 
                     $('#user_profile_info_update').attr("disabled", "disabled");
-                    $('#user_profile_info_update').html('<i class="fas fa-spinner fa-spin mr-1"></i> {{__("Submitting")}}');
+                    $('#user_profile_info_update').html('<i class="fas fa-spinner fa-spin mr-1"></i> {{deepl_translate(__("Submitting"))}}');
                     // Submit the form
 
                     $.ajax({
@@ -91,14 +91,14 @@
                         success: function(res){
                             if(res.status == 'ok'){
                                 window.location.reload();
-                                toastr_success_js("{{ __('Profile Info Successfully Updated') }}");
+                                toastr_success_js("{{ deepl_translate(__('Profile Info Successfully Updated')) }}");
 
                                 // Re-enable the submit button and reset its text
                                 $('#user_profile_info_update').removeAttr("disabled");
                                 $('#user_profile_info_update').html('Save changes');
 
                             }else if(res.status == 'demo_route_on'){
-                                toastr_warning_js("{{ __('This is demonstration purpose only, you may not able to change few settings, once your purchase this script you will get access to all settings.') }}");
+                                toastr_warning_js("{{ deepl_translate(__('This is demonstration purpose only, you may not able to change few settings, once your purchase this script you will get access to all settings.')) }}");
                             }
 
                         },

@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('site_title')
-    {{ __('Add Listing') }}
+    {{ deepl_translate(__('Add Listing')) }}
 @endsection
 @section('style')
     <x-media.css />
@@ -180,7 +180,7 @@
                 <div class="col-lg-12 mt-1">
                     <div class="alert alert-warning d-flex justify-content-between">
                         <a href="{{ route('user.membership.all') }}">
-                            {{ __('Your membership package listing limit has been reached. Please consider upgrading your membership to continue listing:') }}
+                            {{ deepl_translate(__('Your membership package listing limit has been reached. Please consider upgrading your membership to continue listing:')) }}
                         </a>
                     </div>
                 </div>
@@ -192,9 +192,9 @@
                 <div class="row w-50 align-items-center mx-auto mt-5 mb-5">
                     <div class="col-lg-12 mt-5 mb-5">
                         <div class="mt-5 mb-5">
-                            <x-notice.general-notice :description="__('You cannot add listings until your account is verified.')" />
+                            <x-notice.general-notice :description="deepl_translate(__('You cannot add listings until your account is verified.'))" />
                             <button class="new-cmn-btn browse-ads mb-4"><a
-                                    href="{{ route('user.account.settings') }}">{{ __('Verify Your Account Now') }}</a></button>
+                                    href="{{ route('user.account.settings') }}">{{ deepl_translate(__('Verify Your Account Now')) }}</a></button>
                         </div>
                     </div>
                 </div>
@@ -202,9 +202,9 @@
                 <div class="row w-50 align-items-center mx-auto mt-5 mb-5">
                     <div class="col-lg-12 mt-5 mb-5">
                         <div class="mt-5 mb-5">
-                            <x-notice.general-notice :description="__('You cannot add listings until your account is verified.')" />
+                            <x-notice.general-notice :description="deepl_translate(__('You cannot add listings until your account is verified.'))" />
                             <button class="new-cmn-btn browse-ads mb-4"><a
-                                    href="{{ route('user.account.settings') }}">{{ __('Verify Your Account Now') }}</a></button>
+                                    href="{{ route('user.account.settings') }}">{{ deepl_translate(__('Verify Your Account Now')) }}</a></button>
                         </div>
                     </div>
                 </div>
@@ -219,14 +219,14 @@
                 aria-orientation="vertical">
                 <a class="nav-link  stepIndicator active stepForm_btn__previous" id="listing-info-tab" data-bs-toggle="pill"
                     href="#listing-info" role="tab" aria-controls="listing-info" aria-selected="true">
-                    <span class="nav-link-number">{{ __('1') }}</span>
-                    {{ __('Listing Info') }}
+                    <span class="nav-link-number">{{ deepl_translate(__('1')) }}</span>
+                    {{ deepl_translate(__('Listing Info')) }}
                 </a>
 
                 <a class="nav-link  stepIndicator" id="location-tab" data-bs-toggle="pill" href="#media-uploads"
                     role="tab" aria-controls="media-uploads" aria-selected="true">
-                    <span class="nav-link-number">{{ __('2') }}</span>
-                    {{ __('Location') }}
+                    <span class="nav-link-number">{{ deepl_translate(__('2')) }}</span>
+                    {{ deepl_translate(__('Location')) }}
                 </a>
             </div>
             <form action="{{ route('user.add.listing') }}" method="post" enctype="multipart/form-data">
@@ -251,14 +251,14 @@
                                             <div class="post-add-wraper">
                                                 <div class="item-name box-shadow1 p-24">
                                                     <div class="row mb-3">
-                                                        <label for="item-name">{{ __('Item Name') }} <span
+                                                        <label for="item-name">{{ deepl_translate(__('Item Name')) }} <span
                                                             class="text-danger">*</span> </label>
                                                         <input type="text" name="title" id="title"
                                                             value="{{ old('title') }}" class="input-filed w-100"
-                                                            placeholder="{{ __('Item Name') }}">
+                                                            placeholder="{{ deepl_translate(__('Item Name')) }}">
 
                                                         <div class="input-form input-form2 permalink_label">
-                                                            <label for="title" class="mt-4"> {{ __('Permalink') }} <span
+                                                            <label for="title" class="mt-4"> {{ deepl_translate(__('Permalink')) }} <span
                                                                     class="text-danger">*</span> </label>
                                                             <span id="slug_show" class="display-inline"></span>
                                                             <span id="slug_edit" class="display-inline">
@@ -268,22 +268,22 @@
                                                                     value="{{ old('slug') }}" id="slug"
                                                                     style="display: none" type="text">
                                                                 <button class="red-btn btn-sm slug_update_button mt-2"
-                                                                    style="display: none">{{ __('Update') }}</button>
+                                                                    style="display: none">{{ deepl_translate(__('Update')) }}</button>
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="about-item box-shadow1 p-24 mt-4">
-                                                    <h3 class="head4">{{ __('About Item') }}</h3>
+                                                    <h3 class="head4">{{ deepl_translate(__('About Item')) }}</h3>
                                                     <div class="about-item-form">
                                                         <div class="row g-3 mt-3">
                                                             <div class="col-sm-4">
                                                                 <div class="item-catagory-wraper">
-                                                                    <label for="item-catagory">{{ __('Item Category') }}
+                                                                    <label for="item-catagory">{{ deepl_translate(__('Item Category')) }}
                                                                         <span class="text-danger">*</span> </label>
                                                                     <select name="category_id" id="category"
                                                                         class="select-itms select2_activation">
-                                                                        <option value="">{{ __('Select Category') }}
+                                                                        <option value="">{{ deepl_translate(__('Select Category')) }}
                                                                         </option>
                                                                         @foreach ($categories as $cat)
                                                                             <option value="{{ $cat->id }}">
@@ -299,39 +299,39 @@
                                                 {{-- 
                                                 <div class="attribute-box box-shadow1 p-24 mt-3">
                                                     <h3 class="head4 mb-3">
-                                                        {{ get_static_option('listing_attribute_section_title') ?? __('Attributes') }}
+                                                        {{ get_static_option('listing_attribute_section_title') ?? deepl_translate(__('Attributes')) }}
                                                     </h3>
                                                     <div id="attribute-container">
                                                         <!-- Initial Attribute Fields -->
                                                         <div class="attribute-item mb-3">
                                                             <label for="attributes_title"
-                                                                class="form-label">{{ __('Title') }} </label>
+                                                                class="form-label">{{ deepl_translate(__('Title')) }} </label>
                                                             <input type="text" class="form-control mb-2"
                                                                 name="attributes_title[]"
-                                                                placeholder="{{ __('Enter title') }}">
+                                                                placeholder="{{ deepl_translate(__('Enter title')) }}">
 
                                                             <label for="attributes_description"
-                                                                class="form-label">{{ __('Description') }}</label>
+                                                                class="form-label">{{ deepl_translate(__('Description')) }}</label>
                                                             <input type="text" class="form-control"
                                                                 name="attributes_description[]"
-                                                                placeholder="{{ __('Enter description') }}">
+                                                                placeholder="{{ deepl_translate(__('Enter description')) }}">
                                                         </div>
                                                     </div>
 
                                                     <!-- Add More Button -->
                                                     <button type="button" id="add-more-attributes"
                                                         class="text-end red-btn w-10 d-block">
-                                                        <i class="las la-plus-circle"></i>{{ __('Add More') }}
+                                                        <i class="las la-plus-circle"></i>{{ deepl_translate(__('Add More')) }}
                                                     </button>
                                                 </div>
                                                 --}}
 
                                                 <div class="description box-shadow1 p-24 mt-4">
-                                                        <label for="description">{{ __('Description') }} <span
-                                                            class="text-danger">{{ __('(minimum 10 characters.)') }}</span>
+                                                        <label for="description">{{ deepl_translate(__('Description')) }} <span
+                                                            class="text-danger">{{ deepl_translate(__('(minimum 10 characters.)')) }}</span>
                                                         </label>
                                                     <textarea name="description" id="description" rows="6" class="input-filed w-100 textarea--form summernote"
-                                                        placeholder="{{ __('Enter a Description') }}">{{ old('description') }}</textarea>
+                                                        placeholder="{{ deepl_translate(__('Enter a Description')) }}">{{ old('description') }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -339,18 +339,18 @@
                                             <div class="right-sidebar">
                                                 <div class="box-shadow1 price p-24">
                                                     <div class="price-wraper">
-                                                        <label for="price">{{ __('Price') }}</label>
+                                                        <label for="price">{{ deepl_translate(__('Price')) }}</label>
                                                         <input type="number" name="price" id="price"
                                                             value="{{ old('price') }}" class="input-filed w-100 mb-3"
-                                                            placeholder="{{ __('Leave blank if you do not wish to set a price.') }}">
+                                                            placeholder="{{ deepl_translate(__('Leave blank if you do not wish to set a price.')) }}">
                                                         <label class="negotiable">
                                                             <input type="checkbox" class="custom-check-box"
                                                                 name="negotiable" id="negotiable">
-                                                            <span class="ms-2">{{ __('Negotiable') }}</span>
+                                                            <span class="ms-2">{{ deepl_translate(__('Negotiable')) }}</span>
                                                         </label>
                                                         <label class="contact-for-price d-block mt-2">
                                                             <input type="checkbox" class="custom-check-box" name="contact_for_price" id="contact_for_price" value="1">
-                                                            <span class="ms-2 fw-bold text-primary">{{ __('Contact for Price') }}</span>
+                                                            <span class="ms-2 fw-bold text-primary">{{ deepl_translate(__('Contact for Price')) }}</span>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -358,14 +358,14 @@
                                                     <label class="hide-number">
                                                         <input type="checkbox" class="custom-check-box"
                                                             name="hide_phone_number" value="">
-                                                        <span class="black-font"> {{ __('Hide My Phone Number') }}</span>
+                                                        <span class="black-font"> {{ deepl_translate(__('Hide My Phone Number')) }}</span>
                                                     </label>
                                                     <div class="input-group mt-3">
                                                         <input type="hidden" id="country-code" name="country_code">
                                                         <input type="hidden" id="full-number" name="number_full">
                                                         <input type="tel" class="input-filed w-100" name="phone"
                                                             id="phone" value="{{ old('phone') }}"
-                                                            placeholder="{{ __('Phone') }}">
+                                                            placeholder="{{ deepl_translate(__('Phone')) }}">
                                                         <span id="phone_availability"></span>
                                                         <div class="d-none">
                                                             <span id="error-msg" class="hide"></span>
@@ -383,13 +383,13 @@
                                                         </div>
                                                         <input type="hidden" name="image">
                                                         <button type="button" class="btn btn-info media_upload_form_btn"
-                                                            data-btntitle="{{ __('Select Image') }}"
-                                                            data-modaltitle="{{ __('Upload Image') }}"
+                                                            data-btntitle="{{ deepl_translate(__('Select Image')) }}"
+                                                            data-modaltitle="{{ deepl_translate(__('Upload Image')) }}"
                                                             data-bs-toggle="modal" data-bs-target="#media_upload_modal">
-                                                            {{ __('Click to browse & Upload Featured Image') }}
+                                                            {{ deepl_translate(__('Click to browse & Upload Featured Image')) }}
                                                         </button>
-                                                        <small>{{ __('image format: jpg,jpeg,png,gif,webp') }}</small> <br>
-                                                        <small>{{ __('recommended size 810x450') }}</small>
+                                                        <small>{{ deepl_translate(__('image format: jpg,jpeg,png,gif,webp')) }}</small> <br>
+                                                        <small>{{ deepl_translate(__('recommended size 810x450')) }}</small>
                                                     </div>
                                                 </div>
 
@@ -406,15 +406,15 @@
                                                                     <input type="hidden" name="gallery_images">
                                                                     <button type="button"
                                                                         class="btn btn-info media_upload_form_btn"
-                                                                        data-btntitle="{{ __('Select Image') }}"
-                                                                        data-modaltitle="{{ __('Upload Image') }}"
+                                                                        data-btntitle="{{ deepl_translate(__('Select Image')) }}"
+                                                                        data-modaltitle="{{ deepl_translate(__('Upload Image')) }}"
                                                                         data-mulitple="true" data-bs-toggle="modal"
                                                                         data-bs-target="#media_upload_modal">
-                                                                        {{ __('Click to Upload Gallery Images') }}
+                                                                        {{ deepl_translate(__('Click to Upload Gallery Images')) }}
                                                                     </button>
-                                                                    <small>{{ __('image format: jpg,jpeg,png,gif,webp') }}</small>
+                                                                    <small>{{ deepl_translate(__('image format: jpg,jpeg,png,gif,webp')) }}</small>
                                                                     <br>
-                                                                    <small>{{ __('recommended size 810x450') }}</small>
+                                                                    <small>{{ deepl_translate(__('recommended size 810x450')) }}</small>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -424,7 +424,7 @@
                                                 <div class="continue-btn mt-3">
                                                     <div class="btn-wrapper mb-10 d-flex justify-content-end gap-3">
                                                         <button class="red-btn w-100 d-block" style="border: none"
-                                                            id="nextBtn" type="button">{{ __('Continue') }}</button>
+                                                            id="nextBtn" type="button">{{ deepl_translate(__('Continue')) }}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -451,10 +451,10 @@
                                                             <div class="col-sm-4">
                                                                 <div class="country">
                                                                     <label
-                                                                        for="country">{{ __('Select Your Country') }}</label>
+                                                                        for="country">{{ deepl_translate(__('Select Your Country')) }}</label>
                                                                     <select name="country_id" id="country_id"
                                                                         class="select2_activation">
-                                                                        <option value="">{{ __('Select Country') }}
+                                                                        <option value="">{{ deepl_translate(__('Select Country')) }}
                                                                         </option>
                                                                         @foreach ($all_countries as $country)
                                                                             <option value="{{ $country->id }}"
@@ -468,10 +468,10 @@
                                                             <div class="col-sm-4 d-none">
                                                                 <div class="country">
                                                                     <label
-                                                                        for="country">{{ __('Select Your State') }}</label>
+                                                                        for="country">{{ deepl_translate(__('Select Your State')) }}</label>
                                                                     <select name="state_id" id="state_id"
                                                                         class="get_country_state select2_activation">
-                                                                        <option value="">{{ __('Select State') }}
+                                                                        <option value="">{{ deepl_translate(__('Select State')) }}
                                                                         </option>
                                                                         @foreach ($all_states as $state)
                                                                             <option value="{{ $state->id }}"
@@ -485,10 +485,10 @@
                                                             <div class="col-sm-4 d-none" id="city_wrapper">
                                                                 <div class="country">
                                                                     <label
-                                                                        for="country">{{ __('Select Your City') }}</label>
+                                                                        for="country">{{ deepl_translate(__('Select Your City')) }}</label>
                                                                     <select name="city_id" id="city_id"
                                                                         class="get_state_city select2_activation">
-                                                                        <option value="">{{ __('Select City') }}
+                                                                        <option value="">{{ deepl_translate(__('Select City')) }}
                                                                         </option>
                                                                         @foreach ($all_cities as $city)
                                                                             <option value="{{ $city->id }}"
@@ -504,20 +504,20 @@
                                                 @else
                                                     <!--Google Map -->
                                                     <div class="location-map mt-3">
-                                                        <label class="infoTitle">{{ __('Google Map Location') }}
+                                                        <label class="infoTitle">{{ deepl_translate(__('Google Map Location')) }}
                                                             <a href="https://drive.google.com/file/d/1BwDAjSLAeb4LaxzOkrdsgGO_Io2jM6S6/view?usp=sharing"
                                                                 target="_blank">
                                                                 <strong
-                                                                    class="text-warning">{{ __('Video link') }}</strong>
+                                                                    class="text-warning">{{ deepl_translate(__('Video link')) }}</strong>
                                                             </a><small
-                                                                class="text-info">{{ __('Search your location, pick a location') }}
+                                                                class="text-info">{{ deepl_translate(__('Search your location, pick a location')) }}
                                                             </small>
                                                         </label>
                                                         <div class="input-form input-form2">
                                                             <div class="map-warper dark-support rounded overflow-hidden">
                                                                 <input id="pac-input" class="controls rounded"
                                                                     type="text"
-                                                                    placeholder="{{ __('Search your location') }}" />
+                                                                    placeholder="{{ deepl_translate(__('Search your location')) }}" />
                                                                 <div id="map_canvas" style="height: 480px"></div>
                                                             </div>
                                                         </div>
@@ -526,10 +526,10 @@
                                                 <div class="address-text mt-3">
                                                     <input type="hidden" name="latitude" id="latitude">
                                                     <input type="hidden" name="longitude" id="longitude">
-                                                    <label for="address-text">{{ __('Address') }}</label>
+                                                    <label for="address-text">{{ deepl_translate(__('Address')) }}</label>
                                                     <input type="text" class="w-100 input-filed" name="address"
                                                         id="user_address" value="{{ old('address') }}"
-                                                        placeholder="{{ __('Address') }}">
+                                                        placeholder="{{ deepl_translate(__('Address')) }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -541,19 +541,19 @@
                                                     <label>
                                                         <input type="checkbox" name="is_featured" id="is_featured"
                                                             value="" class="custom-check-box feature_disable_color">
-                                                        <span class="ms-2">{{ __('Feature This Ad') }}</span>
+                                                        <span class="ms-2">{{ deepl_translate(__('Feature This Ad')) }}</span>
                                                     </label>
                                                     @if ($user_featured_listing_enable === false)
-                                                        <p>{{ __('To feature this ad, you will need to subscribe to a.') }}
+                                                        <p>{{ deepl_translate(__('To feature this ad, you will need to subscribe to a.')) }}
                                                             <a
-                                                                href="{{ url('/' . $membership_page_url ?? 'x') }}">{{ __('paid membership') }}</a>
+                                                                href="{{ url('/' . $membership_page_url ?? 'x') }}">{{ deepl_translate(__('paid membership')) }}</a>
                                                         </p>
                                                     @endif
                                                 </div>
                                                 --}}
 
                                                 <div class="box-shadow1 tags p-24 mt-3">
-                                                    <label for="tags">{{ __('Tags') }}</label>
+                                                    <label for="tags">{{ deepl_translate(__('Tags')) }}</label>
                                                     <div class="select-itms">
                                                         <select name="tags[]" id="tags" class="select2_activation"
                                                             multiple>
@@ -562,7 +562,7 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        <small>{{ __('Select Your tags name or new tag name type') }}</small>
+                                                        <small>{{ deepl_translate(__('Select Your tags name or new tag name type')) }}</small>
                                                     </div>
                                                 </div>
 
@@ -570,9 +570,9 @@
                                                 <div class="continue-btn mt-3">
                                                     <div class="btn-wrapper mb-10 d-flex justify-content-end gap-3">
                                                         <button class="red-btn w-100 d-block" id="prevBtn"
-                                                            type="button">{{ __('Previous') }}</button>
+                                                            type="button">{{ deepl_translate(__('Previous')) }}</button>
                                                         <button class="red-btn w-100 d-block" id="submitBtn"
-                                                            type="submit">{{ __('Submit Listing') }}</button>
+                                                            type="submit">{{ deepl_translate(__('Submit Listing')) }}</button>
                                                     </div>
                                                 </div>
 
@@ -698,7 +698,7 @@
                         success: function(res) {
                             if (res.status == 'success') {
                                 let alloptions =
-                                    "<option value=''>{{ __('Select Sub Category') }}</option>";
+                                    "<option value=''>{{ deepl_translate(__('Select Sub Category')) }}</option>";
                                 let allSubCategory = res.sub_categories;
                                 $.each(allSubCategory, function(index, value) {
                                     alloptions += "<option value='" + value.id +
@@ -724,9 +724,9 @@
 
                             if (res.status == 'success') {
                                 var alloptions =
-                                    "<option value=''>{{ __('Select Child Category') }}</option>";
+                                    "<option value=''>{{ deepl_translate(__('Select Child Category')) }}</option>";
                                 var allList =
-                                    "<li data-value='' class='option'>{{ __('Select Child Category') }}</li>";
+                                    "<li data-value='' class='option'>{{ deepl_translate(__('Select Child Category')) }}</li>";
                                 var allChildCategory = res.child_category;
 
                                 $.each(allChildCategory, function(index, value) {
@@ -762,7 +762,7 @@
                             },
                             success: function(res) {
                                 if (res.status == 'success') {
-                                    let all_options = "<option value=''>{{ __('Select City') }}</option>";
+                                    let all_options = "<option value=''>{{ deepl_translate(__('Select City')) }}</option>";
                                     let all_city = res.cities;
                                     $.each(all_city, function(index, value) {
                                         all_options += "<option value='" + value.id + "'>" + value.city + "</option>";
@@ -770,7 +770,7 @@
                                     $(".get_state_city").html(all_options).trigger('change');
                                     $(".city_info").html('');
                                     if (all_city.length <= 0) {
-                                        $(".city_info").html('<span class="text-danger"> {{ __('No city found for selected country!') }} <span>');
+                                        $(".city_info").html('<span class="text-danger"> {{ deepl_translate(__('No city found for selected country!')) }} <span>');
                                     }
                                 }
                             }
@@ -778,7 +778,7 @@
                     } else {
                         $('#city_wrapper').addClass('d-none');
                         $('#city_id').prop('required', false).val('');
-                        $(".get_state_city").html("<option value=''>{{ __('Select City') }}</option>").trigger('change');
+                        $(".get_state_city").html("<option value=''>{{ deepl_translate(__('Select City')) }}</option>").trigger('change');
                         $(".city_info").html('');
                     }
                 }

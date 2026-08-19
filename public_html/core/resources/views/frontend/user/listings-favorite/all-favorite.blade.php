@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('site_title')
-    {{ __('Listing Favorite') }}
+    {{ deepl_translate(__('Listing Favorite')) }}
 @endsection
 @section('style')
    <style>
@@ -37,7 +37,7 @@
                             <div class="main-body">
                                 <x-frontend.user.responsive-icon/>
                                 <div class="relevant-ads all-listings box-shadow1">
-                                    <h4 class="dis-title">{{ __('All Favorite Listing') }}</h4>
+                                    <h4 class="dis-title">{{ deepl_translate(__('All Favorite Listing')) }}</h4>
                                     <div class="add-wraper">
                                         @if($user_all_favorite->count() > 0)
                                             @foreach($user_all_favorite as $favorite)
@@ -59,7 +59,7 @@
                                                                         <svg width="7" height="10" viewBox="0 0 7 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <path d="M4 0V3.88889H7L3 10V6.11111H0L4 0Z" fill="white"/>
                                                                         </svg>
-                                                                       {{ __('FEATURED') }}
+                                                                       {{ deepl_translate(__('FEATURED')) }}
                                                                      </span>
                                                                 @endif
                                                             </div>
@@ -89,7 +89,7 @@
                                                 </div>
                                             </div>
                                         @else
-                                            <x-pagination.empty-data-placeholder :title="__('No Favorite Listing Yet')"/>
+                                            <x-pagination.empty-data-placeholder :title="deepl_translate(__('No Favorite Listing Yet'))"/>
                                         @endif
                                     </div>
                                 </div>

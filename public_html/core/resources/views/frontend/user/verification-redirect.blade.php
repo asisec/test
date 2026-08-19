@@ -1,5 +1,5 @@
 @extends('frontend.layout.master')
-@section('site_title', __('Phone Verification Required'))
+@section('site_title', deepl_translate(__('Phone Verification Required')))
 
 @section('content')
     <main class="section-padding2">
@@ -12,12 +12,12 @@
                                 <i class="fas fa-shield-alt"></i>
                             </div>
                         </div>
-                        <h3 class="mb-3">{{ __('Phone verification required') }}</h3>
+                        <h3 class="mb-3">{{ deepl_translate(__('Phone verification required')) }}</h3>
                         <p class="text-muted mb-4">
-                            {{ __('You must verify your phone number to post listings. Redirecting to the verification center in 3 seconds...') }}
+                            {{ deepl_translate(__('You must verify your phone number to post listings. Redirecting to the verification center in 3 seconds...')) }}
                         </p>
                         <div class="display-6 fw-bold text-primary mb-2" id="redirect-countdown">3</div>
-                        <div class="text-muted">{{ __('Redirecting to the verification center...') }}</div>
+                        <div class="text-muted">{{ deepl_translate(__('Redirecting to the verification center...')) }}</div>
                     </div>
                 </div>
             </div>

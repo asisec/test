@@ -18,7 +18,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-form.summernote :title="__('Description')" :name="'description'" :id="'description'" />
+                    <x-form.summernote :title="deepl_translate(__('Description'))" :name="'description'" :id="'description'" />
                 </div>
                 <div class="modal-footer">
                     <div class="btn-wrapper text-center">

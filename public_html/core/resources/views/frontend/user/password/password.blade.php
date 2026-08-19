@@ -1,5 +1,5 @@
 @extends('frontend.layout.master')
-@section('site_title',__('Change Password'))
+@section('site_title',deepl_translate(__('Change Password')))
 @section('style')
     <style>
         .single-profile-settings:not(:first-child) {

@@ -17,7 +17,7 @@
                     },
                     success: function(res) {
                         if (res.status == 'success') {
-                            let all_options = "<option value=''>{{__('Select State')}}</option>";
+                            let all_options = "<option value=''>{{deepl_translate(__('Select State'))}}</option>";
                             let all_state = res.states;
                             $.each(all_state, function(index, value) {
                                 all_options += "<option value='" + value.id +
@@ -26,7 +26,7 @@
                             $(".get_country_state").html(all_options);
                             $(".state_info").html('');
                             if(all_state.length <= 0){
-                                $(".state_info").html('<span class="text-danger"> {{ __('No state found for selected country!') }} <span>');
+                                $(".state_info").html('<span class="text-danger"> {{ deepl_translate(__('No state found for selected country!')) }} <span>');
                             }
                         }
                     }
@@ -44,7 +44,7 @@
                     },
                     success: function(res) {
                         if (res.status == 'success') {
-                            let all_options = "<option value=''>{{__('Select City')}}</option>";
+                            let all_options = "<option value=''>{{deepl_translate(__('Select City'))}}</option>";
                             let all_city = res.cities;
                             $.each(all_city, function(index, value) {
                                 all_options += "<option value='" + value.id +
@@ -54,7 +54,7 @@
 
                             $(".city_info").html('');
                             if(all_city.length <= 0){
-                                $(".city_info").html('<span class="text-danger"> {{ __('No city found for selected state!') }} <span>');
+                                $(".city_info").html('<span class="text-danger"> {{ deepl_translate(__('No city found for selected state!')) }} <span>');
                             }
                         }
                     }
@@ -67,7 +67,7 @@
                 $('.front_image_preview').show();
                 $('.front_image').hide();
                 $(".identity-verifying-upload").find('span').first().hide()
-                $(".identity-verifying-upload").find('p').first().text("{{__('Click to change photo')}}")
+                $(".identity-verifying-upload").find('p').first().text("{{deepl_translate(__('Click to change photo'))}}")
                 if (this.files && this.files[0]) {
                     let img = document.querySelector('.front_image_preview');
                     img.onload = () => {
@@ -86,7 +86,7 @@
                 $('.back_image_preview').show();
                 $('.back_image').hide();
                 $(".identity-verifying-upload").find('span').last().hide()
-                $(".identity-verifying-upload").find('p').last().text("{{__('Click to change photo')}}")
+                $(".identity-verifying-upload").find('p').last().text("{{deepl_translate(__('Click to change photo'))}}")
 
                 if (this.files && this.files[0]) {
                     let img = document.querySelector('.back_image_preview');
@@ -111,7 +111,7 @@
                 let front_image = $('#front_image').val();
                 let back_image = $('#back_image').val();
                 if(country == '' || state == '' || city == '' || address == '' || zipcode == '' || national_id_number == '' || front_image == '' || back_image == ''){
-                    toastr_warning_js("{{ __('Please fill all fields !') }}");
+                    toastr_warning_js("{{ deepl_translate(__('Please fill all fields !')) }}");
                     return false;
                 }else{
                     $.ajax({
@@ -129,8 +129,8 @@
                                $('.front_image').hide();
                                $('.back_image_preview').hide();
                                $(".identity-verifying-upload").find('span').first().hide()
-                               $(".identity-verifying-upload").find('p').first().text("{{__('Click to change photo')}}")
-                               toastr_success_js("{{ __('Documents successfully submitted') }}");
+                               $(".identity-verifying-upload").find('p').first().text("{{deepl_translate(__('Click to change photo'))}}")
+                               toastr_success_js("{{ deepl_translate(__('Documents successfully submitted')) }}");
                            }
                         },
                         error: function (err) {
