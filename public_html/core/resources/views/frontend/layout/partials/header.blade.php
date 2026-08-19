@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{get_user_lang()}}" dir="{{get_user_lang_direction()}}">
+<html lang="{{get_user_lang()}}" dir="ltr">
 <head>
     {!! renderHeadStartHooks() !!}
     <meta charset="UTF-8">
@@ -24,9 +24,7 @@
     <link rel="stylesheet" href="{{ asset('assets/common/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/jquery.ihavecookies.css')}}">
     <link rel="stylesheet" href="{{asset('assets/backend/css/all.min.css')}}">
-    @if(get_user_lang_direction() == 'rtl')
-        <link rel="stylesheet" href="{{asset('assets/common/css/rtl.css')}}">
-    @endif
+    {{-- RTL devre dışı: tüm diller için LTR layout kullanılıyor --}}
 
     <link rel="canonical" href="{{canonical_url()}}" />
     @include('frontend.layout.partials.root-style')

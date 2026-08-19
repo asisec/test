@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{get_default_language()}}" dir="{{get_user_lang_direction()}}">
+<html lang="{{get_default_language()}}" dir="ltr">
 <head>
 @if(!empty(get_static_option('site_google_analytics')))
         {!! get_static_option('site_google_analytics') !!}
@@ -179,9 +179,7 @@
             }
     </style>
     @yield('style')
-    @if(!empty(get_static_option('site_rtl_enabled')) || get_user_lang_direction() === 'rtl')
-        <link rel="stylesheet" href="{{asset('assets/frontend/css/rtl.css')}}">
-    @endif
+    {{-- RTL devre dışı: tüm diller için LTR layout kullanılıyor --}}
 
 </head>
 <body>
