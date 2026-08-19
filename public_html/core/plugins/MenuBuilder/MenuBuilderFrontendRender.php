@@ -70,8 +70,8 @@ class MenuBuilderFrontendRender
 
         $menu_item = (object) $menu_item ;
         $ptype =  property_exists($menu_item,'ptype') ? $menu_item->ptype : '';
-        $pname =  property_exists($menu_item,'pname') ? $menu_item->pname : '';
-        $menu_label =  property_exists($menu_item,'menulabel') ? $menu_item->menulabel : null;
+        $pname =  property_exists($menu_item,'pname') ? deepl_translate($menu_item->pname) : '';
+        $menu_label =  property_exists($menu_item,'menulabel') ? deepl_translate($menu_item->menulabel) : null;
         $output = '';
         if ($ptype === 'custom'){
             //check to activation class
@@ -84,7 +84,7 @@ class MenuBuilderFrontendRender
             }
             $output .=  $this->render_li_start($pname,$attributes_string,$default_lang);
             $title = $pname;
-            $output .= $this->get_anchor_markup(__($title),[
+            $output .= $this->get_anchor_markup(deepl_translate($title),[
                 'href' => str_replace('@url',url('/'),$menu_item->purl),
                 'target' => $menu_item->antarget ?? '',
                 'class' => 'menuArrow'
@@ -100,9 +100,12 @@ class MenuBuilderFrontendRender
             }
             $page_name = MenuBuilderSetup::multilang() ? '_page_'.$default_lang.'_name' : '_page_name';
             $title = get_static_option(str_replace('-','_',$menu_item->pslug).$page_name) ?? '';
+            if (empty($title)) {
+                $title = $pname ?: ($menu_item->pname ?? '');
+            }
             $output .=  $this->render_li_start($pname,$attributes_string,$default_lang);
             // get anchor data
-            $output .= $this->get_anchor_markup(__($title),[
+            $output .= $this->get_anchor_markup(deepl_translate($title),[
                 'href' => url('/').'/'. $menu_slug ?? '' ,
                 'target' => $menu_item->antarget ?? '',
             ],$menu_item->icon ?? '');
@@ -119,7 +122,7 @@ class MenuBuilderFrontendRender
                     $title = htmlspecialchars(strip_tags(get_static_option($static_name)));
                     $output .=  $this->render_li_start($title,$li_attributes,$default_lang);
                     // get anchor data
-                    $output .= $this->get_anchor_markup($title,[
+                    $output .= $this->get_anchor_markup(deepl_translate($title),[
                         'href' => url('/').'/'.get_static_option($instance->slug()) ?? '#' ,
                         'target' => $menu_item->antarget ?? '',
                     ],$menu_item->icon ?? '');
@@ -183,7 +186,9 @@ class MenuBuilderFrontendRender
                         $title = $menu_label;
                     }
                     if(!empty($title) && $this->routeParamCheck($route_params)){
-                        $output .= $this->get_anchor_markup($title,[
+                        $curLang = app()->getLocale();
+                        \Illuminate\Support\Facades\Log::info("Menu Translate: Lang: [$curLang] [" . $title . "] -> [" . deepl_translate($title) . "]");
+                        $output .= $this->get_anchor_markup(deepl_translate($title),[
                             'href' => route($dynamic_menu_type['route'],$route_params),
                             'target' => $menu_item->antarget ?? '',
                         ],$menu_item->icon ?? '');
