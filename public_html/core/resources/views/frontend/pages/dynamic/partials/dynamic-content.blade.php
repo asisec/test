@@ -4,11 +4,11 @@
             <div class="col-lg-12">
                 @if (!auth()->guard('web')->check() && $page_post->visibility === 'all')
                     <div class="dynamic-page-content-wrap">
-                        {!! $page_post->page_content !!}
+                        {!! deepl_translate($page_post->page_content) !!}
                     </div>
                 @elseif(auth()->guard('web')->check())
                     <div class="dynamic-page-content-wrap">
-                        {!! $page_post->page_content !!}
+                        {!! deepl_translate($page_post->page_content) !!}
                     </div>
                 @else
                     <div class="alert alert-warning">
