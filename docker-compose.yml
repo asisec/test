@@ -1,0 +1,119 @@
+# ============================================
+# Textile Forum — Docker Compose
+# ============================================
+# Kullanım:
+#   docker-compose up -d --build
+#   docker-compose down
+#   docker-compose logs -f app
+# ============================================
+
+services:
+  # -------------------------------------------
+  # APP: PHP 8.1 + Apache + Laravel
+  # -------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: textile-forum-app
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      - APP_URL=http://localhost:8081
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=textile_forum
+      - DB_USERNAME=textile_user
+      - DB_PASSWORD=TextileForum2026!
+      - DEEPL_API_KEY=77b12156-0caf-4165-a5b5-b647a01d440a:fx
+    volumes:
+      # Kullanıcı yüklemeleri (kalıcı)
+      - uploads_data:/var/www/html/public_html/assets/uploads
+      # Banner görselleri (kalıcı)
+      - banner_data:/var/www/html/public_html/banner-resimleri
+      # Laravel storage (loglar, session, cache)
+      - storage_data:/var/www/html/public_html/core/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - textile-network
+
+  # -------------------------------------------
+  # DB: MySQL 8.0
+  # -------------------------------------------
+  db:
+    image: mysql:8.0
+    container_name: textile-forum-db
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: TextileForumRoot2026!
+      MYSQL_DATABASE: textile_forum
+      MYSQL_USER: textile_user
+      MYSQL_PASSWORD: TextileForum2026!
+    volumes:
+      # Veritabanı verileri (kalıcı)
+      - mysql_data:/var/lib/mysql
+      # SQL dump dosyası — ilk başlatmada otomatik import edilir
+      - ./docker/init-db:/docker-entrypoint-initdb.d
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+      - --max_allowed_packet=256M
+      - --innodb_buffer_pool_size=256M
+      - --sql_mode=NO_ENGINE_SUBSTITUTION
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pTextileForumRoot2026!"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - textile-network
+
+  # -------------------------------------------
+  # phpMyAdmin (Opsiyonel — Veritabanı Yönetimi)
+  # -------------------------------------------
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: textile-forum-pma
+    restart: unless-stopped
+    ports:
+      - "8888:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: textile_user
+      PMA_PASSWORD: TextileForum2026!
+      UPLOAD_LIMIT: 256M
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - textile-network
+
+# -------------------------------------------
+# Volumes (Kalıcı Veri Depolama)
+# -------------------------------------------
+volumes:
+  mysql_data:
+    driver: local
+  uploads_data:
+    driver: local
+  banner_data:
+    driver: local
+  storage_data:
+    driver: local
+
+# -------------------------------------------
+# Network
+# -------------------------------------------
+networks:
+  textile-network:
+    driver: bridge

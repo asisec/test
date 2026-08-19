@@ -51,7 +51,13 @@ class SetLang
                         $currentUrl = $request->fullUrl();
                         $redirectUrl = preg_replace('/(\?|&)lang=[^&]+/', '', $currentUrl);
                         $redirectUrl = rtrim($redirectUrl, '?&');
-    
+
+                        $appUrl = env('APP_URL');
+                        if ($appUrl && str_contains($appUrl, ':8081') && !str_contains($redirectUrl, ':8081')) {
+                            $redirectUrl = str_replace('localhost/', 'localhost:8081/', $redirectUrl);
+                            $redirectUrl = str_replace('127.0.0.1/', '127.0.0.1:8081/', $redirectUrl);
+                        }
+
                         return redirect($redirectUrl);
                     } else {
                         session()->forget('lang');

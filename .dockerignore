@@ -1,0 +1,39 @@
+# ============================================
+# Textile Forum — Docker Ignore
+# ============================================
+
+.git
+.gitignore
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Vendor (container içinde composer install yapılacak)
+public_html/core/vendor/
+
+# Node modules
+node_modules/
+
+# Logs & Cache (container içinde yeniden oluşturulacak)
+public_html/core/storage/logs/*
+public_html/core/storage/framework/cache/data/*
+public_html/core/storage/framework/sessions/*
+public_html/core/storage/framework/views/*
+public_html/core/bootstrap/cache/*
+
+# SQL dumps (sadece docker/init-db/ altındaki kullanılacak)
+*.sql
+!docker/init-db/*.sql
+
+# Docker dosyaları (kendisi hariç)
+docker-compose.yml
+.env.docker
+
+# Error logs
+public_html/error_log

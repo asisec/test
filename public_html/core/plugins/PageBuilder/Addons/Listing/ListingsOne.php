@@ -309,20 +309,20 @@ class ListingsOne extends PageBuilderBase
         $rating_star_on_off = $settings["rating_on_off"] ?? "";
         $sort_by_on_off = $settings["sort_by_on_off"] ?? "";
 
-        $country_text = $settings["country"] ?? __("Select Country");
-        $state_text = $settings["state"] ?? __("Select State");
-        $city_text = $settings["city"] ?? __("Select City");
-        $search_placeholder = $settings["listing_search_by_text"] ??  __("What are you looking for?");
+        $country_text = deepl_translate($settings["country"] ?? __("Select Country"));
+        $state_text = deepl_translate($settings["state"] ?? __("Select State"));
+        $city_text = deepl_translate($settings["city"] ?? __("Select City"));
+        $search_placeholder = deepl_translate($settings["listing_search_by_text"] ??  __("What are you looking for?"));
 
-        $category_text = $settings["category"] ?? __("Select Category");
-        $subcategory_text = $settings["subcategory"] ?? __("Select Subcategory");
-        $child_category_text = $settings["child_category"] ?? __("Select Child Category");
+        $category_text = deepl_translate($settings["category"] ?? __("Select Category"));
+        $subcategory_text = deepl_translate($settings["subcategory"] ?? __("Select Subcategory"));
+        $child_category_text = deepl_translate($settings["child_category"] ?? __("Select Child Category"));
 
-        $date_posted_title = $settings["date_posted_title"] ?? __("Date Posted");
+        $date_posted_title = deepl_translate($settings["date_posted_title"] ?? __("Date Posted"));
         $date_posted = $settings["date_posted"] ?? "";
-        $listing_condition_title = $settings["listing_condition_title"] ?? __("Condition");
+        $listing_condition_title = deepl_translate($settings["listing_condition_title"] ?? __("Condition"));
         $listing_condition = $settings["listing_condition"] ?? "";
-        $listing_type_preferences_title = $settings["listing_type_preferences_title"] ?? __("Listing Type");
+        $listing_type_preferences_title = deepl_translate($settings["listing_type_preferences_title"] ?? __("Listing Type"));
         $listing_type_preferences = $settings["listing_type_preferences"] ?? "";
 
         $text_search_value = request()->get("q") ?? request()->get("home_search");
@@ -382,7 +382,7 @@ class ListingsOne extends PageBuilderBase
             return intval($price);
         })->toArray();
 
-        $max_price = max($prices);
+        $max_price = !empty($prices) ? max($prices) : 10000;
 
         $max_price_start_value = $max_price ?? '10000';
         $min_price = '1';
@@ -681,9 +681,9 @@ class ListingsOne extends PageBuilderBase
             'state_on_off' => $state_on_off,
             'city_on_off' => $city_on_off,
             'country_on_off' => $country_on_off,
-            'country_text' => $country_text,
-            'state_text' => $state_text,
-            'city_text' => $city_text,
+            'country_text' => deepl_translate($country_text),
+            'state_text' => deepl_translate($state_text),
+            'city_text' => deepl_translate($city_text),
 
             'listing_search_by_text_on_off' => $listing_search_by_text_on_off,
             'category_on_off' => $category_on_off,

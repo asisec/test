@@ -304,10 +304,6 @@ function get_attachment_image_by_id($id, $size = null, $default = false)
             case "thumb":
                 if (file_exists('assets/uploads/media-uploader/thumb-' . $image_details->path)) {
                     $image_url = asset('assets/uploads/media-uploader/thumb-' . $image_details->path);
-                }else {
-                    if (file_exists('assets/uploads/media-uploader/' . $image_details->path)) {
-                        $image_url = asset('assets/uploads/media-uploader/' . $image_details->path);
-                    }
                 }
                 break;
             default:
@@ -315,6 +311,11 @@ function get_attachment_image_by_id($id, $size = null, $default = false)
                     $image_url = asset('assets/uploads/media-uploader/' . $image_details->path);
                 }
                 break;
+        }
+
+        // Fallback to original image if the requested size was not found
+        if (empty($image_url) && file_exists('assets/uploads/media-uploader/' . $image_details->path)) {
+            $image_url = asset('assets/uploads/media-uploader/' . $image_details->path);
         }
     }
 
@@ -401,7 +402,25 @@ function get_language_by_slug($slug)
 }
 function site_currency_symbol($text = false)
 {
-    $all_currency = XgPaymentGateway::script_currency_list();
+    $all_currency = [];
+    if (class_exists('Xgenious\Paymentgateway\Facades\XgPaymentGateway') && method_exists('Xgenious\Paymentgateway\Facades\XgPaymentGateway', 'script_currency_list')) {
+        try {
+            $all_currency = XgPaymentGateway::script_currency_list();
+        } catch (\Throwable $e) {
+            $all_currency = [];
+        }
+    }
+
+    if (empty($all_currency)) {
+        $all_currency = [
+            'USD' => '$',
+            'EUR' => '€',
+            'GBP' => '£',
+            'TRY' => '₺',
+            'INR' => '₹',
+            'BDT' => '৳',
+        ];
+    }
 
     $symbol = '$';
     $global_currency = get_static_option('site_global_currency');
@@ -1844,6 +1863,7 @@ function render_frontend_sidebar($location, $args = [])
     }catch (\Exception $exception){
 
     }
+    
     return $output;
 }
 function get_all_language()
@@ -2153,6 +2173,9 @@ function blog_comment_count($item){
 function render_site_title($title){
     $site_title = get_static_option('site_title');
     $page_title = trim((string) $title);
+    if (function_exists('deepl_translate')) {
+        $page_title = deepl_translate($page_title);
+    }
 
     $site_og_meta_title = $page_title !== ''
         ? $site_title .' - '. $page_title
@@ -2260,46 +2283,75 @@ HTML;
 }
 
 function render_page_meta_data_for_listing($listing_details){
-
     $user_lang = LanguageHelper::user_lang_slug();
-    $site_url = route('frontend.listing.details',$listing_details->slug);
+    $site_url = route('frontend.listing.details', $listing_details->slug);
+    $raw_title = function_exists('deepl_translate') ? deepl_translate($listing_details->title) : $listing_details->title;
+    
+    $clean_description = trim(preg_replace('/\s+/', ' ', strip_tags($listing_details->description ?? '')));
+    $default_description = \Illuminate\Support\Str::limit($clean_description, 160);
 
-    $meta_title =  $listing_details->metaData->meta_title ?? '';
-    $site_tags = $listing_details->metaData->meta_tags ?? '';
-    $site_description =  $listing_details->metaData->meta_description ?? '';
-    $facebook_meta_tags = $listing_details->metaData->facebook_meta_tags ?? '';
-    $facebook_meta_description =  $listing_details->metaData->facebook_meta_description ?? '';
-    $facebook_meta_image =  get_attachment_image_by_id($listing_details->metaData->facebook_meta_image ?? '')['img_url'] ?? '';
-    $facebook_meta_image_alt =  get_attachment_image_by_id($listing_details->metaData->facebook_meta_image ?? '')['img_alt'] ?? '';
+    $meta_title = !empty($listing_details->metaData->meta_title) ? $listing_details->metaData->meta_title : $raw_title . ' - Textile Forum';
+    $site_tags = $listing_details->metaData->meta_tags ?? ($listing_details->category?->name ?? 'Textile');
+    $site_description = !empty($listing_details->metaData->meta_description) ? $listing_details->metaData->meta_description : $default_description;
 
-    $twitter_meta_tags = $listing_details->metaData->twitter_meta_tags ?? '';
-    $twitter_meta_description =  $listing_details->metaData->twitter_meta_description ?? '';
-    $twitter_meta_image =  get_attachment_image_by_id($listing_details->metaData->twitter_meta_image ?? '')['img_url'] ?? '';
-    $title = $listing_details->title;
+    $main_image_data = get_attachment_image_by_id($listing_details->image);
+    $main_image_url = $main_image_data['img_url'] ?? asset('assets/frontend/img/no-image-bg.png');
+
+    $facebook_meta_tags = $listing_details->metaData->facebook_meta_tags ?? $meta_title;
+    $facebook_meta_description = $listing_details->metaData->facebook_meta_description ?? $site_description;
+    $facebook_meta_image = get_attachment_image_by_id($listing_details->metaData->facebook_meta_image ?? '')['img_url'] ?? $main_image_url;
+    $facebook_meta_image_alt = get_attachment_image_by_id($listing_details->metaData->facebook_meta_image ?? '')['img_alt'] ?? $raw_title;
+
+    $twitter_meta_tags = $listing_details->metaData->twitter_meta_tags ?? $meta_title;
+    $twitter_meta_description = $listing_details->metaData->twitter_meta_description ?? $site_description;
+    $twitter_meta_image = get_attachment_image_by_id($listing_details->metaData->twitter_meta_image ?? '')['img_url'] ?? $main_image_url;
+
+    $price = (float)($listing_details->price ?? 0);
+    $schema_price = $price > 0 ? number_format($price, 2, '.', '') : '0.00';
+    $currency = get_static_option('site_global_currency') ?? 'USD';
+
+    $json_ld = json_encode([
+        "@context" => "https://schema.org/",
+        "@type" => "Product",
+        "name" => $raw_title,
+        "image" => [$main_image_url],
+        "description" => $site_description,
+        "offers" => [
+            "@type" => "Offer",
+            "url" => $site_url,
+            "priceCurrency" => $currency,
+            "price" => $schema_price,
+            "availability" => "https://schema.org/InStock"
+        ]
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     return <<<HTML
-       <title>{$title}</title>
+       <title>{$meta_title}</title>
        <meta name="title" content="{$meta_title}">
        <meta name="tags" content="{$site_tags}">
        <meta name="description" content="{$site_description}">
-       <!--Facebook-->
-       <meta property="og:url"content="{$site_url}" >
-       <meta property="og:type"content="article" >
-       <meta property="og:title"content="{$facebook_meta_tags}" >
-       <meta property="og:description"content="{$facebook_meta_description}" >
-       <meta property="og:image"content="{$facebook_meta_image}">
-       <meta property="og:image:secure_url"content="{$facebook_meta_image}">
-       <meta property="og:image:width"content="1200">
-       <meta property="og:image:height"content="1200">
-       <meta property="og:image:alt"content="{$facebook_meta_image_alt}">
+       <link rel="canonical" href="{$site_url}" />
+       <!--OpenGraph / Facebook-->
+       <meta property="og:url" content="{$site_url}">
+       <meta property="og:type" content="product">
+       <meta property="og:title" content="{$facebook_meta_tags}">
+       <meta property="og:description" content="{$facebook_meta_description}">
+       <meta property="og:image" content="{$facebook_meta_image}">
+       <meta property="og:image:secure_url" content="{$facebook_meta_image}">
+       <meta property="og:image:width" content="1200">
+       <meta property="og:image:height" content="1200">
+       <meta property="og:image:alt" content="{$facebook_meta_image_alt}">
        <!--Twitter-->
        <meta name="twitter:card" content="summary_large_image">
-       <meta name="twitter:site" content="{$site_url}" >
-       <meta name="twitter:title" content="{$twitter_meta_tags}" >
-       <meta name="twitter:description" content="$twitter_meta_description">
+       <meta name="twitter:site" content="{$site_url}">
+       <meta name="twitter:title" content="{$twitter_meta_tags}">
+       <meta name="twitter:description" content="{$twitter_meta_description}">
        <meta name="twitter:image" content="{$twitter_meta_image}">
+       <!--Google Structured Data Schema.org-->
+       <script type="application/ld+json">
+       {$json_ld}
+       </script>
 HTML;
-
 }
 
 function render_page_meta_data_for_category($category){
@@ -2758,7 +2810,7 @@ function userListingLocation($listing){
         $listing_address = $listing->address;
     }
 
-    return $listing_address;
+    return function_exists('deepl_translate') ? deepl_translate($listing_address) : $listing_address;
 }
 
 function userProfileLocation($user) {
@@ -2875,3 +2927,187 @@ function getYoutubeEmbedUrl($url)
     }
     return $youtube_id;
 }
+
+if (!function_exists('deepl_translate')) {
+    function deepl_translate($text, $target_lang = null)
+    {
+        if (empty($text) || is_numeric($text)) return $text;
+
+        $current_lang = $target_lang ?: app()->getLocale();
+
+        $lang_map = [
+            'en' => 'EN-GB',
+            'en_US' => 'EN-US',
+            'en_GB' => 'EN-GB',
+            'tr_TR' => 'TR',
+            'tr' => 'TR',
+            'zh_CN' => 'ZH',
+            'zh' => 'ZH',
+            'ar_EG' => 'AR',
+            'ar' => 'AR'
+        ];
+
+        $target = $lang_map[$current_lang] ?? strtoupper(explode('_', $current_lang)[0]);
+        $hash = md5($text);
+
+        static $memoryCache = [];
+        if (isset($memoryCache[$target][$hash])) {
+            return $memoryCache[$target][$hash];
+        }
+
+        // Check DB
+        $cache = \App\Models\DeepTranslation::where('original_hash', $hash)
+            ->where('lang_code', $target)
+            ->first();
+
+        if ($cache) {
+            $memoryCache[$target][$hash] = $cache->translated_text;
+            return $cache->translated_text;
+        }
+
+        $apiKey = env('DEEPL_API_KEY');
+        if (!$apiKey) {
+            return $text;
+        }
+
+        $url = 'https://api-free.deepl.com/v2/translate';
+        
+        $postData = json_encode([
+            'text' => [$text],
+            'target_lang' => $target,
+            'tag_handling' => 'html'
+        ]);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: DeepL-Auth-Key $apiKey",
+            "Content-Type: application/json"
+        ]);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        
+        if ($response) {
+            $data = json_decode($response, true);
+            if (isset($data['translations'][0]['text'])) {
+                $translated = $data['translations'][0]['text'];
+                
+                \App\Models\DeepTranslation::create([
+                    'original_hash' => $hash,
+                    'lang_code' => $target,
+                    'translated_text' => $translated
+                ]);
+                $memoryCache[$target][$hash] = $translated;
+                return $translated;
+            }
+        }
+
+        $memoryCache[$target][$hash] = $text;
+        return $text;
+    }
+}
+
+if (!function_exists('deepl_translate_batch')) {
+    function deepl_translate_batch(array $texts, $target_lang = null)
+    {
+        if (empty($texts)) return $texts;
+
+        $current_lang = $target_lang ?: app()->getLocale();
+
+        $lang_map = [
+            'en' => 'EN-GB',
+            'en_US' => 'EN-US',
+            'en_GB' => 'EN-GB',
+            'tr_TR' => 'TR',
+            'tr' => 'TR',
+            'zh_CN' => 'ZH',
+            'zh' => 'ZH',
+            'ar_EG' => 'AR',
+            'ar' => 'AR'
+        ];
+
+        $target = $lang_map[$current_lang] ?? strtoupper(explode('_', $current_lang)[0]);
+
+        $results = [];
+        $uncached = [];
+        $uncachedMap = [];
+
+        foreach ($texts as $i => $text) {
+            if (empty($text) || is_numeric($text)) {
+                $results[$i] = $text;
+                continue;
+            }
+            $hash = md5($text);
+            $cache = \App\Models\DeepTranslation::where('original_hash', $hash)
+                ->where('lang_code', $target)
+                ->first();
+
+            if ($cache) {
+                $results[$i] = $cache->translated_text;
+            } else {
+                $uncached[] = $text;
+                $uncachedMap[count($uncached) - 1] = $i;
+            }
+        }
+
+        if (empty($uncached)) {
+            return $results;
+        }
+
+        $apiKey = env('DEEPL_API_KEY');
+        if (!$apiKey) return $results;
+
+        $url = 'https://api-free.deepl.com/v2/translate';
+        
+        $postData = json_encode([
+            'text' => array_values($uncached),
+            'target_lang' => $target,
+            'tag_handling' => 'html'
+        ]);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Authorization: DeepL-Auth-Key $apiKey",
+            "Content-Type: application/json"
+        ]);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        
+        if ($response) {
+            $data = json_decode($response, true);
+            if (isset($data['translations']) && is_array($data['translations'])) {
+                foreach ($data['translations'] as $idx => $t) {
+                    $originalText = $uncached[$idx];
+                    $translated = $t['text'];
+                    
+                    \App\Models\DeepTranslation::create([
+                        'original_hash' => md5($originalText),
+                        'lang_code' => $target,
+                        'translated_text' => $translated
+                    ]);
+                    
+                    $realIndex = $uncachedMap[$idx];
+                    $results[$realIndex] = $translated;
+                }
+            }
+        } else {
+            foreach ($uncached as $idx => $t) {
+                $realIndex = $uncachedMap[$idx];
+                $results[$realIndex] = $t;
+            }
+        }
+
+        return $results;
+    }
+}
+

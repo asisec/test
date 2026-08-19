@@ -3,6 +3,8 @@
         $specialCases = [
             'azb' => 'az',
             'ary' => 'ma',
+            'ar' => 'eg',
+            'eg' => 'eg',
         ];
 
         $codeParts = explode('_', $language->slug);

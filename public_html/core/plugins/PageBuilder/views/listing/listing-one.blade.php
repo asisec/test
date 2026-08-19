@@ -1,4 +1,4 @@
-@section('style')
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css">
     <style>
         /*loader css start */
@@ -125,7 +125,7 @@
         }
 
     </style>
-@endsection
+
 <div class="all-listing" data-padding-top="{{$padding_top}}" data-padding-bottom="{{$padding_bottom}}">
     <div class="container-1920 plr1">
         <!--Sidebar Icon-->
@@ -203,7 +203,7 @@
                                     <select id="search_by_category" name="cat" class="categorySelect">
                                         <option value="">{{$category_text}}</option>
                                         @foreach($categories as $cat)
-                                            <option @if(!empty(request()->get("cat")) && request()->get("cat") == $cat->id) selected @endif value="{{$cat->id}}">{{$cat->name}}</option>
+                                            <option @if(!empty(request()->get("cat")) && request()->get("cat") == $cat->id) selected @endif value="{{$cat->id}}">{{ deepl_translate($cat->name) }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -504,7 +504,7 @@
         </form>
     </div>
 </div>
-@section('scripts')
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
     @if(!empty(get_static_option("google_map_settings_on_off")))
         <script src="https://maps.googleapis.com/maps/api/js?key={{$google_api_key}}&libraries=places">
@@ -914,4 +914,4 @@
             });
         </script>
     @endif
-@endsection
+
