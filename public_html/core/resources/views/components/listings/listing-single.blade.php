@@ -9,7 +9,7 @@
             </div>
             <div class="featurebody">
                 <div class="card-body-top">
-                    <h4> <a href="{{ route('frontend.listing.details', $listing->slug) }}" class="featureTittle head4 twoLine">{{ $listing->title }}</a> </h4>
+                    <h4> <a href="{{ route('frontend.listing.details', $listing->slug) }}" class="featureTittle head4 twoLine">{{ deepl_translate($listing->title) }}</a> </h4>
                 </div>
 
                 <x-listings.listing-location :listing="$listing"/>
@@ -26,7 +26,7 @@
 
                 <span class="featurePricing d-flex justify-content-between align-items-center">
                     @if($listing->price == 0)
-                        <span class="money text-primary" style="font-size: 15px;">{{ __('Fiyat İçin İletişime Geçin') }}</span>
+                        <span class="money text-primary" style="font-size: 15px;">{{ deepl_translate(__('Fiyat İçin İletişime Geçin')) }}</span>
                     @else
                         <span class="money">{{ amount_with_currency_symbol($listing->price) }}</span>
                     @endif
