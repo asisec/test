@@ -1,15 +1,15 @@
 <div class="relevant-ads box-shadow1">
-    <h4 class="disTittle">{{ get_static_option('listing_relevant_title') ?? __('Relevant Ads') }}</h4>
+    <h4 class="disTittle">{{ function_exists('deepl_translate') ? deepl_translate(get_static_option('listing_relevant_title') ?? __('Relevant Ads')) : (get_static_option('listing_relevant_title') ?? __('Relevant Ads')) }}</h4>
     <div class="add-wraper relevant-listing-wrapper">
        @include('frontend.pages.listings.relevant-markup')
     </div>
     <div class="text-center mt-3">
         @if ($related_listings->isEmpty())
             <div class="btn-wrapper">
-                <button class="cmn-btn2 transparent-btn" disabled>{{ __('No More Relevant Items') }}</button>
+                <button class="cmn-btn2 transparent-btn" disabled>{{ deepl_translate(__('No More Relevant Items')) }}</button>
             </div>
         @else
-            <button id="load-more-ads" class="cmn-btn2 red-btn" data-listing-id="{{ $listing->id }}">{{ __('Load More') }}</button>
+            <button id="load-more-ads" class="cmn-btn2 red-btn" data-listing-id="{{ $listing->id }}">{{ deepl_translate(__('Load More')) }}</button>
         @endif
     </div>
 </div>

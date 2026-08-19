@@ -22,7 +22,7 @@
     $masked_phone_number = maskString($listing->phone);
 @endphp
 @extends('frontend.layout.master')
-@section('site_title', $listing->title)
+@section('site_title', deepl_translate($listing->title))
 @section('page-title')
     <?php
     $page_info = request()->url();
@@ -32,7 +32,7 @@
     {{ __(ucwords(str_replace("-", " ", $page_info))) }}
 @endsection
 @section('inner-title')
-    {{ $listing->title}}
+    {{ deepl_translate($listing->title) }}
 @endsection
 @section('page-meta-data')
     {!!  render_page_meta_data_for_listing($listing) !!}
@@ -224,25 +224,25 @@
                     <div class="short-description">
                         <div class="left-part mb-4">
                             <div class="product-name-price">
-                                <div class="product-name">{{ $listing->title }}</div>
+                                <div class="product-name">{{ deepl_translate($listing->title) }}</div>
                                 <div class="right-part text-right">
                                     <div class="price text-end">
                                         @if($listing->price == 0)
-                                            <span class="text-primary" style="font-size: 1.5rem; font-weight: 700;">{{ __('Contact for Price') }}</span>
+                                            <span class="text-primary" style="font-size: 1.5rem; font-weight: 700;">{{ deepl_translate(__('Contact for Price')) }}</span>
                                         @else
                                             <span>{{ float_amount_with_currency_symbol($listing->price) }}</span>
                                             @if($listing->negotiable === 1)
-                                                <div class="token">{{ __('NEGOTIABLE') }}</div>
+                                                <div class="token">{{ deepl_translate(__('NEGOTIABLE')) }}</div>
                                             @endif
                                         @endif
                                     </div>
                                 </div>
                             </div>
                             <div class="date-location">
-                                <span>{{ __('Posted on') }}  <span class="posted">{{ \Carbon\Carbon::parse($listing->created_at)->format('j F Y') }}</span></span>
+                                <span>{{ deepl_translate(__('Posted on')) }}  <span class="posted">{{ \Carbon\Carbon::parse($listing->created_at)->format('j F Y') }}</span></span>
                                 <span class="vartical-devider"></span>
-                                <span>{{ get_static_option('listing_location_title') ?? __('Location') }}
-                                     <span class="posted"> {{ userListingLocation($listing) }} </span>
+                                <span>{{ deepl_translate(__('Location')) }}
+                                     <span class="posted"> {{ deepl_translate(userListingLocation($listing)) }} </span>
                                 </span>
                             </div>
                         </div>
@@ -357,17 +357,17 @@
                             <div class="row gy-4">
                                 @if(!empty($listing->condition))
                                 <div class="col-4">
-                                    {{ __('Condition:') }} <span class="text-bold"> {{ $listing->condition }} </span>
+                                    {{ deepl_translate(__('Condition:')) }} <span class="text-bold"> {{ deepl_translate($listing->condition) }} </span>
                                 </div>
                                 @endif
                                 @if(!empty($listing->authenticity))
                                 <div class="col-4">
-                                    {{ __('Authenticity:') }} <span class="text-bold"> {{ $listing->authenticity }} </span>
+                                    {{ deepl_translate(__('Authenticity:')) }} <span class="text-bold"> {{ deepl_translate($listing->authenticity) }} </span>
                                 </div>
                                 @endif
                                 @if(!empty($listing->brand))
                                     <div class="col-4">
-                                        {{ __('Brand:') }} <span class="text-bold">{{ $listing->brand?->title }}</span>
+                                        {{ deepl_translate(__('Brand:')) }} <span class="text-bold">{{ deepl_translate($listing->brand?->title) }}</span>
                                     </div>
                                 @endif
                             </div>
@@ -377,10 +377,10 @@
                         @if($listing->listing_attributes->isNotEmpty())
                         <div class="descriptionTop">
                             <div class="row gy-4">
-                                <h5 class="disTittle"> {{ get_static_option('listing_attribute_section_title') ?? __('Attributes') }} </h5>
+                                <h5 class="disTittle"> {{ deepl_translate(__('Attributes')) }} </h5>
                                 @foreach($listing->listing_attributes as $attribute)
                                     <div class="col-4">
-                                        {{ $attribute->title }} <span class="text-bold"> {{ $attribute->description }} </span>
+                                        {{ deepl_translate($attribute->title) }} <span class="text-bold"> {{ deepl_translate($attribute->description) }} </span>
                                     </div>
                                 @endforeach
                             </div>
@@ -391,21 +391,21 @@
                         <div class="devider"></div>
                         <!-- Mid -->
                         <div class="descriptionMid">
-                            <h4 class="disTittle">{{ get_static_option('listing_description_title') ?? __('Description') }}</h4>
-                            <p class="pera" id="description">{!! Str::limit(str_replace('&nbsp;', ' ', strip_tags($listing->description)), 20000) !!}</p>
-                            <button id="showMoreButton" class="show-more-btn">{{ __('Show More') }}</button>
+                            <h4 class="disTittle">{{ deepl_translate(__('Description')) }}</h4>
+                            <p class="pera" id="description">{!! deepl_translate(Str::limit(str_replace('&nbsp;', ' ', strip_tags($listing->description)), 20000)) !!}</p>
+                            <button id="showMoreButton" class="show-more-btn">{{ deepl_translate(__('Show More')) }}</button>
                         </div>
                         <!-- Footer -->
 
                         <div class="descriptionFooter">
-                            <h4 class="disTittle">{{ get_static_option('listing_tag_title') ?? __('Tags') }}</h4>
+                            <h4 class="disTittle">{{ deepl_translate(__('Tags')) }}</h4>
                             @if(isset($listing->tags) && count($listing->tags) > 0)
                                 @if(!empty($listing->tags))
                                     <div class="tags">
                                         <form id="filter_with_listing_page_tag" action="{{ url(get_static_option('listing_filter_page_url') ?? '/listings') }}" method="get">
                                             <input type="hidden" name="tag_id" id="tag_id" value="" />
                                             @foreach($listing->tags as $tag)
-                                                <a href="#" class="submit_form_listing_filter_tag" data-tag-id="{{ $tag->id }}">{{ $tag->name }}</a>
+                                                <a href="#" class="submit_form_listing_filter_tag" data-tag-id="{{ $tag->id }}">{{ deepl_translate($tag->name) }}</a>
                                             @endforeach
                                         </form>
                                     </div>
@@ -443,9 +443,9 @@
 
                         @if(get_static_option('safety_tips_info') !== null)
                             <div class="safety-tips">
-                                <h3 class="head5">{{ get_static_option('listing_safety_tips_title') ?? __('Safety Tips') }}</h3>
+                                <h3 class="head5">{{ deepl_translate(__('Safety Tips')) }}</h3>
                                 <div class="safety-wraper">
-                                    {!! get_static_option('safety_tips_info') !!}
+                                    {!! deepl_translate(get_static_option('safety_tips_info')) !!}
                                 </div>
                             </div>
                         @endif
@@ -471,7 +471,7 @@
                                          $image_url = get_attachment_image_by_id($listing->image);
                                          $img_url = $image_url['img_url'] ?? '';
                                      @endphp
-                                    {!! single_post_share(route('frontend.listing.details',$listing->slug), $listing->title, $img_url) !!}
+                                    {!! single_post_share(route('frontend.listing.details',$listing->slug), deepl_translate($listing->title), $img_url) !!}
                                 </span>
                             </div>
                         </div>

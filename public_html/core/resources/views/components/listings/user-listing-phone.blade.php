@@ -7,7 +7,7 @@
     @endif
 </div> --}}
 <div class="seller-phone text-center">
-    <p>{{ __('Phone') }}</p>
+    <p>{{ deepl_translate(__('Phone')) }}</p>
 
     <span type="text" id="default_phone_number_show" class="number">
         @if($listing->phone_hidden === 1 || $listing->phone_shows_only_premium === 1)
@@ -20,13 +20,13 @@
     @if($listing->phone_shows_only_premium === 1)
         @if($userHasMembership === true)
             <div class="number" id="phoneNumber" style="display:none;">{{ $listing->phone }}</div>
-            <a href="javascript:void(0)" class="show-number" id="userPhoneNumberBtn">{{ get_static_option('listing_show_phone_number_title') ?? __('Show Number') }}</a>
+            <a href="javascript:void(0)" class="show-number" id="userPhoneNumberBtn">{{ deepl_translate(__('Show Number')) }}</a>
         @else
             @include('frontend.pages.listings.listing-premium-required-modal')
-            <a href="javascript:void(0)" class="show-number" data-bs-toggle="modal" data-bs-target="#premiumRequiredModal">{{ get_static_option('listing_show_phone_number_title') ?? __('Show Number') }}</a>
+            <a href="javascript:void(0)" class="show-number" data-bs-toggle="modal" data-bs-target="#premiumRequiredModal">{{ deepl_translate(__('Show Number')) }}</a>
         @endif
     @elseif($listing->phone_hidden === 1)
         <div class="number" id="phoneNumber" style="display:none;">{{ $listing->phone }}</div>
-        <a href="javascript:void(0)" class="show-number" id="userPhoneNumberBtn">{{ get_static_option('listing_show_phone_number_title') ?? __('Show Number') }}</a>
+        <a href="javascript:void(0)" class="show-number" id="userPhoneNumberBtn">{{ deepl_translate(__('Show Number')) }}</a>
     @endif
 </div>
