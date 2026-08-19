@@ -61,7 +61,7 @@ class SubCategory extends WidgetBase
     public function frontend_render()
     {
         $settings = $this->get_settings();
-        $title_text = purify_html($settings['title'] ?? '');
+        $title_text = deepl_translate(purify_html($settings['title'] ?? ''));
         $order_by = purify_html($settings['order_by'] ?? 'id');
         $IDorDate = purify_html($settings['order'] ?? 'asc');
         $items = purify_html($settings['items'] ?? '');
@@ -71,7 +71,7 @@ class SubCategory extends WidgetBase
 
        foreach ($subcategories as $sub_cat){
       $route = route('frontend.show.listing.by.subcategory', $sub_cat->slug ?? 'x');
-       $sub_category_name = $sub_cat->name;
+       $sub_category_name = deepl_translate($sub_cat->name);
        $subcategory_markup.= <<<CATEGORY
     <li class="listItem wow fadeInUp" data-wow-delay="0.0s"><a class="singleLinks" href="{$route}">{$sub_category_name}</a></li>
 CATEGORY;

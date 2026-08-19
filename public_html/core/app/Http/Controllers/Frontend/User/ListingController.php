@@ -180,18 +180,18 @@ class ListingController extends Controller
             }
             $listing->price = $final_price;
             // AKILLI FİYAT FİLTRESİ BİTİŞ
-            $listing->negotiable = $request->negotiable ?? 0;
+            $listing->negotiable = $request->has('negotiable') ? 1 : 0;
             $listing->condition = null;
             $listing->authenticity = null;
             $listing->phone = $listing_phone;
-            $listing->phone_hidden = $request->phone_hidden ?? 0;
+            $listing->phone_hidden = $request->has('phone_hidden') ? 1 : 0;
             $listing->image = $request->image;
             $listing->gallery_images = $request->gallery_images;
             $listing->video_url = null;
             $listing->address = $request->address;
             $listing->lat = $request->latitude;
             $listing->lon = $request->longitude;
-            $listing->is_featured =  $request->is_featured ?? 0;
+            $listing->is_featured =  $request->has('is_featured') ? 1 : 0;
             $listing->status = 0; // Listing onay sistemi: tüm ilanlar admin onayına düşer
 
 
@@ -404,17 +404,17 @@ class ListingController extends Controller
             $listing->slug = Str::slug(purify_html($slug),'-',null);
             $listing->description = $request->description;
             $listing->price = $request->price;
-            $listing->negotiable = $request->negotiable ?? 0;
+            $listing->negotiable = $request->has('negotiable') ? 1 : 0;
             $listing->condition = null;
             $listing->authenticity = null;
-            $listing->phone_hidden = $request->phone_hidden ?? 0;
+            $listing->phone_hidden = $request->has('phone_hidden') ? 1 : 0;
             $listing->image = $request->image;
             $listing->gallery_images = $request->gallery_images;
             $listing->video_url = null;
             $listing->address = $request->address;
             $listing->lat = $request->latitude;
             $listing->lon = $request->longitude;
-            $listing->is_featured = $request->is_featured ?? 0;
+            $listing->is_featured = $request->has('is_featured') ? 1 : 0;
             $listing->status = $status;
 
             $country = null;

@@ -33,7 +33,7 @@ class CopyrightText extends WidgetBase
     public function frontend_render()
     {
         $settings = $this->get_settings();
-        $title = purify_html(str_replace(['{copy}','{year}'],['©',date('Y')],$settings['title']));
+        $title = purify_html(str_replace(['{copy}','{year}'],['©',date('Y')],deepl_translate($settings['title'] ?? '')));
 
    return <<<HTML
    <div class="col-xl-12">

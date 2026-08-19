@@ -92,8 +92,8 @@ class ContactInfoWidget extends WidgetBase
     public function frontend_render()
     {
         $settings = $this->get_settings();
-        $title = purify_html($settings['title']);
-        $address = purify_html($settings['address']);
+        $title = deepl_translate(purify_html($settings['title'] ?? ''));
+        $address = deepl_translate(purify_html($settings['address'] ?? ''));
         $address_icon = purify_html($settings['address_icon']);
         $phone = purify_html($settings['phone']);
         $phone_icon = purify_html($settings['phone_icon']);

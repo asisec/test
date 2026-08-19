@@ -134,14 +134,14 @@ class CategoryWiseListing extends PageBuilderBase
 
         // Retrieve category name
         $category = Category::find($category_id);
-        $category_name = $category ? $category->name : '';
+        $category_name = $category ? deepl_translate($category->name) : '';
 
         return $this->renderBlade('listing.category-wise-listing',[
             'padding_top' => $padding_top,
             'padding_bottom' => $padding_bottom,
             'section_bg' => $section_bg,
-            'section_title' => $section_title,
-            'explore_text' => $explore_text,
+            'section_title' => deepl_translate($section_title),
+            'explore_text' => deepl_translate($explore_text),
             'listings' => $listings,
             'btn_color' => $btn_color,
             'button_text_color' => $button_text_color,

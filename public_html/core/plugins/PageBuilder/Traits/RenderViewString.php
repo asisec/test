@@ -51,12 +51,35 @@ trait RenderViewString
             // Merge additional settings into the data array
             $data = array_merge($data, ['settings' => $this->get_settings()]);
 
-            // Render and return the Blade template
-            return view($view_path . $blade_name, $data)->render();
-        } catch (\Exception $e) {
-            // Log the error and return an empty string
-            \Log::error($e->getMessage());
-            return '';
+            // Save the current section stack state BEFORE rendering.
+            // If View::render() throws and calls flushState(), it will destroy
+            // the parent view's section stack. We restore it from this backup.
+            $factory = app('view');
+            $savedSections = $factory->getSections();
+            $savedSectionStack = [];
+            // Use reflection to access the protected sectionStack property
+            $ref = new \ReflectionProperty($factory, 'sectionStack');
+            $ref->setAccessible(true);
+            $savedSectionStack = $ref->getValue($factory);
+
+            try {
+                // Render and return the Blade template
+                return view($view_path . $blade_name, $data)->render();
+            } catch (\Throwable $renderException) {
+                // Restore section state that was destroyed by View::render()'s flushState()
+                foreach ($savedSections as $key => $value) {
+                    $factory->startSection($key);
+                    echo $value;
+                    $factory->stopSection();
+                }
+                $ref->setValue($factory, $savedSectionStack);
+
+                \Log::error('Widget render error: ' . $renderException->getMessage() . ' in ' . $renderException->getFile() . ':' . $renderException->getLine());
+                return '<!-- Widget Render Error: ' . e($renderException->getMessage()) . ' -->';
+            }
+        } catch (\Throwable $e) {
+            \Log::error($e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());
+            return '<!-- Widget Error: ' . e($e->getMessage()) . ' -->';
         }
     }
 }

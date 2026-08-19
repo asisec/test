@@ -1,17 +1,17 @@
 @extends('frontend.layout.master')
 @section('site-title')
     @if($subcategory !='')
-        {{ __($subcategory->name) }}
+        {{ deepl_translate(__($subcategory->name)) }}
     @endif
 @endsection
 @section('page-title')
     @if($subcategory !='')
-        {{ __($subcategory->name) }}
+        {{ deepl_translate(__($subcategory->name)) }}
     @endif
 @endsection
 @section('inner-title')
     @if($subcategory !='')
-        {{ __($subcategory->name) }}
+        {{ deepl_translate(__($subcategory->name)) }}
     @endif
 @endsection
 @section('page-meta-data')
@@ -22,8 +22,8 @@
         <div class="container-1440">
             <x-breadcrumb.user-profile-breadcrumb
                 :title="''"
-                :innerTitle="__($subcategory->category?->name)"
-                :subInnerTitle="__($subcategory->name)"
+                :innerTitle="deepl_translate(__($subcategory->category?->name))"
+                :subInnerTitle="deepl_translate(__($subcategory->name))"
                 :chidInnerTitle="''"
                 :routeName="route('frontend.show.listing.by.category', $subcategory->category?->slug ?? 'x')"
                 :subRouteName="'#'"
@@ -41,7 +41,7 @@
             </div>
             @endif
 
-            <h3 class="catagory-wise-title">{{ __($subcategory->name) }} {{ __('Available Subcategories') }}</h3>
+            <h3 class="catagory-wise-title">{{ deepl_translate(__($subcategory->name)) }} {{ deepl_translate(__('Available Subcategories')) }}</h3>
             <div class="catagory-wise-list-wraper exploreCategories">
                 <div id="services_sub_category_load_wrap">
                     <div class="services_sub_category_load_wraper mt-4">
@@ -56,21 +56,21 @@
                                             <div class="categorie-text">
                                                 <h4 class="text-center">
                                                     <a href="{{ route('frontend.show.listing.by.child.category', $child_cat->slug ?? 'x') }}" class="title oneLine mt-2">
-                                                    {{ $child_cat->name }}
+                                                    {{ deepl_translate($child_cat->name) }}
                                                     </a>
                                                 </h4>
-                                                <p> {{ __('Listing :total_listings', ['total_listings' => $child_cat->total_listings ?? 0]) }}</p>
+                                                <p> {{ deepl_translate(__('Listing :total_listings', ['total_listings' => $child_cat->total_listings ?? 0])) }}</p>
                                             </div>
                                     </div>
                             @endforeach
                         @else
-                            <span>{{ __('No Category Yet') }}</span>
+                            <span>{{ deepl_translate(__('No Category Yet')) }}</span>
                         @endif
                     </div>
                     <div class="load-more-button">
                         @if($child_category_under_category->count() >20)
                             <div class="load_more_button_warp">
-                                <a href="#" id="load_more_btn" data-total="20" class="new-cmn-btn rounded-red-btn">{{__('Load More')}}</a>
+                                <a href="#" id="load_more_btn" data-total="20" class="new-cmn-btn rounded-red-btn">{{deepl_translate(__('Load More'))}}</a>
                             </div>
                         @endif
                     </div>
@@ -82,11 +82,11 @@
                     <section class="featureListing mb-5 mt-5">
                         <div class="container-1440">
                             <div class="titleWithBtn d-flex justify-content-between align-items-center mb-40">
-                                <h3 class="catagory-wise-title">{{ __($subcategory->name) }} {{ __('Available Listings') }}</h3>
+                                <h3 class="catagory-wise-title">{{ deepl_translate(__($subcategory->name)) }} {{ deepl_translate(__('Available Listings')) }}</h3>
                                 <form id="filter_with_listing_page_subcategory" action="{{ url('/') .'/'. get_static_option('listing_filter_page_url') ?? url('/listings') }}" method="get">
                                     <input type="hidden" name="cat" value="{{$subcategory->category_id}}"/>
                                     <input type="hidden" name="subcat" value="{{$subcategory->id}}"/>
-                                    <a href="#" id="submit_form_listing_filter_subcategory" class="see-all">{{ __('See All') }}<i class="las la-angle-right"></i></a>
+                                    <a href="#" id="submit_form_listing_filter_subcategory" class="see-all">{{ deepl_translate(__('See All')) }}<i class="las la-angle-right"></i></a>
                                 </form>
                             </div>
                             <div class="slider-inner-margin">
@@ -116,7 +116,7 @@
                     type: "POST",
                     url: "{{route('frontend.listing.load.more.subcategories')}}",
                     beforeSend: function(e){
-                        el.text("{{__('loading...')}}")
+                        el.text("{{deepl_translate(__('loading...'))}}") 
                     },
                     data : {
                         _token: "{{csrf_token()}}",
@@ -125,10 +125,10 @@
                     },
                     success: function(data){
 
-                        el.text("{{__('Load More')}}");
+                        el.text("{{deepl_translate(__('Load More'))}}");
                         if(data.markup === ''){
                             el.hide();
-                            container.append("<div class='col-lg-12'><div class='text-center text-warning mt-3'>{{__('no more subcategory found')}}</div></div>");
+                            container.append("<div class='col-lg-12'><div class='text-center text-warning mt-3'>{{deepl_translate(__('no more subcategory found'))}}</div></div>");
                             return;
                         }
 

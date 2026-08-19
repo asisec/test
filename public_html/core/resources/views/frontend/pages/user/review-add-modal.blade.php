@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ __('Ratings & Feedback') }}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ deepl_translate(__('Ratings & Feedback')) }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-3">
@@ -18,20 +18,20 @@
                                     <div class="user_img_review">
                                         {!! render_image_markup_by_attachment_id($user->image, '') !!}
                                     </div>
-                                    <div class="name text-center mt-2">{{ $user->fullname }}</div>
+                                    <div class="name text-center mt-2">{{ deepl_translate($user->fullname) }}</div>
                                 </div>
                                 <div class="single-commetns">
                                   <div class="new-reviews" id="review"></div>
                                 </div>
                                 <div class="single-input">
-                                    <label for="ticketTitle" class="label_title">{{ __('Write your comments') }}</label>
-                                    <textarea id="message" name="message" cols="20" rows="4"  class="form--control radius-10 textarea-input" placeholder="{{ __('Comments') }}"></textarea>
+                                    <label for="ticketTitle" class="label_title">{{ deepl_translate(__('Write your comments')) }}</label>
+                                    <textarea id="message" name="message" cols="20" rows="4"  class="form--control radius-10 textarea-input" placeholder="{{ deepl_translate(__('Comments')) }}"></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-btn-wraper">
-                            <button type="button" class="modal-btn cancle" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-                            <button type="submit" class="modal-btn submit">{{__('Send Review')}}</button>
+                            <button type="button" class="modal-btn cancle" data-bs-dismiss="modal">{{ deepl_translate(__('Cancel')) }}</button>
+                            <button type="submit" class="modal-btn submit">{{deepl_translate(__('Send Review'))}}</button>
                         </div>
                     </form>
                 </div>

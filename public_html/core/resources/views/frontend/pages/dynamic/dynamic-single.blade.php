@@ -20,7 +20,7 @@
     {!! render_twitter_meta_image_by_attachment_id(optional($page_post->meta_data)->twitter_meta_image) !!}
 @endsection
 @section('site_title')
-    {!! $page_post->title !!}
+    {!! function_exists('deepl_translate') ? deepl_translate($page_post->title) : $page_post->title !!}
 @endsection
 
 @section('nav-style')

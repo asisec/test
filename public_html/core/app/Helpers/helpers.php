@@ -338,17 +338,7 @@ function get_user_lang()
 
 function get_user_lang_direction()
 {
-    try {
-        $default = Language::where('default', 1)->first();
-        $user_direction = Language::where('slug', session()->get('lang'))->first();
-    } catch (\Exception $exception) {
-        $default = null;
-        $user_direction = null;
-    }
-    if (!empty(session()->get('lang')) && $user_direction) {
-        return $user_direction->direction;
-    }
-    return $default ? $default->direction : 'ltr';
+    return \App\Helpers\LanguageHelper::user_lang_dir();
 }
 
 function filter_static_option_value(string $index, array $array = [])

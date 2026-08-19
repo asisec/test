@@ -56,7 +56,7 @@ class NavigationMenuWidget extends WidgetBase
         $output .= $this->widget_before(); //render widget before content
 
         if (!empty($widget_title)){
-            $output .= '<h4 class="footerTittle">'.$widget_title.'</h4>';
+            $output .= '<h4 class="footerTittle">'.deepl_translate($widget_title).'</h4>';
         }
 
         $output .= '<ul class="listing footer-link-list nav-new-menu-style">';

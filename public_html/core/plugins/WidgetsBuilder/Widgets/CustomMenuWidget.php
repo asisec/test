@@ -54,14 +54,15 @@ class CustomMenuWidget extends WidgetBase
     public function frontend_render()
     {
         $settings = $this->get_settings();
-        $title = purify_html($settings['title']);
+        $title = deepl_translate(purify_html($settings['title']));
         $repeater_data = $settings['help_and_support_info_01'];
         $social_icon_markup = '';
 
         foreach ($repeater_data['title_'] as $key => $rep_title) {
             $url = $repeater_data['url_'][$key];
+            $rep_title_translated = deepl_translate($rep_title);
             $social_icon_markup.= <<<SOCIALICON
-            <li class="listItem wow fadeInUp" data-wow-delay="0.0s"><a href="{$url}" class="singleLinks"> {$rep_title}</a></li>
+            <li class="listItem wow fadeInUp" data-wow-delay="0.0s"><a href="{$url}" class="singleLinks"> {$rep_title_translated}</a></li>
 
 SOCIALICON;
     }

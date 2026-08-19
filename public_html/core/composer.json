@@ -46,7 +46,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Modules\\": "Modules/",
-            "plugins\\": "plugins/"
+            "plugins\\": "plugins/",
+            "Xgenious\\Paymentgateway\\": "vendor/xgenious/paymentgateway/src/"
         }
     },
     "autoload-dev": {

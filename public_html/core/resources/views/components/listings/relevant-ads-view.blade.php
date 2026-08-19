@@ -8,7 +8,7 @@
             </div>
             <div class="single-add-body">
                 <h4 class="add-heading head4">
-                    <a href="{{ route('frontend.listing.details', $listing->slug) }}">{{ $listing->title }}</a>
+                    <a href="{{ route('frontend.listing.details', $listing->slug) }}">{{ deepl_translate($listing->title) }}</a>
                 </h4>
 
                 <div class="btn-wrapper">

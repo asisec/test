@@ -160,6 +160,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
+        Xgenious\Paymentgateway\Providers\PaymentgatewayServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -185,6 +186,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
-        'ModuleDataFacade' => \App\Facades\ModuleDataFacade::class
+        'ModuleDataFacade' => \App\Facades\ModuleDataFacade::class,
+        'XgPaymentGateway' => Xgenious\Paymentgateway\Facades\XgPaymentGateway::class,
     ])->toArray(),
 ];

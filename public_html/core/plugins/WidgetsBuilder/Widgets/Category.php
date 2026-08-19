@@ -61,7 +61,7 @@ class Category extends WidgetBase
     public function frontend_render()
     {
         $settings = $this->get_settings();
-        $title_text = purify_html($settings['title'] ?? '');
+        $title_text = deepl_translate(purify_html($settings['title'] ?? ''));
         $order_by = purify_html($settings['order_by'] ?? 'id');
         $IDorDate = purify_html($settings['order'] ?? 'asc');
         $items = purify_html($settings['items'] ?? '');
@@ -70,7 +70,7 @@ class Category extends WidgetBase
 
        foreach ($categories as $cat){
        $route = route('frontend.show.listing.by.category', $cat->slug ?? 'x');
-       $category_name = $cat->name;
+       $category_name = deepl_translate($cat->name);
        $category_markup.= <<<CATEGORY
         <li class="listItem wow fadeInUp" data-wow-delay="0.0s"><a class="singleLinks" href="{$route}">{$category_name}</a></li>
 CATEGORY;

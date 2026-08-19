@@ -81,7 +81,16 @@ class PageBuilderSetup
         if(class_exists($widget_class)){
             $instance = new $widget_class($args);
             if ($instance->enable()){
-                return $instance->frontend_render();
+                try {
+                    $html = $instance->frontend_render();
+                    if (is_string($html) && function_exists('deepl_translate')) {
+                        $html = deepl_translate($html);
+                    }
+                    return $html;
+                } catch (\Throwable $e) {
+                    \Illuminate\Support\Facades\Log::error('Widget Error ('.$args['name'].'): ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
+                    return '<!-- Widget Error ('.$args['name'].'): ' . $e->getMessage() . ' -->';
+                }
             }
         }
     }
@@ -167,6 +176,7 @@ class PageBuilderSetup
             if( !class_exists($widget->addon_namespace)){
                 continue;
             }
+            \Log::info("Rendering widget: " . $widget->addon_name);
             $output .= self::render_widgets_by_name_for_frontend([
                 'name' => $widget->addon_name,
                 'namespace' => $widget->addon_namespace,

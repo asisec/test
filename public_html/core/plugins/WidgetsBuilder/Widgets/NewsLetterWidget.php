@@ -62,8 +62,8 @@ class NewsLetterWidget extends WidgetBase
     public function frontend_render()
     {
         $settings = $this->get_settings();
-        $title = purify_html($settings['title']);
-        $description = purify_html($settings['description']);
+        $title = deepl_translate(purify_html($settings['title'] ?? ''));
+        $description = deepl_translate(purify_html($settings['description'] ?? ''));
         $repeater_data = $settings['news_letter_info_01'];
         $submit_title = __('Submit');
         $placeholder_title = __('Your Email Address');

@@ -39,7 +39,7 @@
                                             <div class="single-add-body-wraper">
                                                 <div class="single-add-body">
                                                     <h5 class="add-heading head4 oneLine">
-                                                        <a href="{{route('frontend.listing.details', $listing->slug ?? 'x')}}" target="_blank"> {{ $listing->title }}</a>
+                                                        <a href="{{route('frontend.listing.details', $listing->slug ?? 'x')}}" target="_blank"> {{ deepl_translate($listing->title) }}</a>
                                                     </h5>
                                                     <div class="pricing head4">{{ amount_with_currency_symbol($listing->price)}}</div>
                                                     <div class="btn-wrapper">
